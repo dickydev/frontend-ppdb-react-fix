@@ -7,17 +7,10 @@ const ForumSiswa2 = () => {
         <Forum title={'Forum Data Peserta Didik'}>
             <div className='max-w-5xl px-4 mx-auto mt-5'>
 
-<<<<<<< HEAD
                 <div className='flex items-center justify-center text-[12px] w-full font-medium sm:text-sm '>
                     <div className='flex items-center justify-center gap-2 px-4 py-2 text-gray-600 border-2 border-gray-300 rounded-full'> <span className='size-[18px] sm:size-[20px] flex items-center justify-center border-2 rounded-full border-gray-300'>1</span> <span>  Kompetisi Keahlian </span></div>
                     <div className="flex w-[10px] sm:w-[40px] bg-gray-300 h-0.5 " />
                     <div className='flex items-center justify-center gap-2 px-4 py-2 border-2 rounded-full border-maroon'> <span className='size-[18px] sm:size-[20px] flex items-center justify-center border-2 rounded-full border-maroon'>2</span> <span>Tentang Sekolah </span></div>
-=======
-                <div className='flex items-center justify-center w-full font-medium '>
-                    <div className='flex items-center justify-center gap-2 px-4 py-2 text-sm text-gray-600 border-2 border-gray-300 rounded-full'> <span className='size-[20px] flex items-center justify-center border-2 rounded-full border-gray-300'>1</span> <span>  Kompetisi Keahlian </span></div>
-                    <div className="hidden sm:flex w-[40px] bg-gray-200 h-0.5 dark:bg-gray-300" />
-                    <div className='flex items-center justify-center gap-2 px-4 py-2 text-sm border-2 rounded-full border-maroon'> <span className='size-[20px] flex items-center justify-center border-2 rounded-full border-maroon'>2</span> <span>Tentang Sekolah </span></div>
->>>>>>> second/development
                     <div className='border-2'></div>
 
                 </div>

@@ -7,11 +7,7 @@ const FromSiswa = () => {
             <div className='max-w-5xl px-4 mx-auto mt-5'>
 
                 <div className='flex items-center justify-center w-full -medium '>
-<<<<<<< HEAD
                     <div className='flex items-center justify-center gap-2 px-4 py-2 text-sm border-2 rounded-full border-maroon'> <span className='size-[20px] flex items-center justify-center border-2 rounded-full border-maroon'>1</span> <span>Data Siswa</span></div>
-=======
-                    <div className='flex items-center justify-center gap-2 px-4 py-2 text-sm border-2 rounded-full border-maroon'> <span className='size-[20px] flex items-center justify-center border-2 rounded-full border-maroon'>1</span> <span>Kompetisi Keahlian </span></div>
->>>>>>> second/development
                     <div className='border-2'></div>
                     <div className="hidden sm:flex w-[30px] bg-gray-200 h-0.5 dark:bg-gray-300" />
 
@@ -19,11 +15,7 @@ const FromSiswa = () => {
                 </div>
                 <div className='w-full pb-4 mt-3 border-b-2'>
                     <p className='text-lg text-gray-600'> Step 1</p>
-<<<<<<< HEAD
                     <h1 className='mt-1 text-xl font-semibold'>Data Siswa</h1>
-=======
-                    <h1 className='mt-1 text-xl font-semibold'>Kompetisi Keahlian</h1>
->>>>>>> second/development
                 </div>
 
 

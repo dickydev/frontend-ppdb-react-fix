@@ -9,15 +9,9 @@ const Error = () => {
             <h2 className="mb-8 font-extrabold text-9xl dark:text-gray-400">
                 <span className="sr-only">Error</span>404
             </h2>
-<<<<<<< HEAD
             <p className="text-2xl font-semibold md:text-3xl">Maaf, halaman ini tidak ditemukan</p>
             <p className="mt-4 mb-8 dark:text-gray-600">Tetapi jangan khawatir, anda bisa kembali kedalam homepage</p>
             <Link to={'/home'}>
-=======
-            <p className="text-2xl font-semibold md:text-3xl">Sorry, we couldn't find this page.</p>
-            <p className="mt-4 mb-8 dark:text-gray-600">But dont worry, you can find plenty of other things on our homepage.</p>
-            <Link to={'/'}>
->>>>>>> second/development
             <a rel="noopener noreferrer" href="#" className="px-8 py-3 font-semibold text-white rounded bg-maroon ">Back to homepage</a>
             </Link>
         </div>

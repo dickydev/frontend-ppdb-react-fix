@@ -11,11 +11,7 @@ const Invoice = () => {
                     <div className="relative flex flex-col p-4 bg-white shadow-xl sm:p-10 sm:py-12 rounded-xl ">
                         {/* Grid */}
                         <div className="flex justify-between  md:h-[130px] sm:h-[100px] h-[80px items-center">
-<<<<<<< HEAD
                             <div className='http://localhost:5173/w-200px h-[130px]'>
-=======
-                            <div className='bg-red-900 w-200px h-[130px]'>
->>>>>>> second/development
 
                                 <div className='absolute left-0 bg-maroon md:h-[130px] sm:h-[100px] h-[80px] text-white flex justify-center items-center ps-12 pe-8' >
 
