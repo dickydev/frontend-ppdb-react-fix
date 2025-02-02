@@ -28,17 +28,23 @@ const Ortu = () => {
   }, [successMsg, errorMsg]);
 
   const headTable = [
-    { judul: "Nama" },
-    { judul: "Email" },
+    { judul: "Nama Ayah" },
+    { judul: "Nama Ibu" },
     { judul: "Nama Anak" },
     { judul: "Hubungan dengan Anak" },
     { judul: "Info Tambahan" },
     { judul: "Tanggal Ditambahkan" },
+    { judul: "Action" },
   ];
 
   const truncateText = (text, panjangTeksMaks) => {
-    return text.length > panjangTeksMaks ? `${text.substring(0, panjangTeksMaks)}...` : text;
-  }
+    // Pastikan 'text' bukan null atau undefined dan adalah string
+    if (typeof text === 'string' && text.length > panjangTeksMaks) {
+      return `${text.substring(0, panjangTeksMaks)}...`;
+    }
+    return text; // Kembalikan text apa adanya jika tidak perlu dipotong
+  };
+  
   
   useEffect(() => {
     const fetchData = async () => {
@@ -77,18 +83,27 @@ const Ortu = () => {
                 Loading...
               </td>
             </tr>
+          ) : data.length === 0 ?(
+            <tr>
+            <td colSpan={headTable.length} className="text-center py-4">
+              Tidak Ada Data
+            </td>
+          </tr>
           ) : (
             data.map((item) => (
               <tr className="bg-white border-b" key={item.id}>
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                  {item.parent_name}
+                  {item.father_name}
                 </th>
-                <td className="px-6 py-4 text-gray-900">{item.parent_email}</td>
+                <td className="px-6 py-4 text-gray-900">{item.mother_name}</td>
                 <td className="px-6 py-4 text-gray-900">{item.child_name}</td>
                 <td className="px-6 py-4 text-gray-900">{item.relationship_to_student}</td>
                 <td className="px-6 py-4 text-gray-900 truncate" title={item.additional_info}>{truncateText(item.additional_info, 50)}</td>
                 <td className="px-6 py-4 text-gray-900">
                   {new Date(item.created_at).toLocaleDateString('id-ID')}
+                </td>
+                <td>
+                  lihat | cetak
                 </td>
               </tr>
             ))

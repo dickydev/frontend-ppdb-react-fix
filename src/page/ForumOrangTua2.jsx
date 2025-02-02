@@ -6,7 +6,7 @@ import { useFormContext } from '../Context/FormContext';
 import { post } from '../utils/api';
 
 const ForumOrangTua2 = () => {
-    const { state, updateFormData, resetFormData } = useFormContext(); 
+    const { state, updateFormData } = useFormContext(); 
     const [dataForm2, setDataForm2] = useState(state.form2 || { 
         reason_choosing_school: '',
         parent_view_on_school: '',
@@ -15,9 +15,7 @@ const ForumOrangTua2 = () => {
         willing_to_communicate: '1',
         accept_consequences: '1',
     });
-
-    const [errorMsg, setErrorMsg] = useState('');
-    const [successMsg, setSuccessMsg] = useState('');
+    console.log(dataForm2);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -31,39 +29,7 @@ const ForumOrangTua2 = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         updateFormData('form2', dataForm2); 
-
-        // Gabungkan data dari kedua form
-        const combinedData = {
-            ...state.form1,
-            ...dataForm2,
-        };
-        try {
-            const response = await post('/parents/submit', combinedData);
-            if (response?.status === 201) {
-                setSuccessMsg('Data berhasil dikirim!');
-
-                // Reset context setelah submit berhasil
-                resetFormData();
-                
-                setTimeout(() => {
-                    setErrorMsg('');
-                }, 3000);
-                
-                // Redirect ke halaman Ortu.jsx setelah sukses
-                navigate('/ortu', { state: { successMsg: 'Data berhasil dikirim!' } });
-
-            } else {
-                setErrorMsg('Terjadi kesalahan saat mengirim data.');
-                setTimeout(() => {
-                    setErrorMsg('');
-                }, 3000);
-            }
-        } catch (error) {
-            setErrorMsg('Terjadi kesalahan saat mengirim data.');
-            setTimeout(() => {
-                setErrorMsg('');
-            }, 3000);
-        }
+        navigate('/hasilOrtu'); 
     };
 
     return (

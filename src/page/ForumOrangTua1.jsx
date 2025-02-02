@@ -8,9 +8,14 @@ const ForumOrangTua1 = () => {
     const navigate = useNavigate();
     const { state, updateFormData } = useFormContext(); // Mengambil state dan fungsi update dari context
     const [dataForm1, setDataForm1] = useState(state.form1 || {
-        parent_name: '',
-        parent_email: '',
+        father_name: '',
+        mother_name: '',
+        father_job: '',
+        mother_job: '',
+        father_email: '',
+        mother_email: '',
         child_name: '',
+        major: 'Rekayasa Perangakt Lunak dan Gim',
         relationship_to_student: 'Orang Tua',
         additional_info: '',
         child_status: 'Anak Kandung',
@@ -61,29 +66,79 @@ const ForumOrangTua1 = () => {
                     <div className='mt-5'>
                         <form className='w-full text-gray-600 mt-7 ' onSubmit={handleSubmit}>
                             <div className="mb-4">
-                                <label htmlFor="parent_name" className="block mb-2 font-medium text-md e">Nama Orang Tua</label>
+                                <label htmlFor="father_name" className="block mb-2 font-medium text-md e">Nama Ayah</label>
                                 <input
                                     type="text"
-                                    id="parent_name"
-                                    name="parent_name"
-                                    value={dataForm1.parent_name}
+                                    id="father_name"
+                                    name="father_name"
+                                    value={dataForm1.father_name}
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                    placeholder="Masukan Nama Orang Tua"
+                                    placeholder="Masukan Nama Ayah Calon Siswa/i"
                                     required
                                 />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="parent_email" className="block mb-2 font-medium text-md e">Email orang Tua</label>
+                                <label htmlFor="mother_name" className="block mb-2 font-medium text-md e">Nama Ibu</label>
                                 <input
-                                    type="email"
-                                    id="parent_email"
-                                    name="parent_email"
-                                    value={dataForm1.parent_email}
+                                    type="text"
+                                    id="mother_name"
+                                    name="mother_name"
+                                    value={dataForm1.mother_name}
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                    placeholder="Masukan Email Orang Tua"
+                                    placeholder="Masukan Nama Ibu Calon Siswa/i"
                                     required
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="father_job" className="block mb-2 font-medium text-md e">Pekerjaan Ayah</label>
+                                <input
+                                    type="text"
+                                    id="father_job"
+                                    name="father_job"
+                                    value={dataForm1.father_job}
+                                    onChange={handleChange}
+                                    className="shadow-sm bg-white border-[2px] border-gray-300 outline-none text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                    placeholder="Masukan Pekerjaan Ayah Calon Siswa/i"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="mother_job" className="block mb-2 font-medium text-md e">Pekerjaan Ibu</label>
+                                <input
+                                    type="text"
+                                    id="mother_job"
+                                    name="mother_job"
+                                    value={dataForm1.mother_job}
+                                    onChange={handleChange}
+                                    className="shadow-sm bg-white border-[2px] border-gray-300 outline-none text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                    placeholder="Masukan Pekerjaan Ibu Calon Siswa/i"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="father_email" className="block mb-2 font-medium text-md e">Email Ayah</label>
+                                <input
+                                    type="email"
+                                    id="father_email"
+                                    name="father_email"
+                                    value={dataForm1.father_email}
+                                    onChange={handleChange}
+                                    className="shadow-sm bg-white border-[2px] border-gray-300 outline-none text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                    placeholder="Kosongkan jika tidak ada"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="mother_email" className="block mb-2 font-medium text-md e">Email Ibu</label>
+                                <input
+                                    type="email"
+                                    id="mother_email"
+                                    name="mother_email"
+                                    value={dataForm1.mother_email}
+                                    onChange={handleChange}
+                                    className="shadow-sm bg-white border-[2px] border-gray-300 outline-none text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                    placeholder="Kosong jika tidak ada"
                                 />
                             </div>
                             <div className="mb-4">
@@ -98,6 +153,30 @@ const ForumOrangTua1 = () => {
                                     placeholder="Masukan Nama Anak"
                                     required
                                 />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="major" className="block mb-2 font-medium leading-7 text-justify leadi text-md">Kompetnsi Keahlian</label>
+                                <select 
+                                    id="major" 
+                                    className={`select-option border border-gray-300 h-12 ${dataForm1.major? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`} 
+                                    name='major' 
+                                    value={dataForm1.major} 
+                                    onChange={handleChange}
+                                    aria-label=''
+                                    defaultValue=""
+                                    required
+                                >
+                                    <option value="" className='text-gray-400' disabled>
+                                        Pilih Jawaban
+                                    </option>
+                                    <option value="Rekayasa Perangkat Lunak dan Gim"  className='text-gray-500'>Rekayasa Perangkat Lunak dan Gim</option>
+                                    <option value="Desain Komunikasi Visual Reguler" className='text-gray-500'>Desain Komunikasi Visual Reguler</option>
+                                    <option value="Desain Komunikasi Visual Bilingual"  className='text-gray-500'>Desain Komunikasi Visual Bilingual</option>
+                                    <option value="Manajemen Pekantoran dan Layanan Bisnis Reguer"  className='text-gray-500'>Manajemen Pekantoran dan Layanan Bisnis Reguler</option>
+                                    <option value="Manajemen Pekantoran dan Layanan Bisnis Bilingual" className='text-gray-500'>Manajemen Pekantoran dan Layanan Bisnis Bilingual</option>
+                                    <option value="Pemasaran dan Bisnis Retail" className='text-gray-500'>Pemasaran dan Bisnis Retail</option>
+                                    <option value="Akutansi dan Keuangan" className='text-gray-500'>Akutansi dan Keuangan</option>
+                                </select>
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="relationship_to_student" className="block mb-2 font-medium text-md">Hubungan Dengan Anak</label>
@@ -178,8 +257,7 @@ const ForumOrangTua1 = () => {
                                     value={dataForm1.additional_info}
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                    placeholder="Masukan Jika Ada (Jika Tidak Ada, Harap Masukan [Tidak Ada])"
-                                    required
+                                    placeholder="Kosongkan Jika Tidak Ada"
                                 />
                             </div>
                             <div className='flex justify-end w-full gap-3 mt-8'>
