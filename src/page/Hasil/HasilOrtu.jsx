@@ -17,7 +17,7 @@ const HasilOrtu = () => {
             ...state.form1,
             ...state.form2,
         };
-
+        console.log(combinedData);
         try {
             const response = await post('/parents/submit', combinedData);
             if (response?.status === 201) {
@@ -46,30 +46,29 @@ const HasilOrtu = () => {
 
     const dataA = [
         { e: 'Status anak dalam Keluarga', value: state.form1?.child_status || '-' },
-        { e: 'Penyakit berat sejak kecil', value: state.form1?.has_serious_illness == 1 ? 'Ada' : 'Tidak Ada' },
-        { e: 'Pandangan orang tua terhadap anak', value: state.form1?.parent_view_on_child || '-' },
+        { e: 'Apakah anak memiliki penyakit berat bawaan dari lahir / kecil yang mengganggu dalam belaja', value: state.form1?.has_serious_illness == 1 ? 'Ada' : 'Tidak Ada' },
+        { e: 'Pandangan orang tua terhadap karakter anak dirumah', value: state.form1?.parent_view_on_child || '-' },
     ];
 
     const dataB = [
-        { e: 'Alasan memilih sekolah', value: state.form2?.reason_choosing_school || '-' },
+        { e: 'Alasan memilih SMK Letris Indonesia 2', value: state.form2?.reason_choosing_school || '-' },
         { e: 'Pandangan tentang sekolah', value: state.form2?.parent_view_on_school || '-' },
+        { e: 'Tahu SMK Letris Indonesia 2 dari mana', value: state.form2?.know_about_school || '-' },
     ];
 
     const dataC = [
-        { e: 'Pendapat tentang program sekolah', value: state.form2?.response_to_program || '-' },
-        { e: 'Komunikasi dengan wali kelas', value: state.form2?.willing_to_communicate == 1 ? 'Siap' : 'Tidak' },
+        { e: 'Bagaimana Pendapat bapak/ibu tentang program sekolah', value: state.form2?.willing_to_communicate == 1 ? 'Siap' : 'Tidak' },
+        { e: 'Apakah bapak ibu siap untuk berkomunikasi dengan wali kelas menghadiri rapat awal tahun mengambil raport hasil belajar siswa dan menghadiri panggilan sekolah dalam pendampingan belajar siswa selama menjadi siswa SMK negeri Indonesia 2', value: 'Iya' },
     ];
 
     const dataD = [
-        { e: 'Konsekuensi jika anak melanggar aturan sekolah', value: state.form2?.accept_consequences == 1 ? 'Bersedia' : 'Tidak Bersedia' },
+        { e: 'Jika Ananda selama bersekolah melanggar peraturan sekolah tidak mau belajar atau pun mengerjakan tugas sekolah lalu dilakukan pendampingan oleh sekolah namun masih tidak berubah menjadi lebih baik apakah menerima jika nantinya jika rapat pleno kenaikan kelas dinyatakan tinggal kelas atau dikembalikan ke orang tua', value: state.form2?.accept_consequences == 1 ? 'Bersedia' : 'Tidak Bersedia' },
     ];
 
     const dataE = [
-        { e: 'Komitmen pembayaran sekolah', value: 'Iya' },
-        { e: 'Daftar Ulang, SPP, dan Kegiatan sekolah', value: 'Iya' },
-        { e: 'Catatan Pewawancara', value: 'Oke' },
-        { e: 'Tanggal Wawancara', value: '12 September 2024' },
-        { e: 'Pewawancara Orang Tua', value: 'Hadir Solichin' },
+        { e: 'Catatan Pewawancara', value: state.form2?.interviewer_notes || 'Tidak ada catatan khusus'},
+        { e: 'Tanggal Wawancara', value: state.form2?.interview_date },
+        { e: 'Pewawancara Orang Tua', value: state.form2?.interviewer_name },
     ];
 
     return (
@@ -94,7 +93,7 @@ const HasilOrtu = () => {
                             <ul className='mt-2 space-y-2 sm:ms-6'>
                                 {section.data.map((e, i) => (
                                     <li key={i} className='flex items-start justify-between gap-5 text-md sm:text-lg'>
-                                        <p className='sm:w-[460px] w-[360px]'>{e.e}</p>
+                                        <p className='sm:w-[560px] w-[360px]'>{e.e}</p>
                                         <div className='flex gap-3 ms-2 sm:w-[400px] w-[310px]'>
                                             : <p className='text-wrap'>{e.value}</p>
                                         </div>

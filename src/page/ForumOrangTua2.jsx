@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Forum from '../template/Forum';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormContext } from '../Context/FormContext';
-import { post } from '../utils/api';
+
 
 const ForumOrangTua2 = () => {
     const { state, updateFormData } = useFormContext(); 
@@ -14,6 +14,9 @@ const ForumOrangTua2 = () => {
         response_to_program: '',
         willing_to_communicate: '1',
         accept_consequences: '1',
+        interviewer_notes: '',
+        interview_date: '',
+        interviewer_name: '',
     });
     console.log(dataForm2);
     const navigate = useNavigate();
@@ -147,6 +150,64 @@ const ForumOrangTua2 = () => {
                                     <option value="0">Tidak</option>
                                 </select>
                             </div>
+                            <div className="w-full pb-4 mt-8 mb-4 border-b-2">
+                                <h1 className="mt-1 text-xl font-semibold">Keterangan Pewawancara</h1>
+                            </div>
+                            <div className="mb-4">
+                            <label
+                                htmlFor="interview_date"
+                                className="block mb-2 font-medium text-md e"
+                            >
+                               Tanggal Wawancara
+                            </label>
+                            <input
+                                type="date"
+                                id="interview_date"
+                                name='interview_date' 
+                                value={dataForm2.interview_date} 
+                                onChange={handleChange} 
+                                className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                placeholder="Tanggal Wawancara"
+                                required
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label
+                                htmlFor="interviewer_name"
+                                className="block mb-2 font-medium text-md e"
+                            >
+                               Nama Pewawancara
+                            </label>
+                            <input
+                                type="text"
+                                id="interviewer_name"
+                                name="interviewer_name"
+                                className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                placeholder="Nama Pewawancara"
+                                value={dataForm2.interviewer_name} 
+                                onChange={handleChange} 
+                                required
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label
+                                htmlFor="interviewer_notes"
+                                className="block mb-2 font-medium text-md e"
+                            >
+                                Catatan Khusus Pewawancara
+                            </label>
+                            <textarea 
+                            id="interviewer_notes" 
+                            name="interviewer_notes" 
+                            placeholder='Kosongan Jika Tidak Ada Catatan'
+                            className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                            value={dataForm2.interviewer_notes} 
+                            onChange={handleChange}
+                            ></textarea>
+                         
+                        </div>
+
                             <div className="flex justify-end w-full gap-3 mt-8">
                                 <Link to={"/forumOrtu1"} className="px-5 py-2 text-sm font-semibold text-center bg-white border-2 rounded-md text-maroon border-maroon active:scale-95 focus:outline-none ">Previous</Link>
                                 <button type="submit" className="px-5 py-2 text-sm font-semibold text-center text-white rounded-md bg-maroon hover:bg-red-900 active:scale-95 focus:outline-none ">Submit</button>

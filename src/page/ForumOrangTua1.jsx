@@ -17,7 +17,7 @@ const ForumOrangTua1 = () => {
         child_name: '',
         major: 'Rekayasa Perangakt Lunak dan Gim',
         relationship_to_student: 'Orang Tua',
-        additional_info: '',
+        additional_info: 'Tidak Ada Informasi Tambahan',
         child_status: 'Anak Kandung',
         has_serious_illness: '0',
         parent_view_on_child: ''
@@ -126,7 +126,7 @@ const ForumOrangTua1 = () => {
                                     value={dataForm1.father_email}
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                    placeholder="Kosongkan jika tidak ada"
+                                    placeholder="Kosongkan Jika Tidak Ada"
                                 />
                             </div>
                             <div className="mb-4">
@@ -138,7 +138,7 @@ const ForumOrangTua1 = () => {
                                     value={dataForm1.mother_email}
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                    placeholder="Kosong jika tidak ada"
+                                    placeholder="Kosongkan Jika Tidak Ada"
                                 />
                             </div>
                             <div className="mb-4">
