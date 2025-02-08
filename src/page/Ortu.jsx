@@ -2,21 +2,23 @@
 import React, { useState, useEffect } from 'react';
 import Dashboard from '../template/Dashboard';
 import Tabel from '../template/Tabel';
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
+import { FaAngleRight, FaAngleLeft, FaEye, FaFilePdf } from "react-icons/fa6";
 import { get } from '../utils/api'; 
 import {useLocation} from 'react-router-dom'; 
 import Notification from '../components/Notification/Notif';
-
+import DetailOrtu from './ForumOrangTua/DetailOrtu';
 const Ortu = () => {
   const location = useLocation();
   const [successMsg, setSuccessMsg] = useState(location.state?.successMsg);
   const [errorMsg, setErrorMsg] = useState(location.state?.errorMsg);
   const [data, setData] = useState([]); 
   const [isLoading, setIsLoading] = useState(true); 
+  const [selectedId, setSelectedId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleCloseError = () => {
-    errorMsg("");
-    successMsg(""); 
+  const handleOpenModal = (id) => {
+    setSelectedId(id);
+    setShowModal(true);
   };
 
   useEffect(()=> {
@@ -38,7 +40,6 @@ const Ortu = () => {
   ];
 
   const truncateText = (text, panjangTeksMaks) => {
-    // Pastikan 'text' bukan null atau undefined dan adalah string
     if (typeof text === 'string' && text.length > panjangTeksMaks) {
       return `${text.substring(0, panjangTeksMaks)}...`;
     }
@@ -98,12 +99,25 @@ const Ortu = () => {
                 <td className="px-6 py-4 text-gray-900">{item.mother_name}</td>
                 <td className="px-6 py-4 text-gray-900">{item.child_name}</td>
                 <td className="px-6 py-4 text-gray-900">{item.relationship_to_student}</td>
-                <td className="px-6 py-4 text-gray-900 truncate" title={item.additional_info}>{truncateText(item.additional_info, 50)}</td>
+                <td className="px-6 py-4 text-gray-900 truncate" 
+                    title={item.additional_info ? item.additional_info : "Tidak Ada Informasi Tambahan"}
+                >
+                  {truncateText(item.additional_info || "Tidak Ada Informasi Tambahan", 50)}
+                </td>
                 <td className="px-6 py-4 text-gray-900">
                   {new Date(item.created_at).toLocaleDateString('id-ID')}
                 </td>
-                <td>
-                  lihat | cetak
+                <td className='flex justify-center items-center py-6'>
+                  <button className='flex items-center justify-between gap-x-5'>
+                  <button onClick={() => handleOpenModal(item.id)} className="text-red-700 hover:text-red-500">
+                    <FaEye size={18} />
+                  </button>
+                  <FaFilePdf>
+                    <span aria-hidden="true" className="hidden group-hover:text-maroon sm:block">
+                      Download PDF
+                    </span>
+                  </FaFilePdf>
+                  </button>
                 </td>
               </tr>
             ))
@@ -142,6 +156,7 @@ const Ortu = () => {
           </nav>
         </div>
       </div>
+      {showModal && <DetailOrtu id={selectedId} onClose={() => setShowModal(false)} />}
     </Dashboard>
   );
 };

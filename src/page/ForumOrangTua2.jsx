@@ -97,7 +97,7 @@ const ForumOrangTua2 = () => {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="response_to_program" className="block mb-2 font-medium text-md e">Bagaimana Tanggapan Bapak/Ibu tentang program sekolah</label>
+                                <label htmlFor="response_to_program" className="block mb-2 font-medium text-md e">Bagaimana Tanggapan Bapak/Ibu Tentang Program Sekolah</label>
                                 <input
                                     type="text"
                                     id="response_to_program"

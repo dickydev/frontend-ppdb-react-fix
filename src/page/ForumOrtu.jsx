@@ -1,6 +1,7 @@
 import React from "react";
 import Forum from "../template/Forum";
 import { Link } from "react-router-dom";
+
 const ForumOrtu = () => {
   return (
     <Forum title={"Forum Data Orang Tua"}>

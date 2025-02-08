@@ -155,7 +155,7 @@ const ForumOrangTua1 = () => {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="major" className="block mb-2 font-medium leading-7 text-justify leadi text-md">Kompetnsi Keahlian</label>
+                                <label htmlFor="major" className="block mb-2 font-medium leading-7 text-justify leadi text-md">Kompetensi Keahlian</label>
                                 <select 
                                     id="major" 
                                     className={`select-option border border-gray-300 h-12 ${dataForm1.major? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`} 
