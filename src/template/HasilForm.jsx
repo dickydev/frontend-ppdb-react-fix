@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
-const HasilForm = ({ title, judul, data1, children, errorMsg, successMsg, onSubmit }) => {
+const HasilForm = ({ title, judul, data1, children, errorMsg, successMsg, onSubmit, childName }) => {
     const navigate = useNavigate(); // Inisialisasi navigate
 
     // Fungsi untuk mengunduh PDF
@@ -18,7 +18,8 @@ const HasilForm = ({ title, judul, data1, children, errorMsg, successMsg, onSubm
             const componentWidth = doc.internal.pageSize.getWidth();
             const componentHeight = doc.internal.pageSize.getHeight();
             doc.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight);
-            doc.save(`Rekap SMK Letris Indonesia 2.pdf`);
+            const fileName = `Rekap SMK Letris Indonesia 2-${childName}.pdf`;
+            doc.save(fileName);
         });
     };
 

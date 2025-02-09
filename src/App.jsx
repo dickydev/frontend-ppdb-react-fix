@@ -128,6 +128,12 @@ const App = () => {
                         </ProtectedRoute>
                     }
                 />
+                <Route path="/hasilOrtu/:id" 
+                element={
+                    <ProtectedRoute>
+                        <HasilOrtu />
+                    </ProtectedRoute>
+                } />
                 <Route path="*" element={<Error />} />
             </Routes>
         </BrowserRouter>  

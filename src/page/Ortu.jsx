@@ -7,8 +7,11 @@ import { get } from '../utils/api';
 import {useLocation} from 'react-router-dom'; 
 import Notification from '../components/Notification/Notif';
 import DetailOrtu from './ForumOrangTua/DetailOrtu';
+import { useNavigate } from 'react-router-dom';
+
 const Ortu = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [successMsg, setSuccessMsg] = useState(location.state?.successMsg);
   const [errorMsg, setErrorMsg] = useState(location.state?.errorMsg);
   const [data, setData] = useState([]); 
@@ -43,7 +46,7 @@ const Ortu = () => {
     if (typeof text === 'string' && text.length > panjangTeksMaks) {
       return `${text.substring(0, panjangTeksMaks)}...`;
     }
-    return text; // Kembalikan text apa adanya jika tidak perlu dipotong
+    return text; 
   };
   
   
@@ -108,17 +111,18 @@ const Ortu = () => {
                   {new Date(item.created_at).toLocaleDateString('id-ID')}
                 </td>
                 <td className='flex justify-center items-center py-6'>
-                  <button className='flex items-center justify-between gap-x-5'>
-                  <button onClick={() => handleOpenModal(item.id)} className="text-red-700 hover:text-red-500">
+                <button className='flex items-center justify-between gap-x-5'>
+                  <button onClick={() => handleOpenModal(item.id)} className="text-red-700 hover:text-red-500 cursor-pointer">
                     <FaEye size={18} />
                   </button>
-                  <FaFilePdf>
-                    <span aria-hidden="true" className="hidden group-hover:text-maroon sm:block">
-                      Download PDF
-                    </span>
-                  </FaFilePdf>
+                  <button
+                    onClick={() => navigate(`/hasilOrtu/${item.id}`, { state: { childName: item.child_name } })}
+                    className="text-red-700 hover:text-red-500 cursor-pointer"
+                  >
+                    <FaFilePdf size={18} />
                   </button>
-                </td>
+                </button>
+              </td>
               </tr>
             ))
           )}
