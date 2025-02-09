@@ -77,7 +77,7 @@ const HasilOrtu = () => {
                         { title: 'Pekerjaan Ayah', value: dataSource?.father_job || '-' },
                         { title: 'Pekerjaan Ibu', value: dataSource?.mother_job || '-' },
                     ]} 
-                    title={"PARENTS' OBSERVATION RESULTS"} 
+                    title={"Hasil Observarsi Orang Tua"} 
                     judul='ORANG TUA' 
                     to='/ortu'
                     errorMsg={errorMsg}
@@ -88,19 +88,19 @@ const HasilOrtu = () => {
                     <div className='px-0 mt-4 text-gray-800'>
                         {[{ title: 'A. Pengetahuan Orang Tua Tentang Anak', data: [
                             { e: 'Status anak dalam Keluarga', value: dataSource?.child_status || '-' },
-                            { e: 'Penyakit berat sejak kecil', value: dataSource?.has_serious_illness == 1 ? 'Ada' : 'Tidak Ada' },
-                            { e: 'Pandangan orang tua terhadap anak', value: dataSource?.parent_view_on_child || '-' },
+                            { e: 'Apakah anak memiliki penyakit berat bawaan dari lahir / kecil yang mengganggu dalam belajar', value: dataSource?.has_serious_illness == 1 ? 'Ada' : 'Tidak Ada' },
+                            { e: 'Pandangan orang tua terhadap karakter anak dirumah', value: dataSource?.parent_view_on_child || '-' },
                         ]},
                         { title: 'B. Motivasi Memilih Sekolah', data: [
-                            { e: 'Alasan memilih sekolah', value: dataSource?.reason_choosing_school || '-' },
+                            { e: 'Alasan memilih SMK Letris Indonesia 2', value: dataSource?.reason_choosing_school || '-' },
                             { e: 'Pandangan tentang sekolah', value: dataSource?.parent_view_on_school || '-' },
-                            { e: 'Tahu sekolah dari mana', value: dataSource?.know_about_school || '-' },
+                            { e: 'Tahu SMK Letris Indonesia 2 dari mana', value: dataSource?.know_about_school || '-' },
                         ]},
                         { title: 'C. Komitmen Terhadap Program', data: [
-                            { e: 'Komitmen komunikasi dengan sekolah', value: dataSource?.willing_to_communicate == 1 ? 'Siap' : 'Tidak' },
+                            { e: 'Apakah bapak ibu siap untuk berkomunikasi dengan wali kelas menghadiri rapat awal tahun mengambil raport hasil belajar siswa dan menghadiri panggilan sekolah dalam pendampingan belajar siswa selama menjadi siswa SMK negeri Indonesia 2', value: dataSource?.willing_to_communicate == 1 ? 'Siap' : 'Tidak' },
                         ]},
                         { title: 'D. Konsekuensi Jika Melanggar', data: [
-                            { e: 'Bersedia menerima konsekuensi', value: dataSource?.accept_consequences == 1 ? 'Bersedia' : 'Tidak' },
+                            { e: 'Jika Ananda selama bersekolah melanggar peraturan sekolah tidak mau belajar atau pun mengerjakan tugas sekolah lalu dilakukan pendampingan oleh sekolah namun masih tidak berubah menjadi lebih baik apakah menerima jika nantinya jika rapat pleno kenaikan kelas dinyatakan tinggal kelas atau dikembalikan ke orang tua', value: dataSource?.accept_consequences == 1 ? 'Bersedia' : 'Tidak' },
                         ]},
                         { title: 'E. Data Tambahan', data: [
                             { e: 'Catatan Pewawancara', value: dataSource?.interviewer_notes || 'Tidak ada catatan' },
