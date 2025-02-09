@@ -58,8 +58,8 @@ const DetailOrtu = ({ id, onClose }) => {
                   <WrapperDataModal title="Berkomitmen Untuk Menerima Konsekuensi" value={detail.accept_consequences == 1 ? "Bersedia" : "Tidak"}/>
                 </div>
                 <div className="mt-2 grid grid-cols-1 gap-2">
-                  <WrapperDataModal title="Informasi Tambahan Tentang Anak" value={detail.additional_info && detail.additional_info !== "null" ? detail.additional_info : "Tidak Ada Informasi Tambahan"}/>
-                  <WrapperDataModal title="Catatan Pewawancara" value={detail.interviewer_notes !=="null" ? detail.interviewer_notes : "Tidak Ada Catatan"}/>
+                  <WrapperDataModal title="Informasi Tambahan Tentang Anak" value={detail.additional_info || "Tidak Ada Informasi Tambahan"}/>
+                  <WrapperDataModal title="Catatan Pewawancara" value={detail.additional_info || "Tidak Ada Informasi Tambahan"}/>
                   <WrapperDataModal title="Tanggal Ditambahkan" value={new Date(detail.created_at).toLocaleDateString('id-ID')}/>
                 </div>
               </div>
