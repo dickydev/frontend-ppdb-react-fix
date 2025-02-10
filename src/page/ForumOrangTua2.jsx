@@ -170,43 +170,43 @@ const ForumOrangTua2 = () => {
                                 placeholder="Tanggal Wawancara"
                                 required
                             />
-                        </div>
-                        <div className="mb-4">
-                            <label
-                                htmlFor="interviewer_name"
-                                className="block mb-2 font-medium text-md e"
-                            >
-                               Nama Pewawancara
-                            </label>
-                            <input
-                                type="text"
-                                id="interviewer_name"
-                                name="interviewer_name"
-                                className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                placeholder="Nama Pewawancara"
-                                value={dataForm2.interviewer_name} 
-                                onChange={handleChange} 
-                                required
-                            />
-                        </div>
+                            </div>
+                            <div className="mb-4">
+                                <label
+                                    htmlFor="interviewer_name"
+                                    className="block mb-2 font-medium text-md e"
+                                >
+                                Nama Pewawancara
+                                </label>
+                                <input
+                                    type="text"
+                                    id="interviewer_name"
+                                    name="interviewer_name"
+                                    className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                    placeholder="Nama Pewawancara"
+                                    value={dataForm2.interviewer_name} 
+                                    onChange={handleChange} 
+                                    required
+                                />
+                            </div>
 
-                        <div className="mb-4">
-                            <label
-                                htmlFor="interviewer_notes"
-                                className="block mb-2 font-medium text-md e"
-                            >
-                                Catatan Khusus Pewawancara
-                            </label>
-                            <textarea 
-                            id="interviewer_notes" 
-                            name="interviewer_notes" 
-                            placeholder='Kosongan Jika Tidak Ada Catatan'
-                            className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                            value={dataForm2.interviewer_notes} 
-                            onChange={handleChange}
-                            ></textarea>
-                         
-                        </div>
+                            <div className="mb-4">
+                                <label
+                                    htmlFor="interviewer_notes"
+                                    className="block mb-2 font-medium text-md e"
+                                >
+                                    Catatan Khusus Pewawancara
+                                </label>
+                                <textarea 
+                                id="interviewer_notes" 
+                                name="interviewer_notes" 
+                                placeholder='Kosongan Jika Tidak Ada Catatan'
+                                className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                value={dataForm2.interviewer_notes} 
+                                onChange={handleChange}
+                                ></textarea>
+                            
+                            </div>
 
                             <div className="flex justify-end w-full gap-3 mt-8">
                                 <Link to={"/forumOrtu1"} className="px-5 py-2 text-sm font-semibold text-center bg-white border-2 rounded-md text-maroon border-maroon active:scale-95 focus:outline-none ">Previous</Link>

@@ -8,7 +8,7 @@ const ForumSiswa = () => {
 
     const navigate = useNavigate();
     const {state, updateFormData} = useFormContext();
-    const [dataForm1Siswa, setDataForm1Siswa] = useState(state.from1Siswa || {
+    const [dataForm1Siswa, setDataForm1Siswa] = useState(state.form1Siswa || {
         student_name : '',
         student_email: '',
         student_phone_number:'',
@@ -36,14 +36,14 @@ const ForumSiswa = () => {
         navigate('/forumSiswa2');
     };
 
-    // useEffect(() => {
-    //     if (state.form1Siswa) {
-    //         setDataForm1Siswa(state.form1Siswa);
-    //     }
-    // }, [state.form1Siswa]);
-       useEffect(() => {
-            setDataForm1Siswa(state.from1Siswa); 
-        }, [state.from1Siswa]);
+    useEffect(() => {
+        if (state.form1Siswa) {
+            setDataForm1Siswa(state.form1Siswa);
+        }
+    }, [state.form1Siswa]);
+    //    useEffect(() => {
+    //         setDataForm1Siswa(state.from1Siswa); 
+    //     }, [state.from1Siswa]);
     
     
     return (
@@ -57,7 +57,7 @@ const ForumSiswa = () => {
 
                         <div className="flex w-[10px] sm:w-[40px] bg-gray-300 h-0.5" />
 
-                        <div className='flex items-center justify-center gap-2 px-4 py-2 text-gray-600 border-2 border-gray-300 rounded-full'> <span className='size-[18px] sm:size-[20px] flex items-center justify-center border-2 rounded-full border-gray-300'>2</span> <span>Tentang Sekolah & Prestasi</span></div>
+                        <div className='flex items-center justify-center gap-2 px-4 py-2 text-gray-600 border-2 border-gray-300 rounded-full'> <span className='size-[18px] sm:size-[20px] flex items-center justify-center border-2 rounded-full border-gray-300'>2</span> <span>Tentang Sekolah & Prestasi Siswa</span></div>
                     </div>
                     <div className='w-full pb-4 mt-12 border-b-2'>
                         <p className='text-lg font-medium text-gray-600'> Bagian 1</p>
@@ -96,6 +96,7 @@ const ForumSiswa = () => {
                                 <input
                                     type="email"
                                     id="student_email"
+                                    name="student_email"
                                     value={dataForm1Siswa.student_email}
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
@@ -113,6 +114,7 @@ const ForumSiswa = () => {
                                 <input
                                     type="text"
                                     id="student_phone_number"
+                                    name="student_phone_number"
                                     value={dataForm1Siswa.student_phone_number}
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
@@ -130,6 +132,7 @@ const ForumSiswa = () => {
                                 <input
                                     type="text"
                                     id="place_of_birth"
+                                    name="place_of_birth"
                                     value={dataForm1Siswa.place_of_birth}
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
@@ -147,6 +150,7 @@ const ForumSiswa = () => {
                                 <input
                                     type="date"
                                     id="date_of_birth"
+                                    name="date_of_birth"
                                     value={dataForm1Siswa.date_of_birth}
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
@@ -226,6 +230,7 @@ const ForumSiswa = () => {
                                 <input
                                     type="text"
                                     id="nationality"
+                                    name="nationality"
                                     value={dataForm1Siswa.nationality}
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
