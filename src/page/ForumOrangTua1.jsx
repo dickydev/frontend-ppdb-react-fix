@@ -34,7 +34,6 @@ const ForumOrangTua1 = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         updateFormData('form1', dataForm1); // Memperbarui data di context
-        console.log('Data Form 1:', dataForm1);
         navigate('/forumOrtu2'); // Navigasi ke halaman berikutnya
     };
 

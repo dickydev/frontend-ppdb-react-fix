@@ -36,11 +36,15 @@ const ForumSiswa = () => {
         navigate('/forumSiswa2');
     };
 
-    useEffect(() => {
-        if (state.form1Siswa) {
-            setDataForm1Siswa(state.form1Siswa);
-        }
-    }, [state.form1Siswa]);
+    // useEffect(() => {
+    //     if (state.form1Siswa) {
+    //         setDataForm1Siswa(state.form1Siswa);
+    //     }
+    // }, [state.form1Siswa]);
+       useEffect(() => {
+            setDataForm1Siswa(state.from1Siswa); 
+        }, [state.from1Siswa]);
+    
     
     return (
         <div>
@@ -63,7 +67,7 @@ const ForumSiswa = () => {
 
                     <div className='mt-5'>
 
-                        <form className='w-full text-gray-600 mt-7 '>
+                        <form className='w-full text-gray-600 mt-7' onSubmit={handleSubmit}>
                             <div className="mb-4">
                                 <label
                                     htmlFor="student_name"
@@ -79,7 +83,7 @@ const ForumSiswa = () => {
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
                                     placeholder="Masukan Nama Siswa"
-                                    required=""
+                                    required
                                 />
                             </div>
                             <div className="mb-4">
@@ -96,7 +100,7 @@ const ForumSiswa = () => {
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
                                     placeholder="Masukan Email Siswa"
-                                    required=""
+                                    required
                                 />
                             </div>
                             <div className="mb-4">
@@ -113,7 +117,7 @@ const ForumSiswa = () => {
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
                                     placeholder="Masukan Nomor Telpon Siswa"
-                                    required=""
+                                    required
                                 />
                             </div>
                             <div className="mb-4">
@@ -130,7 +134,7 @@ const ForumSiswa = () => {
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
                                     placeholder="Masukan Tempat Lahir Siswa"
-                                    required=""
+                                    required
                                 />
                             </div>
                             <div className="mb-4">
@@ -147,7 +151,7 @@ const ForumSiswa = () => {
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
                                     placeholder=""
-                                    required=""
+                                    required
                                 />
                             </div>
                             <div className="mb-4">
@@ -226,7 +230,7 @@ const ForumSiswa = () => {
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
                                     placeholder="Masukan Kewarganegaraan Siswa"
-                                    required=""
+                                    required
                                 />
                             </div>
                             <div className='flex justify-end w-full gap-3 mt-8'>

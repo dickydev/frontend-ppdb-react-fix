@@ -80,6 +80,7 @@ const Ortu = () => {
           title="Orang Tua"
           headers={headTable}
           to="/forumOrtu1"
+          
         >
           {isLoading ? (
             <tr>

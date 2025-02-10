@@ -1,8 +1,21 @@
-import React from 'react'
-import Forum from '../template/Forum'
-import { Link } from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
+import Forum from '../template/Forum';
+import { Link, useNavigate } from 'react-router-dom';
+import { useFormContext } from '../Context/FormContext';
 
 const ForumSiswa2 = () => {
+      const navigate = useNavigate();
+        const {state, updateFormData} = useFormContext();
+        const [dataForm2Siswa, setDataForm2Siswa] = useState(state.from1Siswa || {
+            student_name : '',
+            student_email: '',
+            student_phone_number:'',
+            place_of_birth: '',
+            date_of_birth: '',
+            gender: '',
+            religion: '',
+            nationality: ''
+        });
     return (
         <Forum title={'Forum Data Peserta Didik'}>
             <div className='max-w-5xl px-4 mx-auto mt-5'>
