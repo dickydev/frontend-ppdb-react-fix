@@ -4,6 +4,7 @@ import loginIllustration from "../../assets/login-illustration.svg";
 import { post } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 import { FaTimes } from "react-icons/fa"; // Icon for close button
+import Notification from "../../components/Notification/Notif";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -22,7 +23,7 @@ const LoginPage = () => {
         navigate('/home');
       }
     } catch (err) {
-      setErrorMsg("Terjadi kesalahan saat login. Silakan coba lagi.");
+      setErrorMsg("Terjadi kesalahan saat login, Silakan coba lagi!");
     }
   };
 
@@ -55,14 +56,10 @@ const LoginPage = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {errorMsg && (
-              <div className="mx-auto flex bg-red-500 px-4 py-2 rounded-lg text-white items-center justiify-center">
-                <p>{errorMsg}</p>
-                <button onClick={handleCloseError} className="ml-4">
-                  <FaTimes className="text-white" />
-                </button>
-              </div>
-            )}
+          {errorMsg && (
+            <Notification type="error" message={errorMsg} onClose={handleCloseError}/>
+          )}
+
             <div>
               <label
                 htmlFor="login-username"
