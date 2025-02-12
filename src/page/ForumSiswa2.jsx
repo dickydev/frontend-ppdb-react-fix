@@ -6,7 +6,7 @@ import { useFormContext } from '../Context/FormContext';
 const ForumSiswa2 = () => {
       const navigate = useNavigate();
         const {state, updateFormData} = useFormContext();
-        const [dataForm2Siswa, setdataForm2Siswa] = useState(state.from1Siswa || {
+        const [dataForm2Siswa, setdataForm2Siswa] = useState(state.from2Siswa || {
             skill_competence: '',
             reason_choosing_competence: '',
             knowledge_about_competence: '',
@@ -14,10 +14,10 @@ const ForumSiswa2 = () => {
             motivation_for_competence: '',
             expectations_for_competence: '',
             reason_choosing_school: '',
-            active_in_extracurricular: '1',
+            active_in_extracurricular: '',
             achievements: '',
-            agree_to_rules: '1',
-            ever_broken_rules: '0',
+            agree_to_rules: '',
+            ever_broken_rules: '',
             interviewer_notes: '',
             interviewer_name: '',
             interview_date: '',
@@ -67,6 +67,31 @@ const ForumSiswa2 = () => {
 
                     <from className='w-full text-gray-600 mt-7 '>
 
+                    <div className="mb-4">
+                                <label htmlFor="skill_competence" className="block mb-2 font-medium leading-7 text-justify leadi text-md">Kompetensi Keahlian</label>
+                                <select 
+                                    id="skill_competence" 
+                                    className={`select-option border border-gray-300 h-12 ${dataForm2Siswa.skill_competence? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`} 
+                                    name='skill_competence' 
+                                    value={dataForm2Siswa.skill_competence} 
+                                    onChange={handleChange}
+                                    aria-label=''
+                                    defaultValue=""
+                                    required
+                                >
+                                    <option value="" className='text-gray-400' disabled>
+                                        Pilih Jawaban
+                                    </option>
+                                    <option value="Rekayasa Perangkat Lunak dan Gim"  className='text-gray-500'>Rekayasa Perangkat Lunak dan Gim</option>
+                                    <option value="Desain Komunikasi Visual Reguler" className='text-gray-500'>Desain Komunikasi Visual Reguler</option>
+                                    <option value="Desain Komunikasi Visual Bilingual"  className='text-gray-500'>Desain Komunikasi Visual Bilingual</option>
+                                    <option value="Manajemen Pekantoran dan Layanan Bisnis Reguer"  className='text-gray-500'>Manajemen Pekantoran dan Layanan Bisnis Reguler</option>
+                                    <option value="Manajemen Pekantoran dan Layanan Bisnis Bilingual" className='text-gray-500'>Manajemen Pekantoran dan Layanan Bisnis Bilingual</option>
+                                    <option value="Pemasaran dan Bisnis Retail" className='text-gray-500'>Pemasaran dan Bisnis Retail</option>
+                                    <option value="Akutansi dan Keuangan" className='text-gray-500'>Akutansi dan Keuangan</option>
+                                </select>
+                            </div>
+
                         <div className="mb-4">
                             <label
                                 htmlFor="reason_choosing_competence"
@@ -74,7 +99,7 @@ const ForumSiswa2 = () => {
                             >
                                 Alasan Memilih Kompetensi Keahlian
                             </label>
-                            <input
+                            <textarea
                                 type="text"
                                 id="reason_choosing_competence"
                                 name="reason_choosing_competence"
@@ -103,7 +128,7 @@ const ForumSiswa2 = () => {
                                         onChange={handleChange}
                                         aria-label=''
                                         defaultValue=""
-                                        required
+                                        
                                         className={`select-option border border-gray-300 h-12 ${dataForm2Siswa.knowledge_about_competence? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`}
                                     >
                                         <option value="" className='text-gray-400' disabled>
@@ -241,21 +266,6 @@ const ForumSiswa2 = () => {
                                         <option value="Tidak" className='text-gray-500'>Belum </option>
                                 </select>
                             </div>
-                        </div>
-                        <div className="mb-4">
-                            <label
-                                htmlFor="catatan"
-                                className="block mb-2 font-medium text-md e"
-                            >
-                                Catatan Pewawancara
-                            </label>
-                            <input
-                                type="text"
-                                id="catatan"
-                                className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                placeholder="  Catatan Pewawancara"
-                                required=""
-                            />
                         </div>
 
                         <div className="flex flex-col justify-between w-full gap-3 mb-4 lg:flex-row">
