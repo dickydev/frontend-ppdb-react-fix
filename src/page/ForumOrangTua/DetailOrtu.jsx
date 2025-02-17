@@ -23,7 +23,7 @@ const DetailOrtu = ({ id, onClose }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className=" bg-white rounded-xl shadow-lg max-w-lg w-full max-h-[80vh] flex flex-col">
+      <div className=" m-2 md:m-0 bg-white rounded-xl shadow-lg max-w-lg w-full max-h-[80vh] flex flex-col">
         
         
         <div className="sticky top-0 bg-white p-6 border-b z-10 rounded-t-xl">
@@ -37,7 +37,7 @@ const DetailOrtu = ({ id, onClose }) => {
           ) : (
             detail && (
               <div>
-                <div className="grid grid-cols-2 gap-2 break-words">
+                <div className="grid grid-cols-1  md:grid-cols-2 gap-2 break-words">
                   <WrapperDataModal title="Nama Ayah" value={detail.father_name}/>
                   <WrapperDataModal title="Nama Ibu" value={detail.mother_name}/>
                   <WrapperDataModal title="Pekerjaan Ayah" value={detail.father_job}/>

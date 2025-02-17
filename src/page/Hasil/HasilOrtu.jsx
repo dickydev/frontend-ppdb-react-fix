@@ -22,7 +22,7 @@ const HasilOrtu = () => {
                     const response = await get(`/parents/detail/${id}`);
                     setFetchedData(response);
                 } catch (error) {
-                    console.error("Error fetching data:", error);
+                    
                 } finally {
                     setLoading(false);
                 }

@@ -1,14 +1,37 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import Dashboard from '../template/Dashboard'
 import Tabel from '../template/Tabel'
-import { FaAngleRight,FaAngleLeft } from "react-icons/fa6";
+import { FaAngleRight,FaAngleLeft,FaEye, FaFilePdf } from "react-icons/fa6";
 import {get} from "../utils/api";
-import Modal from '../template/Modal';
+import {useLocation} from 'react-router-dom';
+import Notification from '../components/Notification/Notif';
+import { useNavigate } from 'react-router-dom';
+import DetailSiswa from './ForumSiswa/DetailSiswa';
 
 const Siswa = () => {
 
-    const [data,setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [successMsg, setSuccessMsg] = useState(location.state?.successMsg);
+  const [errorMsg, setErrorMsg] = useState(location.state?.errorMsg);
+  const [data, setData] = useState([]); 
+  const [isLoading, setIsLoading] = useState(true); 
+  const [selectedId, setSelectedId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = (id) => {
+    setSelectedId(id);
+    setShowModal(true);
+  };
+
+  useEffect(()=> {
+    const timer = setTimeout(()=> {
+      setSuccessMsg('');
+      setErrorMsg('');
+    }, 2000);
+    return () => clearTimeout();
+  }, [successMsg, errorMsg]);
 
     const headTable = [
         { judul: "Nama" },
@@ -19,14 +42,15 @@ const Siswa = () => {
         { judul: "Gender" },
         { judul: "Agama" },
         { judul: "Kebangsaan" },
-        { judul: 'Tanggal di tambahkan'}
+        { judul: 'Tanggal di tambahkan'},
+        {judul: 'Action'}
     ];
 
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await get ('/medical');
+                const response = await get ('/students');
                 setData(response);
                 setIsLoading(false);
             } catch (err) {
@@ -68,6 +92,19 @@ const Siswa = () => {
                 <td className="px-6 py-4 text-gray-900">
                   {new Date(item.created_at).toLocaleDateString('id-ID')}
                 </td>
+                <td className='flex justify-center items-center py-6'>
+                                <button className='flex items-center justify-between gap-x-5'>
+                                  <button onClick={() => handleOpenModal(item.id)} className="text-red-700 hover:text-red-500 cursor-pointer">
+                                    <FaEye size={18} />
+                                  </button>
+                                  <button
+                                    onClick={() => navigate(`/hasilSiswa/${item.id}`, { state: { childName: item.student_name } })}
+                                    className="text-red-700 hover:text-red-500 cursor-pointer"
+                                  >
+                                    <FaFilePdf size={18} />
+                                  </button>
+                                </button>
+                              </td>
               </tr>
             ))
           )}
@@ -105,8 +142,9 @@ const Siswa = () => {
           </nav>
         </div>
       </div>
+      {showModal && <DetailSiswa id={selectedId} onClose={()=>setShowModal(false)}/>}
         </Dashboard>
     )
 }
 
-export default Siswa
+export default Siswa;

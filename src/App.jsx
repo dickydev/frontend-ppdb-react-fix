@@ -112,6 +112,12 @@ const App = () => {
                         </ProtectedRoute>
                     }
                 />
+                <Route path="/hasilSiswa/:id" 
+                element={
+                    <ProtectedRoute>
+                        <HasilSiswa />
+                    </ProtectedRoute>
+                } />
                 <Route
                     path="/hasilMedical"
                     element={

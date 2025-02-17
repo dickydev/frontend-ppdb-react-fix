@@ -16,7 +16,10 @@ const ForumSiswa = () => {
         date_of_birth: '',
         gender: '',
         religion: '',
-        nationality: ''
+        nationality: '',
+        previous_school: '',
+        student_vision: '',
+        student_mission: ''
     });
 
     console.log(dataForm1Siswa);
@@ -83,6 +86,60 @@ const ForumSiswa = () => {
                                     onChange={handleChange}
                                     className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
                                     placeholder="Masukan Nama Siswa"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-4">
+                            <label
+                                htmlFor="student_vision"
+                                className="block mb-2 font-medium text-md e"
+                            >
+                                Alasan Memilih Kompetensi Keahlian
+                            </label>
+                            <textarea
+                                type="text"
+                                id="student_vision"
+                                name="student_vision"
+                                value={dataForm1Siswa.student_vision}
+                                onChange={handleChange}
+                                className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                placeholder="Visi Siswa"
+                                required
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label
+                                htmlFor="student_mission"
+                                className="block mb-2 font-medium text-md e"
+                            >
+                                Alasan Memilih Kompetensi Keahlian
+                            </label>
+                            <textarea
+                                type="text"
+                                id="student_mission"
+                                name="student_mission"
+                                value={dataForm1Siswa.student_mission}
+                                onChange={handleChange}
+                                className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                placeholder="Misi Siswa"
+                                required
+                            />
+                        </div>
+                            <div className="mb-4">
+                                <label
+                                    htmlFor="previous_school"
+                                    className="block mb-2 font-medium text-md e"
+                                >
+                                    Asal Sekolah Siswa Sebelumnya
+                                </label>
+                                <input
+                                    type="text"
+                                    id="previous_school"
+                                    name="previous_school"
+                                    value={dataForm1Siswa.previous_school}
+                                    onChange={handleChange}
+                                    className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                    placeholder="Masukan Sekolah Siswa Sebelumnya"
                                     required
                                 />
                             </div>

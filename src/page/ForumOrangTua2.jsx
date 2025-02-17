@@ -211,6 +211,7 @@ const ForumOrangTua2 = () => {
                             <div className="flex justify-end w-full gap-3 mt-8">
                                 <Link to={"/forumOrtu1"} className="px-5 py-2 text-sm font-semibold text-center bg-white border-2 rounded-md text-maroon border-maroon active:scale-95 focus:outline-none ">Previous</Link>
                                 <button type="submit" className="px-5 py-2 text-sm font-semibold text-center text-white rounded-md bg-maroon hover:bg-red-900 active:scale-95 focus:outline-none ">Submit</button>
+                            
                             </div>
                         </form>
                     </div>

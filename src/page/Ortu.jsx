@@ -57,7 +57,7 @@ const Ortu = () => {
         setData(response);
         setIsLoading(false);
       } catch (err) {
-        console.error('Meledak dikit lagi:', err);
+        setIsLoading(true);
       }
     };
 

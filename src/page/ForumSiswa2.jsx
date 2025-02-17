@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {useEffect, useState} from 'react'
 import Forum from '../template/Forum';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,7 +7,7 @@ import { useFormContext } from '../Context/FormContext';
 const ForumSiswa2 = () => {
       const navigate = useNavigate();
         const {state, updateFormData} = useFormContext();
-        const [dataForm2Siswa, setdataForm2Siswa] = useState(state.from2Siswa || {
+        const [dataForm2Siswa, setdataForm2Siswa] = useState(state.form2Siswa || {
             skill_competence: '',
             reason_choosing_competence: '',
             knowledge_about_competence: '',
@@ -29,13 +30,13 @@ const ForumSiswa2 = () => {
                 ...dataForm2Siswa,
                 [name]: value,       
             });
+            console.log(dataForm2Siswa);
         };
 
         
         const handleSubmit = (e) => {
             e.preventDefault();
             updateFormData('form2Siswa', dataForm2Siswa);
-            console.log(`Data Form 2 Siswa : ${dataForm2Siswa}`);
             navigate('/hasilSiswa');
         };
         
@@ -65,7 +66,7 @@ const ForumSiswa2 = () => {
 
                 <div className='mt-5'>
 
-                    <from className='w-full text-gray-600 mt-7 '>
+                    <form className='w-full text-gray-600 mt-7' onSubmit={handleSubmit}>
 
                     <div className="mb-4">
                                 <label htmlFor="skill_competence" className="block mb-2 font-medium leading-7 text-justify leadi text-md">Kompetensi Keahlian</label>
@@ -146,14 +147,22 @@ const ForumSiswa2 = () => {
                             >
                                 Apakah Siswa Pernah Memiliki Karya di Kompetensi yang Dipilihnya
                             </label>
-                                <input
-                                    id="has_competence_work"
-                                    name='has_competence_work'
-                                    value={dataForm2Siswa.has_competence_work}
+                            <select 
+                                    id="has_competence_work" 
+                                    className={`select-option border border-gray-300 h-12 ${dataForm2Siswa.has_competence_work? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`} 
+                                    name='has_competence_work' 
+                                    value={dataForm2Siswa.has_competence_work} 
                                     onChange={handleChange}
-                                    placeholder='Kosongkan Jika Tidak Ada'
-                                    className={`select-option border border-gray-300 h-12 ${dataForm2Siswa.has_competence_work? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`}
-                                />
+                                    aria-label=''
+                                    defaultValue=""
+                                    required
+                                >
+                                    <option value="" className='text-gray-400' disabled>
+                                        Pilih Jawaban
+                                    </option>
+                                    <option value="1"  className='text-gray-500'>Ada</option>
+                                    <option value="0" className='text-gray-500'>Tidak Ada</option>
+                                </select>
                             </div>
 
                         </div>
@@ -213,7 +222,7 @@ const ForumSiswa2 = () => {
                                 value={dataForm2Siswa.reason_choosing_school}
                                 onChange={handleChange}
                                 className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                placeholder="Alasa Siswa/i Memilih SMK Letris Indonesia 2"
+                                placeholder="Alasan Siswa/i Memilih SMK Letris Indonesia 2"
                                 required
                             />
                         </div>
@@ -284,7 +293,7 @@ const ForumSiswa2 = () => {
                                         aria-label=''
                                         defaultValue=""
                                         required
-                                        className={`select-option border border-gray-300 h-12 ${dataForm2Siswa.active_in_extracurricular? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`}
+                                        className={`select-option border border-gray-300 h-12 ${dataForm2Siswa.ever_broken_rules? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`}
                                     >
                                         <option value="" className='text-gray-400' disabled>
                                             Pilih Jawaban
@@ -295,20 +304,20 @@ const ForumSiswa2 = () => {
                             </div>
                             <div className="w-full lg:w-[50%] my-4">
                                 <label
-                                    htmlFor="achievements"
+                                    htmlFor="agree_to_rules"
                                     className="block mb-2 font-medium text-md e"
                                 >
                                     Apakah Siswa Siap dan bersedia mengikuti seluruh tata tertib di SMK Letris Indonesia 2
                                 </label>
                                 <select
-                                        id="achievements"
-                                        name='achievements'
-                                        value={dataForm2Siswa.achievements}
+                                        id="agree_to_rules"
+                                        name='agree_to_rules'
+                                        value={dataForm2Siswa.agree_to_rules}
                                         onChange={handleChange}
                                         aria-label=''
                                         defaultValue=""
                                         required
-                                        className={`select-option border border-gray-300 h-12 ${dataForm2Siswa.achievements? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`}
+                                        className={`select-option border border-gray-300 h-12 ${dataForm2Siswa.agree_to_rules? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`}
                                     >
                                         <option value="" className='text-gray-400' disabled>
                                             Pilih Jawaban
@@ -384,16 +393,16 @@ const ForumSiswa2 = () => {
                             >
                              Previous
                             </Link>
-                            <Link
+                            <button
                             to={'/hasilSiswa'}
-                                type="submit"
+                            type="submit"
                                 className="px-5 py-2 text-sm font-semibold text-center text-white rounded-md bg-maroon hover:bg-red-900 active:scale-95 focus:outline-none "
                             >
                                 Submit
-                            </Link>
+                            </button>
                         </div>
 
-                    </from>
+                    </form>
                 </div>
             </div>
 
