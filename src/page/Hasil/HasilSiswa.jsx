@@ -4,7 +4,6 @@ import HasilForm from '../../template/HasilForm';
 import { useFormContext } from '../../Context/FormContext';
 import { post, get } from '../../utils/api';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { data } from 'autoprefixer';
 
 const HasilSiswa = () => {
     const { state, resetFormData } = useFormContext();
@@ -42,8 +41,6 @@ const HasilSiswa = () => {
             ...state.form1Siswa,
             ...state.form2Siswa,
         };
-        console.log(state.form1Siswa);
-        console.log(state.form2Siswa);
         
         try {
             const response = await post('/students/submit', combinedData);

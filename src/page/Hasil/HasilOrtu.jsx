@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import HasilForm from '../../template/HasilForm';
 import { useFormContext } from '../../Context/FormContext';
@@ -22,10 +23,8 @@ const HasilOrtu = () => {
                     const response = await get(`/parents/detail/${id}`);
                     setFetchedData(response);
                 } catch (error) {
-                    
-                } finally {
-                    setLoading(false);
-                }
+                    setErrorMsg('Terjadi Kesalahan Saat Mengambil Data!');
+                } 
             };
             fetchData();
         } else {

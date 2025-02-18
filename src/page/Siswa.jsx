@@ -54,7 +54,7 @@ const Siswa = () => {
                 setData(response);
                 setIsLoading(false);
             } catch (err) {
-                console.error('Meledak dikit lagi:', err);
+              setIsLoading(true);
             }
         };
 
@@ -63,7 +63,14 @@ const Siswa = () => {
 
     return (
         <Dashboard title={'Siswa'}>
-                  <div className="flex flex-col justify-between w-full min-h-[700px] xl:min-h-[calc(100vh-130px)]">
+        <div className="flex flex-col justify-between w-full min-h-[700px] xl:min-h-[calc(100vh-130px)]">
+            {successMsg && (
+            <Notification type="success" message={successMsg} onClose={() => setSuccessMsg('')} />
+          )}
+
+          {errorMsg && (
+            <Notification type="error" message={errorMsg} onClose={() => setErrorMsg('')} />
+          )}
         <Tabel
           title="Siswa"
           headers={headTable}
