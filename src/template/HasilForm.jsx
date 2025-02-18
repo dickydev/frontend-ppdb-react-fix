@@ -34,7 +34,7 @@ const HasilForm = ({ title, judul, data1, children, errorMsg, successMsg, onSubm
 
     return (
         <div className='pt-2'>
-            <div id='topdf' className='max-w-5xl px-4 mx-auto text-gray-800 pb-14 '>
+            <div id='topdf' className='max-w-5xl px-6 mx-auto text-gray-800 pb-14 '>
                 <div className="w-full bg-re py-5 border-gray-900 border-b-[2px] headers">
                     <div className='flex justify-between w-full font-semibold text-gray-800 '>
                         <div className='lg:size-[150px] md:size-[130px] sm:size-[110px]  size-[70px]'>

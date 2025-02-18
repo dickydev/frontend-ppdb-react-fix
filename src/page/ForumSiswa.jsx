@@ -232,7 +232,7 @@ const ForumSiswa = () => {
                                     <option value="" disabled className="text-gray-600">
                                         Pilih Gender
                                     </option>
-                                    <option value="Male" className="text-gray-600">
+                                    <option value="Male" className="text-black">
                                         Laki-Laki
                                     </option>
                                     <option value="Female" className="text-black">
@@ -250,14 +250,14 @@ const ForumSiswa = () => {
                                     value={dataForm1Siswa.religion}
                                     onChange={handleChange}
                                     className="select-option border border-gray-300 h-12 text-gray-600 text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5"
-                                    aria-label="Pilih Gender"
+                                    aria-label="Pilih Agama"
                                     defaultValue=""
                                     required
                                 >
                                     <option value="" disabled className="text-gray-600">
                                         Pilih Agama Siswa
                                     </option>
-                                    <option value="Islam" className="text-gray-600">
+                                    <option value="Islam" className="text-black">
                                         Islam
                                     </option>
                                     <option value="Katolik" className="text-black">

@@ -87,7 +87,7 @@ const HasilSiswa = () => {
                         {[{ title: 'A. Tentang Kompetensi Keahlian', data: [
                             { e: 'Alasan Memilih Kompetensi Keahlian', value: dataSource?.reason_choosing_competence},
                             { e: 'Pengetahuan Tentang Kompetensi Tersebut', value: dataSource?.knowledge_about_competence},
-                            { e: 'Apakah pernah memiliki karya di kompetensi tersebut', value: dataSource?.has_competence_work == null ? "Tidak Ada" : dataSource?.has_competence_work},
+                            { e: 'Apakah pernah memiliki karya di kompetensi tersebut', value: dataSource?.has_competence_work == 0 ? "Tidak Pernah" : "Pernah"},
                             { e: 'Apa motivasi memilih Kompetensi tersebut', value: dataSource?.motivation_for_competence},
                             { e: 'Apa harapanmu di kompetensi tersebut', value: dataSource?.expectations_for_competence},
                         ]},
