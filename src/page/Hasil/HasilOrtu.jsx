@@ -96,7 +96,7 @@ const HasilOrtu = () => {
                             { e: 'Pandangan tentang sekolah', value: dataSource?.parent_view_on_school || '-' },
                             { e: 'Tahu SMK Letris Indonesia 2 dari mana', value: dataSource?.know_about_school || '-' },
                         ]},
-                        { title: 'C. Komitmen Terhadap Program', data: [
+                        { title: 'C. Komitmen Terhadap Program Sekolah', data: [
                             { e: 'Apakah bapak ibu siap untuk berkomunikasi dengan wali kelas menghadiri rapat awal tahun mengambil raport hasil belajar siswa dan menghadiri panggilan sekolah dalam pendampingan belajar siswa selama menjadi siswa SMK negeri Indonesia 2', value: dataSource?.willing_to_communicate == 1 ? 'Siap' : 'Tidak' },
                         ]},
                         { title: 'D. Konsekuensi Jika Melanggar', data: [
