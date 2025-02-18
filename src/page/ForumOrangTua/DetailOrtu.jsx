@@ -55,11 +55,13 @@ const DetailOrtu = ({ id, onClose }) => {
                   <WrapperDataModal title="Tahu SMK Letris Indonesia 2 Melalui" value={detail.know_about_school}/>
                   <WrapperDataModal title="Tanggapan Orang Tua Tentang Program Sekolah" value={detail.response_to_program}/>
                   <WrapperDataModal title="Berkomitmen Untuk Menjalin Komunikasi" value={detail.willing_to_communicate == 1 ? "Bersedia" : "Tidak"}/>
+                  <WrapperDataModal title="Berkomitmen Untuk Menerima Konsekuensi" value={detail.willing_to_pay_fees == 1 ? "Bersedia" : "Tidak"}/>
                   <WrapperDataModal title="Berkomitmen Untuk Menerima Konsekuensi" value={detail.accept_consequences == 1 ? "Bersedia" : "Tidak"}/>
+                  <WrapperDataModal title="Informasi Tambahan Tentang Anak" value={detail.additional_info || "Tidak Ada Informasi Tambahan"}/>
                 </div>
                 <div className="mt-2 grid grid-cols-1 gap-2">
-                  <WrapperDataModal title="Informasi Tambahan Tentang Anak" value={detail.additional_info || "Tidak Ada Informasi Tambahan"}/>
-                  <WrapperDataModal title="Catatan Pewawancara" value={detail.additional_info || "Tidak Ada Informasi Tambahan"}/>
+                  <WrapperDataModal title="Catatan Pewawancara" value={detail.interviewer_notes || "Tidak Ada Informasi Tambahan"}/>
+                  <WrapperDataModal title="Nama Pewawancara" value={detail.interviewer_name || "Tidak Ada Informasi Tambahan"}/>
                   <WrapperDataModal title="Tanggal Ditambahkan" value={new Date(detail.created_at).toLocaleDateString('id-ID')}/>
                 </div>
               </div>

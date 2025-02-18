@@ -98,6 +98,7 @@ const HasilOrtu = () => {
                         ]},
                         { title: 'C. Komitmen Terhadap Program Sekolah', data: [
                             { e: 'Apakah bapak ibu siap untuk berkomunikasi dengan wali kelas menghadiri rapat awal tahun mengambil raport hasil belajar siswa dan menghadiri panggilan sekolah dalam pendampingan belajar siswa selama menjadi siswa SMK negeri Indonesia 2', value: dataSource?.willing_to_communicate == 1 ? 'Siap' : 'Tidak' },
+                            {e:'Apakah bapak dan ibu bisa berkomitmen dalam melakukan pembayaran sekolah, seperti Daftar ulang, SPP, dan kegiatan sekolah lainnya', value: dataSource?.willing_to_pay_fees == 1 ? 'Bersedia' : 'Tidak'}
                         ]},
                         { title: 'D. Konsekuensi Jika Melanggar', data: [
                             { e: 'Jika Ananda selama bersekolah melanggar peraturan sekolah tidak mau belajar atau pun mengerjakan tugas sekolah lalu dilakukan pendampingan oleh sekolah namun masih tidak berubah menjadi lebih baik apakah menerima jika nantinya jika rapat pleno kenaikan kelas dinyatakan tinggal kelas atau dikembalikan ke orang tua', value: dataSource?.accept_consequences == 1 ? 'Bersedia' : 'Tidak' },

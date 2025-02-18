@@ -13,6 +13,7 @@ const ForumOrangTua2 = () => {
         know_about_school: '',
         response_to_program: '',
         willing_to_communicate: '1',
+        willing_to_pay_fees: ' 1',
         accept_consequences: '1',
         interviewer_notes: '',
         interview_date: '',
@@ -128,6 +129,25 @@ const ForumOrangTua2 = () => {
                                         Pilih Jawaban
                                     </option>
                                     <option value="1">Siap</option>
+                                    <option value="0">Tidak</option>
+                                </select>
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="willing_to_pay_fees" className="block mb-2 font-medium leading-7 text-justify leadi text-md">Apakah bapak dan ibu bisa berkomitmen dalam melakukan pembayaran sekolah, seperti Daftar ulang, SPP, dan kegiatan sekolah lainnya</label>
+                                <select 
+                                    id="willing_to_pay_fees" 
+                                    className={`select-option border border-gray-300 h-12 ${dataForm2.willing_to_pay_fees ? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`} 
+                                    name='willing_to_pay_fees' 
+                                    value={dataForm2.willing_to_pay_fees} 
+                                    onChange={handleChange}
+                                    aria-label=''
+                                    defaultValue=""
+                                    required
+                                >
+                                    <option value="" className='text-gray-400' disabled>
+                                        Pilih Jawaban
+                                    </option>
+                                    <option value="1">Bersedia</option>
                                     <option value="0">Tidak</option>
                                 </select>
                             </div>
