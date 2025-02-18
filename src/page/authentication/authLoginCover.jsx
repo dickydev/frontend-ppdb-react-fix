@@ -34,7 +34,7 @@ const LoginPage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Login Form Section */}
-      <div className="flex flex-col md:flex-row flex-1">
+      <div className="flex flex-col md:flex-row flex-1 justify-center">
         {/* Left Image Section */}
         <div className="hidden md:flex md:w-2/3 bg-red-900 items-center justify-center">
           <img

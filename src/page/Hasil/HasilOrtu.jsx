@@ -22,6 +22,7 @@ const HasilOrtu = () => {
                 try {
                     const response = await get(`/parents/detail/${id}`);
                     setFetchedData(response);
+                    setLoading(false)
                 } catch (error) {
                     setErrorMsg('Terjadi Kesalahan Saat Mengambil Data!');
                 } 
