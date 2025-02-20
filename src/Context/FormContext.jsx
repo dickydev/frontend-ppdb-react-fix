@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 // Context/FormContext.js
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { act, createContext, useContext, useReducer } from 'react';
 
 const FormContext = createContext();
 
@@ -11,6 +11,7 @@ const initialState = {
     form2: {},
     form1Siswa: {},
     form2Siswa: {},
+    formMedic: {},
 };
 
 const formReducer = (state, action) => {
@@ -23,6 +24,8 @@ const formReducer = (state, action) => {
             return {...state, form1Siswa: action.payload};
         case 'UPDATE_FORM2SISWA':
             return {...state, form2Siswa: action.payload};
+        case 'UPDATE_FORMMEDIC':
+            return {...state, formMedic: action.payload};
         case 'RESET_FORM_DATA' :
             return initialState;
         default:
@@ -42,6 +45,8 @@ export const FormProvider = ({ children }) => {
             dispatch({ type: 'UPDATE_FORM1SISWA', payload: data});
         } else if (formName === 'form2Siswa') {
             dispatch({ type: 'UPDATE_FORM2SISWA', payload: data});
+        }else if(formName === 'formMedic') {
+            dispatch({ type: 'UPDATE_FORMMEDIC', payload: data});
         }
     };
 

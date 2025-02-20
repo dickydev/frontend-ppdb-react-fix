@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom';
 import DetailSiswa from './ForumSiswa/DetailSiswa';
 
 const Siswa = () => {
-
   const location = useLocation();
   const navigate = useNavigate();
   const [successMsg, setSuccessMsg] = useState(location.state?.successMsg);
@@ -30,7 +29,7 @@ const Siswa = () => {
       setSuccessMsg('');
       setErrorMsg('');
     }, 2000);
-    return () => clearTimeout();
+    return () => clearTimeout(timer);
   }, [successMsg, errorMsg]);
 
     const headTable = [
@@ -54,7 +53,9 @@ const Siswa = () => {
                 setData(response);
                 setIsLoading(false);
             } catch (err) {
-              setIsLoading(true);
+              setErrorMsg('Gagal Mengambil Data')
+            } finally {
+              setIsLoading(false);
             }
         };
 

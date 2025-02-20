@@ -1,8 +1,47 @@
-import React from 'react'
-import Forum from '../template/Forum'
-import { Link } from 'react-router-dom'
+/* eslint-disable no-unused-vars */
+import React, {useState} from 'react';
+import Forum from '../template/Forum';
+import { Link, useNavigate } from 'react-router-dom';
+import { useFormContext } from '../Context/FormContext';
 
 const ForumMedical = () => {
+const {state,updateFormData} = useFormContext();
+const [dataForm, setdataForm] = useState(state.forumMedical || {
+    student_name: '',
+    student_email: '',
+    participant_card_number: '',
+    place_of_birth: '',
+    date_of_birth: '',
+    gender: '',
+    medical_notes: '',
+    allergies: '',
+    medical_conditions: '',
+    additional_info: '',
+    weight:'',
+    height:'',
+    blood_type: '',
+    parent_knowledge_medical_history: '',
+    parent_knowledge_smoking_history: '0',
+    parent_knowledge_tattoo_piercing: '0',
+    interview_date: '',
+    interviewer_name: '',
+    interviewer_notes: '',
+});
+ const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setdataForm({
+            ...dataForm,
+            [name]: value,
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        updateFormData('formMedic', dataForm); 
+        navigate('/hasilMedical'); 
+    };
   return (
     <Forum title={'Forum Data Medical Check Up'}>
             <div className='max-w-5xl px-4 mx-auto mt-5'>
@@ -11,7 +50,39 @@ const ForumMedical = () => {
                 </div>
                 <div className='mt-5'>
 
-                    <from className='w-full text-gray-600 mt-7 '>
+                    <from className='w-full text-gray-600 mt-7 ' onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                            <label
+                                htmlFor="student_name"
+                                className="block mb-2 font-medium text-md e"
+                            >
+                                Nama Siswa
+                            </label>
+                            <input
+                                type="text"
+                                id="student_name"
+                                name='student_name'
+                                className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                placeholder="Masukan Nama Siswa"
+                                required
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label
+                                htmlFor=" student_email"
+                                className="block mb-2 font-medium text-md e"
+                            >
+                                Email Siswa
+                            </label>
+                            <input
+                                type="text"
+                                id=" student_email"
+                                name=' student_email'
+                                className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                placeholder="Masukan Email Siswa"
+                                required
+                            />
+                        </div>
                         <div className="mb-4">
                             <label
                                 htmlFor="Tinggi badan"

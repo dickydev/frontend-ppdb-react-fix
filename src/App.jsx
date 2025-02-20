@@ -127,6 +127,14 @@ const App = () => {
                     }
                 />
                 <Route
+                    path="/hasilMedical/:id"
+                    element={
+                        <ProtectedRoute>
+                            <HasilMedical />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
                     path="/hasilOrtu"
                     element={
                         <ProtectedRoute>

@@ -19,7 +19,6 @@ const ForumOrangTua2 = () => {
         interview_date: '',
         interviewer_name: '',
     });
-    console.log(dataForm2);
     const navigate = useNavigate();
 
     const handleChange = (e) => {

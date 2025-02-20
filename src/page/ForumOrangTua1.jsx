@@ -22,7 +22,7 @@ const ForumOrangTua1 = () => {
         has_serious_illness: '0',
         parent_view_on_child: ''
     });
-
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         setDataForm1({
@@ -30,7 +30,8 @@ const ForumOrangTua1 = () => {
             [name]: value,
         });
     };
-
+    
+    console.log(dataForm1)
     const handleSubmit = (e) => {
         e.preventDefault();
         updateFormData('form1', dataForm1); // Memperbarui data di context
@@ -174,7 +175,7 @@ const ForumOrangTua1 = () => {
                                     <option value="Manajemen Pekantoran dan Layanan Bisnis Reguer"  className='text-gray-500'>Manajemen Pekantoran dan Layanan Bisnis Reguler</option>
                                     <option value="Manajemen Pekantoran dan Layanan Bisnis Bilingual" className='text-gray-500'>Manajemen Pekantoran dan Layanan Bisnis Bilingual</option>
                                     <option value="Pemasaran dan Bisnis Retail" className='text-gray-500'>Pemasaran dan Bisnis Retail</option>
-                                    <option value="Akutansi dan Keuangan" className='text-gray-500'>Akutansi dan Keuangan</option>
+                                    <option value="Akutansi dan Keuangan Lembaga" className='text-gray-500'>Akutansi dan Keuangan</option>
                                 </select>
                             </div>
                             <div className="mb-4">

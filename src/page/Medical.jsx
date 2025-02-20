@@ -1,26 +1,44 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import Dashboard from '../template/Dashboard'
 import Tabel from '../template/Tabel'
-import { FaAngleRight,FaAngleLeft } from "react-icons/fa6";
+import { FaAngleRight, FaAngleLeft, FaEye, FaFilePdf } from "react-icons/fa6";
 import {get} from "../utils/api";
-import Modal from '../template/Modal';
+import {useLocation} from 'react-router-dom';
+import DetailMedical from './ForumMedical/DetailMedical';
+import Notification from '../components/Notification/Notif';
+import { useNavigate } from 'react-router-dom';
 
 const Siswa = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [successMsg, setSuccessMsg] = useState(location.state?.successMsg);
+  const [errorMsg, setErrorMsg] = useState(location.state?.errorMsg);
+  const [data, setData] = useState([]); 
+  const [isLoading, setIsLoading] = useState(true); 
+  const [selectedId, setSelectedId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
-    const [data,setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+  const handleOpenModal = (id) => {
+    setSelectedId(id);
+    setShowModal(true);
+  };
+
+  useEffect(()=> {
+    const timer = setTimeout(()=> {
+      setSuccessMsg('');
+      setErrorMsg('');
+    }, 2000);
+    return () => clearTimeout();
+  }, [successMsg, errorMsg]);
 
     const headTable = [
         { judul: "Nama" },
+        { judul: "Nomor Katu Peserta" },
         { judul: "Email" },
-        { judul: "Alergi" },
-        { judul: "Kondisi Medis" },
         { judul: "Berat Badan" },
         { judul: "Tinggi Badan" },
         { judul: "Golongan Darah" },
-        { judul: "Kondisi Mata" },
-        { judul: "Kondisi Pendengaran"},
-        { judul: "Kondisi Gigi"},
         {judul: "Info Tambahan"},
         {judul: "Tanggal Di tambahkan"}
     ];
@@ -29,11 +47,11 @@ const Siswa = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await get ('/students');
+                const response = await get ('/medical');
                 setData(response);
                 setIsLoading(false);
             } catch (err) {
-                console.error('Meledak dikit lagi:', err);
+                setIsLoading(true)
             }
         };
 
@@ -42,7 +60,14 @@ const Siswa = () => {
 
     return (
         <Dashboard title={'Medis'}>
-                  <div className="flex flex-col justify-between w-full min-h-[700px] xl:min-h-[calc(100vh-130px)]">
+        <div className="flex flex-col justify-between w-full min-h-[700px] xl:min-h-[calc(100vh-130px)]">
+          {successMsg && (
+            <Notification type="success" message={successMsg} onClose={() => setSuccessMsg('')} />
+          )}
+
+          {errorMsg && (
+            <Notification type="error" message={errorMsg} onClose={() => setErrorMsg('')} />
+          )}
         <Tabel
           title="Medis"
           headers={headTable}
@@ -61,15 +86,10 @@ const Siswa = () => {
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                   {item.student_name}
                 </th>
-                <td className="px-6 py-4 text-gray-900">{item.student_email}</td>
-                <td className="px-6 py-4 text-gray-900">{item.place_of_birth}</td>
-                <td className="px-6 py-4 text-gray-900">{item.allergies}</td>
+                <td className="px-6 py-4 text-gray-900">{item.participant_card_number}</td>
                 <td className="px-6 py-4 text-gray-900">{item.weight}</td>
                 <td className="px-6 py-4 text-gray-900">{item.height}</td>
                 <td className="px-6 py-4 text-gray-900">{item.blood_type}</td>
-                <td className="px-6 py-4 text-gray-900">{item.vision}</td>
-                <td className="px-6 py-4 text-gray-900">{item.hearing}</td>
-                <td className="px-6 py-4 text-gray-900">{item.dental_health}</td>
                 <td className="px-6 py-4 text-gray-900">{item.additional_info}</td>
                 <td className="px-6 py-4 text-gray-900">
                   {new Date(item.created_at).toLocaleDateString('id-ID')}

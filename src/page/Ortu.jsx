@@ -29,7 +29,7 @@ const Ortu = () => {
       setSuccessMsg('');
       setErrorMsg('');
     }, 2000);
-    return () => clearTimeout();
+    return () => clearTimeout(timer);
   }, [successMsg, errorMsg]);
 
   const headTable = [

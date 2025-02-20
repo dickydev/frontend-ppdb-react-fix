@@ -32,7 +32,8 @@ const HasilSiswa = () => {
         }
     }, [id]);
 
-    const dataSource = id ? fetchedData : { ...state.form1Siswa, ...state.form2Siswa };
+    //const dataSource = id ? fetchedData : { ...state.form1Siswa, ...state.form2Siswa };
+    const dataSource = id ? fetchedData || {} : { ...state.form1Siswa, ...state.form2Siswa };
 
     const handleSubmit = async (e) => {
         if (id) return;
@@ -76,8 +77,8 @@ const HasilSiswa = () => {
                     title={'Hasil Observasi Siswa'} 
                     judul='IDENTITAS PESERTA DIDIK'
                     to='/siswa'
-                    errorMsg={errorMsg}
-                    successMsg={successMsg}
+                    errorMsg={id ? '' : errorMsg}
+                    successMsg={id ? '' : successMsg}
                     onSubmit={id ? null : handleSubmit}
                 >
                     <div className='px-0 mt-4 text-gray-800'>
