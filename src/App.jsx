@@ -148,7 +148,6 @@ const App = () => {
                         <HasilOrtu />
                     </ProtectedRoute>
                 } />
-                <Route path="*" element={<Error />} />
             </Routes>
         </BrowserRouter>  
         </FormProvider>   

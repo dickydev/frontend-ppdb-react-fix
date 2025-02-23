@@ -1,33 +1,32 @@
 /* eslint-disable no-unused-vars */
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import Forum from '../template/Forum';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormContext } from '../Context/FormContext';
 
 const ForumMedical = () => {
+    const navigate = useNavigate();
 const {state,updateFormData} = useFormContext();
-const [dataForm, setdataForm] = useState(state.forumMedical || {
+const [dataForm, setdataForm] = useState(state.formMedic || {
     student_name: '',
-    student_email: '',
     participant_card_number: '',
     place_of_birth: '',
     date_of_birth: '',
     gender: '',
+    address: '',
     medical_notes: '',
     allergies: '',
     medical_conditions: '',
-    additional_info: '',
     weight:'',
     height:'',
     blood_type: '',
-    parent_knowledge_medical_history: '',
-    parent_knowledge_smoking_history: '0',
-    parent_knowledge_tattoo_piercing: '0',
+    parent_knowledge_smoking_history: '',
+    parent_knowledge_tattoo_piercing: '',
     interview_date: '',
     interviewer_name: '',
     interviewer_notes: '',
 });
- const navigate = useNavigate();
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -35,6 +34,7 @@ const [dataForm, setdataForm] = useState(state.forumMedical || {
             ...dataForm,
             [name]: value,
         });
+        console.log(dataForm)
     };
 
     const handleSubmit = async (e) => {
@@ -42,140 +42,311 @@ const [dataForm, setdataForm] = useState(state.forumMedical || {
         updateFormData('formMedic', dataForm); 
         navigate('/hasilMedical'); 
     };
+
+    useEffect(() => {
+        if (state.formMedic) {
+            setdataForm(state.formMedic);
+        }
+    }, [state.formMedic]);
+    
+
   return (
     <Forum title={'Forum Data Medical Check Up'}>
             <div className='max-w-5xl px-4 mx-auto mt-5'>
                 <div className='w-full pb-4 mt-16 border-b-2'>
-                    <h1 className='mt-1 text-xl font-semibold text-gray-600'>Pengetahuan Orang Tua Tentang Anak</h1>
+                    <h1 className='mt-1 text-xl font-semibold text-gray-600'>Data Identitas Calon Peserta Didik</h1>
                 </div>
                 <div className='mt-5'>
 
-                    <from className='w-full text-gray-600 mt-7 ' onSubmit={handleSubmit}>
+                    <form className='w-full text-gray-600 mt-7 ' onSubmit={handleSubmit}>
                     <div className="mb-4">
                             <label
                                 htmlFor="student_name"
                                 className="block mb-2 font-medium text-md e"
                             >
-                                Nama Siswa
+                                Nama Calon Peserta Didik
                             </label>
                             <input
                                 type="text"
                                 id="student_name"
                                 name='student_name'
+                                value={dataForm.student_name}
+                                onChange={handleChange}
                                 className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                placeholder="Masukan Nama Siswa"
+                                placeholder="Masukan Nama Calon Peserta Didik"
                                 required
                             />
                         </div>
                         <div className="mb-4">
                             <label
-                                htmlFor=" student_email"
+                                htmlFor="participant_card_number"
                                 className="block mb-2 font-medium text-md e"
                             >
-                                Email Siswa
+                                Nomor Kartu Peserta
+                            </label>
+                            <input
+                                type="number"
+                                id="participant_card_number"
+                                name='participant_card_number'
+                                value={dataForm.participant_card_number}
+                                onChange={handleChange}
+                                className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                placeholder="Masukan Nomor Kartu Peserta Calon Peserta Didik"
+                                required
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label
+                                htmlFor="place_of_birth"
+                                className="block mb-2 font-medium text-md e"
+                            >
+                                Tempat Lahir Calon Peserta Didik
                             </label>
                             <input
                                 type="text"
-                                id=" student_email"
-                                name=' student_email'
+                                id="place_of_birth"
+                                name='place_of_birth'
+                                value={dataForm.place_of_birth}
+                                onChange={handleChange}
                                 className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                placeholder="Masukan Email Siswa"
+                                placeholder="Masukan Tempat Lahir Calon Peserta Didik"
                                 required
                             />
                         </div>
                         <div className="mb-4">
+                                <label
+                                    htmlFor="date_of_birth"
+                                    className="block mb-2 font-medium text-md e"
+                                >
+                                    Tanggal Lahir Calon Peserta Didik
+                                </label>
+                                <input
+                                    type="date"
+                                    id="date_of_birth"
+                                    name="date_of_birth"
+                                    value={dataForm.date_of_birth}
+                                    onChange={handleChange}
+                                    className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                    placeholder="Masukan Tanggal "
+                                    required
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="gender" className="block mb-2 font-medium text-md">
+                                    Gender
+                                </label>
+                                <select
+                                    id="gender"
+                                    name="gender"
+                                    value={dataForm.gender}
+                                    onChange={handleChange}
+                                    className={`select-option border border-gray-300 h-12 ${dataForm.gender ? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`}
+                                    aria-label="Pilih Gender"
+                                    defaultValue=""
+                                    required
+                                >
+                                    <option value="" disabled className="text-gray-600">
+                                        Pilih Gender
+                                    </option>
+                                    <option value="Male" className="text-black">
+                                        Laki-Laki
+                                    </option>
+                                    <option value="Female" className="text-black">
+                                        Perempuan
+                                    </option>
+                                </select>
+                            </div>
+                            <div className="mb-4">
+                                <label
+                                    htmlFor="address"
+                                    className="block mb-2 font-medium text-md e"
+                                >
+                                    Alamat Calon Peserta Didik
+                                </label>
+                                <input
+                                    type="text"
+                                    id="address"
+                                    name="address"
+                                    value={dataForm.address}
+                                    onChange={handleChange}
+                                    className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                    placeholder="Masukan Alamat Tempat Tinggal Calon Peserta Didik"
+                                    required
+                                />
+                            </div>
+                            <div className='w-full pb-4 mt-16 border-b-2'>
+                                <h1 className='mt-1 text-xl font-semibold text-gray-600'>Data Observasi Kesehatan Calon Peserta Didik</h1>
+                            </div>
+                        <div className="mb-4">
                             <label
-                                htmlFor="Tinggi badan"
+                                htmlFor="height"
                                 className="block mb-2 font-medium text-md e"
                             >
                                 Tinggi Badan
                             </label>
                             <input
-                                type="text"
-                                id="Tinggi badan"
+                                type="number"
+                                id="height"
+                                name="height"
+                                value={dataForm.height}
+                                onChange={handleChange}
                                 className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                placeholder="Tinggi Badan"
-                                required=""
+                                placeholder="Masukan Tinggi Badan Dalam CM (contoh : 170)"
+                                required
                             />
                         </div>
                         <div className="mb-4">
                             <label
-                                htmlFor="berat badan"
+                                htmlFor="height"
                                 className="block mb-2 font-medium text-md e"
                             >
                                 Berat Badan
                             </label>
                             <input
-                                type="text"
-                                id="berat badan"
+                                type="number"
+                                id="weight"
+                                name="weight"
+                                value={dataForm.weight}
+                                onChange={handleChange}
                                 className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                placeholder="Berat Badan"
-                                required=""
+                                placeholder="Masukan Berat Badan Dalam KG (contoh : 70)"
+                                required
+                            />
+                        </div>
+                        <div className="mb-4">
+                                <label htmlFor="blood_type" className="block mb-2 font-medium text-md">
+                                    Golong Darah
+                                </label>
+                                <select
+                                    id="blood_type"
+                                    name="blood_type"
+                                    value={dataForm.blood_type}
+                                    onChange={handleChange}
+                                    className={`select-option border border-gray-300 h-12 ${dataForm.blood_type ? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`}
+                                    aria-label="Pilih Golongan Darah Calon Peserta Didik"
+                                    defaultValue=""
+                                    required
+                                >
+                                    <option value="" disabled className="text-gray-600">
+                                        Pilih Golongan Darah Calon Peserta Didik
+                                    </option>
+                                    <option value="A+" className="text-black">
+                                        A+
+                                    </option>
+                                    <option value="A-" className="text-black">
+                                        A-
+                                    </option>
+                                    <option value="B+" className="text-black">
+                                        B+
+                                    </option>
+                                    <option value="B-" className="text-black">
+                                        B-
+                                    </option>
+                                    <option value="AB+" className="text-black">
+                                        AB+
+                                    </option>
+                                    <option value="AB-" className="text-black">
+                                        AB-
+                                    </option>
+                                    <option value="O" className="text-black">
+                                        O+
+                                    </option>
+                                    <option value="O-" className="text-black">
+                                        O-
+                                    </option>
+                                </select>
+                            </div>
+                        <div className="mb-4">
+                            <label
+                                htmlFor="medical_conditions"
+                                className="block mb-2 font-medium text-md e"
+                            >
+                                Riwayat Penyakit
+                            </label>
+                            <input
+                                type="text"
+                                id="medical_conditions"
+                                name="medical_conditions"
+                                value={dataForm.medical_conditions}
+                                onChange={handleChange}
+                                className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
+                                placeholder='Masukan "Tidak Ada" Jika Tidak Mempunyai Riwayat Penyakit'
+                                required
                             />
                         </div>
                         <div className="mb-4">
                             <label
-                                htmlFor="golongan darah"
+                                htmlFor="allergies"
                                 className="block mb-2 font-medium text-md e"
                             >
-                               Golongan Darah
+                               Riwayat Alergi
                             </label>
                             <input
                                 type="text"
-                                id="golongan darah"
+                                id="allergies"
+                                name="allergies"
+                                value={dataForm.allergies}
+                                onChange={handleChange}
                                 className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                placeholder="Golongan Darah"
-                                required=""
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label
-                                htmlFor="riwayat penyakit"
-                                className="block mb-2 font-medium text-md e"
-                            >
-                               Riwayat Penyakit
-                            </label>
-                            <input
-                                type="text"
-                                id="riwayat penyakit"
-                                className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                placeholder="Riwayat Penyakit"
-                                required=""
+                                placeholder='Masukan "Tidak Ada" Jika Tidak Mempunyai Riwayat Alergi'
+                                required
                             />
                         </div>
                         <div className='flex justify-between w-full gap-3 mb-4'>
                             <div className="w-[49%]">
                             <label
-                                htmlFor="riwayat merokok"
+                                htmlFor="parent_knowledge_smoking_history"
                                 className="block mb-2 font-medium text-md e"
                             >
                                 Riwayat Merokok
                             </label>
                                 <select
-                                    id="riwayat merokok"
-                                    className=" border border-gray-300 h-12 text-gray-400  text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon  block w-full p-2.5 "
-                                >
-                                    <option selected="">Choose a country</option>
-                                    <option value="US" className='active:bg-maroon'>Pernah</option>
-                                    <option value="CA">Tidak</option>
-                                  
+                                    id="parent_knowledge_smoking_history"
+                                    name="parent_knowledge_smoking_history"
+                                    value={dataForm.parent_knowledge_smoking_history}
+                                    onChange={handleChange}
+                                    className={`select-option border border-gray-300 h-12 ${dataForm.parent_knowledge_smoking_history ? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`}
+                                    aria-label=''
+                                    defaultValue=""
+                                    required
+                                    >
+                                    <option value="" disabled className="text-gray-600">
+                                        Pilih Jawaban
+                                    </option>
+                                    <option value="1" className="text-black">
+                                        Pernah
+                                    </option>
+                                    <option value="0" className="text-black">
+                                        Tidak Pernah
+                                    </option>
                                 </select>
                             </div>
                             <div className="w-[49%]">
                             <label
-                                htmlFor="riwayat tato"
+                                htmlFor="parent_knowledge_tattoo_piercing"
                                 className="block mb-2 font-medium text-md e"
                             >
                                 Tindik / Tato
                             </label>
                                 <select
-                                    id="riwayat tato"
-                                    className=" border border-gray-300 text-gray-400 h-12 text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon  block w-full pe-4 p-2.5 "
-                                >
-                                    <option selected="">Choose a country</option>
-                                    <option value="US">Pernah</option>
-                                    <option value="CA">Tidak</option>
-                                  
+                                    id="parent_knowledge_tattoo_piercing"
+                                    name="parent_knowledge_tattoo_piercing"
+                                    value={dataForm.parent_knowledge_tattoo_piercing}
+                                    onChange={handleChange}
+                                    className={`select-option border border-gray-300 h-12 ${dataForm.parent_knowledge_tattoo_piercing ? 'text-black' : 'text-gray-400'} text-sm rounded-lg focus:ring-maroon outline-none focus:border-maroon block w-full p-2.5`}
+                                    aria-label=''
+                                    defaultValue=""
+                                    required
+                                >   
+                                    <option value="" disabled className="text-gray-600">
+                                        Pilih Jawaban
+                                    </option>
+                                    <option value="1" className="text-black">
+                                        Ada
+                                    </option>
+                                    <option value="0" className="text-black">
+                                        Tidak Ada
+                                    </option>
                                 </select>
                             </div>
                          
@@ -184,69 +355,78 @@ const [dataForm, setdataForm] = useState(state.forumMedical || {
                         
                         <div className="mb-4">
                             <label
-                                htmlFor="hasil pemeriksaan"
+                                htmlFor="medical_notes"
                                 className="block mb-2 font-medium text-md e"
                             >
-                               Setelah Melakukan Pemeriksaan maka kami menyatakan
+                               Setelah Melakukan Pemeriksaan Maka Kami Menyatakan
                             </label>
                             <input
                                 type="text"
-                                id="hasil pemeriksaan"
+                                id="medical_notes"
+                                name="medical_notes"
+                                value={dataForm.medical_notes}
+                                onChange={handleChange}
                                 className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-                                placeholder="Setelah Melakukan Pemeriksaan maka kami menyatakan"
-                                required=""
+                                placeholder="Setelah Melakukan Pemeriksaan Maka Kami Menyatakan"
+                                required
                             />
                         </div>
 
 
                       
                         <div className='w-full pb-4 mt-8 mb-4 border-b-2'>
-                            <h1 className='mt-1 text-xl font-semibold'>Keterangan Pewawancara</h1>
+                            <h1 className='mt-1 text-xl font-semibold'>Tanggal Pewawancara</h1>
                         </div>
                         <div className="mb-4">
                             <label
-                                htmlFor="tanggal wawancara"
+                                htmlFor="interview_date"
                                 className="block mb-2 font-medium text-md e"
                             >
                                Tanggal Wawancara
                             </label>
                             <input
                                 type="date"
-                                id="tanggal wawancara"
+                                id="interview_date"
+                                name="interview_date"
+                                value={dataForm.interview_date}
+                                onChange={handleChange}
                                 className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
                                 placeholder="Tanggal Wawancara"
-                                required=""
+                                required
                             />
                         </div>
                         <div className="mb-4">
                             <label
-                                htmlFor="nama pewawancara"
+                                htmlFor="interviewer_name"
                                 className="block mb-2 font-medium text-md e"
                             >
                                Nama Pewawancara
                             </label>
                             <input
-                                type="teks"
-                                id="nama pewawancara"
+                                type="text"
+                                id="interviewer_name"
+                                name="interviewer_name"
+                                value={dataForm.interviewer_name}
+                                onChange={handleChange}
                                 className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
                                 placeholder="Nama Pewawancara"
-                                required=""
+                                required
                             />
                         </div>
 
                         <div className="mb-4">
-                            <label
-                                htmlFor="catatan "
-                                className="block mb-2 font-medium text-md e"
-                            >
-                                Catatan Khusus Pewawancara
-                            </label>
-                            <textarea name="" id="catatan"
-                                className="shadow-sm bg-white border-[2px] border-gray-300 outline-none  text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 h-12"
-
-                            ></textarea>
-                         
-                        </div>
+                        <label htmlFor="interviewer_notes" className="block mb-2 font-medium text-md">
+                            Catatan Khusus Pewawancara
+                        </label>
+                        <textarea
+                            id="interviewer_notes"
+                            name="interviewer_notes"
+                            value={dataForm.interviewer_notes}
+                            onChange={handleChange}
+                            className="shadow-sm bg-white border-[2px] border-gray-300 outline-none text-sm rounded-md focus:ring-maroon focus:border-maroon block w-full p-2.5 min-h-[100px]"
+                            placeholder="Masukan Catatan Apabila Ada"
+              />
+            </div>
 
 
                         <div className='flex justify-end w-full gap-3 mt-8'>
@@ -257,17 +437,17 @@ const [dataForm, setdataForm] = useState(state.forumMedical || {
                             >
                                 Previous
                             </Link>
-                            <Link
+                            <button
                                 to={'/hasilMedical'}
                                 type="submit"
                                 className="px-5 py-2 text-sm font-semibold text-center text-white rounded-md bg-maroon hover:bg-red-900 active:scale-95 focus:outline-none "
                             >
                                 Submit
-                            </Link>
+                            </button>
                         </div>
 
 
-                    </from>
+                    </form>
                 </div>
             </div>
 

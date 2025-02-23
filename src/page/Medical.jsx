@@ -35,12 +35,12 @@ const Siswa = () => {
     const headTable = [
         { judul: "Nama" },
         { judul: "Nomor Katu Peserta" },
-        { judul: "Email" },
         { judul: "Berat Badan" },
         { judul: "Tinggi Badan" },
         { judul: "Golongan Darah" },
-        {judul: "Info Tambahan"},
-        {judul: "Tanggal Di tambahkan"}
+        {judul: "Hasil"},
+        {judul: "Tanggal Ditambahkan"},
+        { judul: "Action" },
     ];
 
 
@@ -80,6 +80,12 @@ const Siswa = () => {
                 Loading...
               </td>
             </tr>
+          ) :  data.length === 0 ?(
+            <tr>
+            <td colSpan={headTable.length} className="text-center py-4">
+              Tidak Ada Data
+            </td>
+          </tr>
           ) : (
             data.map((item, index) => (
               <tr className="bg-white border-b" key={item.id}>
@@ -90,9 +96,22 @@ const Siswa = () => {
                 <td className="px-6 py-4 text-gray-900">{item.weight}</td>
                 <td className="px-6 py-4 text-gray-900">{item.height}</td>
                 <td className="px-6 py-4 text-gray-900">{item.blood_type}</td>
-                <td className="px-6 py-4 text-gray-900">{item.additional_info}</td>
+                <td className="px-6 py-4 text-gray-900">{item.medical_notes}</td>
                 <td className="px-6 py-4 text-gray-900">
                   {new Date(item.created_at).toLocaleDateString('id-ID')}
+                </td>
+                <td className='flex justify-center items-center py-6'>
+                                <button className='flex items-center justify-between gap-x-5'>
+                                  <button onClick={() => handleOpenModal(item.id)} className="text-red-700 hover:text-red-500 cursor-pointer">
+                                    <FaEye size={18} />
+                                  </button>
+                                  <button
+                                    onClick={() => navigate(`/hasilMedical/${item.id}`, { state: { childName: item.child_name } })}
+                                    className="text-red-700 hover:text-red-500 cursor-pointer"
+                                  >
+                                    <FaFilePdf size={18} />
+                                  </button>
+                                </button>
                 </td>
               </tr>
             ))
@@ -131,8 +150,9 @@ const Siswa = () => {
           </nav>
         </div>
       </div>
+      {showModal && <DetailMedical id={selectedId} onClose={() => setShowModal(false)} />}
         </Dashboard>
-    )
-}
+    );
+};
 
 export default Siswa
