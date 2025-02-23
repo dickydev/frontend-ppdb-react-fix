@@ -7,7 +7,7 @@ const Notification = ({ type, message, onClose }) => {
   const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
 
   return (
-    <div className={`relative mx-2 ${bgColor} px-4 py-2 rounded-lg text-white`}>
+    <div className={`relative ${bgColor} px-4 py-2 rounded-lg text-white`}>
       <p>{message}</p>
       {onClose && (
         <button 

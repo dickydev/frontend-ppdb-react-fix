@@ -34,7 +34,7 @@ const LoginPage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Login Form Section */}
-      <div className="flex flex-col md:flex-row flex-1 justify-center">
+      <div className="flex flex-col md:flex-row flex-1 justify-center mx-4 md:mx-0">
         {/* Left Image Section */}
         <div className="hidden md:flex md:w-2/3 bg-red-900 items-center justify-center">
           <img
@@ -45,7 +45,7 @@ const LoginPage = () => {
         </div>
 
         {/* Right Form Section */}
-        <div className="flex flex-col w-full md:w-1/3 bg-white p-8 md:p-16 justify-center align-items">
+        <div className="flex flex-col w-full md:w-1/2 lg:w-1/3 bg-white p-8 md:p-16 justify-center rounded-xl shadow-lg md:rounded-none md:shadow-none">
           <div className="mb-8 text-left">
             <h2 className="text-2xl font-bold text-red-900">
               Sistem Manajemen Wawancara PPDB Letris Indonesia 2
