@@ -70,8 +70,8 @@ const HasilMedical = () => {
                         { title: 'Jenis Kelamin', value: dataSource?.gender == 'Male' ? 'Laki-laki' : 'Perempuan' },
                         { title: 'Alamat Tinggal', value: dataSource?.address || '-' },
                     ]}
-                    title="HEALTHY OBSERVATION RESULTS"
-                    judul="IDENTITAS PESERTA DIDIK"
+                    title="Hasil Observasi Medis"
+                    judul="HASIL MEDICAL PESERTA DIDIK"
                     to="/medical"
                     errorMsg={errorMsg}
                     successMsg={successMsg}
@@ -94,7 +94,7 @@ const HasilMedical = () => {
                                 { e: 'Pewawancara', value: dataSource?.interviewer_name || '-' },
                             ].map((item, i) => (
                                 <li key={i} className='flex items-start justify-between gap-1 text-md sm:text-lg'>
-                                    <p className='sm:w-[460px] w-[360px]'>{item.e}</p>
+                                    <p className='sm:w-[560px] w-[360px]'>{item.e}</p>
                                     <div className='flex gap-3 ms-2 sm:w-[400px] w-[310px]'>
                                         : <p className='text-wrap'>{item.value}</p>
                                     </div>
