@@ -19,6 +19,7 @@ const LoginPage = () => {
       const response = await post("/auth/login", { username, password });
       if (response?.status === 200) {
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userName", response.data.username);
         localStorage.setItem("refreshToken", response.data.refreshToken);
         navigate('/home');
       }
