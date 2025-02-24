@@ -17,7 +17,7 @@ const DashboardCard = ({ to, title, count, description }) => {
       </span>
       <div className="flex flex-col space-y-4">
         <h1 className='text-xl font-semibold text-red-900'>{title}</h1>
-        <h2 className='text-5xl font-extrabold text-gray-900'>{count}</h2>
+        <h2 className='text-5xl font-extrabold text-gray-600'>{count}</h2>
         <span className='border-b-[1px] border-maroon'></span>
         <div className="flex items-center space-x-2">
           <FaArrowUpRightFromSquare size={15} className='text-red-600' />

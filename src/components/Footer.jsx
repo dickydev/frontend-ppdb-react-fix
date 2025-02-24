@@ -2,10 +2,10 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-white shadow-2xl text-gray-900 py-4 rounded-xl left-0 right-0 mx-4">
+    <footer className="bg-white shadow-2xl text-gray-900 py-4 rounded-xl left-0 right-0">
       <div className="container mx-auto px-4 text-center">
         {/* Copyright Text */}
-        <p className="text-md text-red-900">
+        <p className="text-sm md:text-md text-red-900">
           Copyright © 2025. All rights reserved LEO Group.
         </p>
         {/* Version Info */}

@@ -98,11 +98,11 @@ const Home = () => {
             </div>
           </div>
         </div>
-
         {/* Footer */}
-        <div className="mt-8">
+        <div className="mt-8 mx-0 lg:mx-16">
           <Footer />
         </div>
+
       </Dashboard>
     </div>
   );
