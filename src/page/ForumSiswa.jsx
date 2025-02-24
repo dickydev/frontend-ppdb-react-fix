@@ -94,7 +94,7 @@ const ForumSiswa = () => {
                                 htmlFor="student_vision"
                                 className="block mb-2 font-medium text-md e"
                             >
-                                Alasan Memilih Kompetensi Keahlian
+                                Visi Siswa
                             </label>
                             <textarea
                                 type="text"
@@ -112,7 +112,7 @@ const ForumSiswa = () => {
                                 htmlFor="student_mission"
                                 className="block mb-2 font-medium text-md e"
                             >
-                                Alasan Memilih Kompetensi Keahlian
+                                Misi
                             </label>
                             <textarea
                                 type="text"
