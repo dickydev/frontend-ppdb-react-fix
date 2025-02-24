@@ -206,7 +206,7 @@ const Dashboard = ({ title, children }) => {
                     </div>
                 </aside>
                 <div className="p-4 mt-3 bg-neutral-100/20 md:ml-64">
-                    <div className=" border-gray-200 rounded-lg mt-14 min-h-[620px] w-full">
+                    <div className=" border-gray-200  mt-14 min-h-[620px] ">
                         {children}
                     </div>
                 </div>
