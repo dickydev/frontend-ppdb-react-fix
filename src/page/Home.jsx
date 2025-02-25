@@ -51,7 +51,7 @@ const Home = () => {
   const prepareChartData = () => {
     if (!chartData) return null;
 
-    const labels = chartData.map(item => `Week ${item.week}, ${item.month}/${item.year}`);
+    const labels = chartData.map(item => `Minggu ke-${item.week}, ${item.month}/${item.year}`);
     const medicalData = chartData.map(item => item.medical || 0);
     const studentData = chartData.map(item => item.students || 0);
     const parentData = chartData.map(item => item.parents || 0);
