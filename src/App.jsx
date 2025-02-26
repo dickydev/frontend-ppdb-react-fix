@@ -17,6 +17,7 @@ import HasilSiswa from './page/Hasil/HasilSiswa';
 import HasilMedical from './page/Hasil/HasilMedical';
 import HasilOrtu from './page/Hasil/HasilOrtu';
 import LoginPage from './page/authentication/authLoginCover';
+import DasboardAdmin from './page/admin/DasboardAdmin';
 import { FormProvider } from './Context/FormContext';
 const App = () => {
     return ( 
@@ -29,6 +30,15 @@ const App = () => {
                     element={
                         <ProtectedRoute>
                             <Home />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route path="/admin" element={<LoginPage />} />
+                <Route
+                    path="/admin"
+                    element={
+                        <ProtectedRoute>
+                            <DasboardAdmin />
                         </ProtectedRoute>
                     }
                 />

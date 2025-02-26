@@ -8,8 +8,10 @@ import {useLocation} from 'react-router-dom';
 import Notification from '../components/Notification/Notif';
 import { useNavigate } from 'react-router-dom';
 import DetailSiswa from './ForumSiswa/DetailSiswa';
+import useTitle from '../utils/useTitle';
 
 const Siswa = () => {
+  useTitle('Data Siswa - Dasboard');
   const location = useLocation();
   const navigate = useNavigate();
   const [successMsg, setSuccessMsg] = useState(location.state?.successMsg);

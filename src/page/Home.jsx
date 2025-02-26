@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
@@ -5,11 +6,13 @@ import Dashboard from '../template/Dashboard';
 import { get } from '../utils/api';
 import DashboardCard from '../components/cardDashboard/CardDashboard';
 import Footer from '../components/Footer';
+import useTitle from '../utils/useTitle';
 
 // Registrasi komponen Chart.js yang diperlukan
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Home = () => {
+  useTitle('Home - PPDB Letris 2');
   const [counts, setCounts] = useState({ medical: 0, students: 0, parents: 0 });
   const [chartData, setChartData] = useState(null);
 
@@ -41,7 +44,7 @@ const Home = () => {
     const interval = setInterval(() => {
       fetchCounts();
       fetchChartData();
-    }, 100); 
+    }, 5000); 
 
     // Bersihkan interval saat komponen di-unmount
     return () => clearInterval(interval);

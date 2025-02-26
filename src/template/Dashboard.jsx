@@ -1,9 +1,13 @@
+/* eslint-disable no-empty */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { FaRegFileAlt, FaRegFileArchive } from 'react-icons/fa';
 import { FaHouse, FaBars, FaRegCircleUser, FaBezierCurve, FaUser, FaFileMedical, FaChild , FaRegMessage, FaRepeat, FaRegUser, FaArrowRightFromBracket, FaCreativeCommonsNd } from 'react-icons/fa6';
 import img from '../images/logo.png';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { post } from '../utils/api';
 
 const ModalProfil = ({ modal }) => {
     return (
@@ -16,10 +20,20 @@ const ModalProfil = ({ modal }) => {
 const Dashboard = ({ title, children }) => {
     const navigate = useNavigate();
     const userName = localStorage.getItem("userName") || "User";
-    const Logout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userName")
-        navigate("/");
+    const Logout = async () => {
+        try {
+            const response = await post("/auth/logout");
+            // if (!response.ok) {
+            //     throw new Error("Logout failed");
+                
+            // }
+    
+            localStorage.removeItem("token");
+            localStorage.removeItem("userName");
+            navigate("/");
+        } catch (error) {
+            console.error("Logout Error:", error);
+        }
     };
 
     const data = [

@@ -8,8 +8,10 @@ import {useLocation} from 'react-router-dom';
 import Notification from '../components/Notification/Notif';
 import DetailOrtu from './ForumOrangTua/DetailOrtu';
 import { useNavigate } from 'react-router-dom';
+import useTitle from '../utils/useTitle';
 
 const Ortu = () => {
+  useTitle('Data Orang Tua - Dashboard');
   const location = useLocation();
   const navigate = useNavigate();
   const [successMsg, setSuccessMsg] = useState(location.state?.successMsg);

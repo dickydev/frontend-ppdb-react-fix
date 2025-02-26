@@ -8,8 +8,10 @@ import {useLocation} from 'react-router-dom';
 import DetailMedical from './ForumMedical/DetailMedical';
 import Notification from '../components/Notification/Notif';
 import { useNavigate } from 'react-router-dom';
+import useTitle from '../utils/useTitle';
 
-const Siswa = () => {
+const Medical = () => {
+  useTitle('Data Medis - Dashboard');
   const location = useLocation();
   const navigate = useNavigate();
   const [successMsg, setSuccessMsg] = useState(location.state?.successMsg);
@@ -23,6 +25,8 @@ const Siswa = () => {
     setSelectedId(id);
     setShowModal(true);
   };
+
+
 
   useEffect(()=> {
     const timer = setTimeout(()=> {
@@ -155,4 +159,4 @@ const Siswa = () => {
     );
 };
 
-export default Siswa
+export default Medical
