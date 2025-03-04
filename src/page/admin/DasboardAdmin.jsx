@@ -1,18 +1,86 @@
-/* eslint-disable no-unused-vars */
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { FaUser, FaGraduationCap } from 'react-icons/fa6';
 import Dashboard from '../../template/Dashboard';
+import { Bar } from 'react-chartjs-2';
 import Footer from '../../components/Footer';
 import useTitle from '../../utils/useTitle';
 import CardStatAdmin from '../../components/cardDashboard/CardStatAdmin';
+import { get } from '../../utils/api';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+
+// Registrasi komponen Chart.js yang diperlukan
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const DasboardAdmin = () => {
-  useTitle('Admin - PPDB Letris 2');
+  const [chartData, setChartData] = useState(null);
+  
+  const fetchChartData = async () => {
+    try {
+      const data = await get('/dashboard/count-data-week-permonth');
+      setChartData(data);
+    } catch (error) {
+      console.error('Error fetching chart data:', error);
+    }
+  };
 
+   useEffect(() => {
+     
+      fetchChartData();
+  
+      const interval = setInterval(() => {
+
+        fetchChartData();
+      }, 5000); 
+  
+      // Bersihkan interval saat komponen di-unmount
+      return () => clearInterval(interval);
+    }, []);
+    const prepareChartData = () => {
+      if (!chartData) return null;
+  
+      const labels = chartData.map(item => `Minggu ke-${item.week}, ${item.month}/${item.year}`);
+      const medicalData = chartData.map(item => item.medical || 0);
+      const studentData = chartData.map(item => item.students || 0);
+      const parentData = chartData.map(item => item.parents || 0);
+  
+      return {
+        labels,
+        datasets: [
+          {
+            label: 'Medical',
+            data: medicalData,
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          },
+          {
+            label: 'Students',
+            data: studentData,
+            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          },
+          {
+            label: 'Parents',
+            data: parentData,
+            backgroundColor: 'rgba(255, 206, 86, 0.5)',
+          },
+        ],
+      };
+    };
+
+    
+  useTitle('Admin - PPDB Letris 2');
+  const headTable = ['User', 'Action', 'Timestamp'];
+  const dataTable = [
+    { user: 'John Doe', action: 'Login', timestamp: '2025-03-04 10:00' },
+    { user: 'Jane Smith', action: 'Logout', timestamp: '2025-03-04 10:15' },
+    { user: 'Alice Johnson', action: 'Added Medical ID 19 Name Andika Dwi Wijaya', timestamp: '2025-03-04 10:30' },
+    { user: 'Alice Johnson', action: 'Added Medical ID 19 Name Andika Dwi Wijaya', timestamp: '2025-03-04 10:30' },
+    { user: 'Alice Johnson', action: 'Added Medical ID 19 Name Andika Dwi Wijaya', timestamp: '2025-03-04 10:30' },
+    { user: 'Alice Johnson', action: 'Added Medical ID 19 Name Andika Dwi Wijaya', timestamp: '2025-03-04 10:30' },
+    { user: 'Alice Johnson', action: 'Added Medical ID 19 Name Andika Dwi Wijaya', timestamp: '2025-03-04 10:30' },
+  ];
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Dashboard title="Dasboard">
-        {/* Wrapper utama dengan flex-grow agar footer di bawah */}
         <div className="flex flex-col mx-auto max-w-7xl xl:flex-row lg:w-full flex-1">
           <div className="w-full h-full xl:w-full xl:px-5 grid grid-cols-12 gap-4 flex-1">
             <div className="col-span-12 md:col-span-3 overflow-hidden group cursor-pointer hover:shadow-lg active:shadow-md rounded-lg bg-white shadow-md relative transition-all duration-300 ease-in-out transform hover:-translate-y-1">
@@ -41,10 +109,59 @@ const DasboardAdmin = () => {
                 </div>
               </div>
             </div>
+            <div className='mt-4 col-span-12 md:col-span-6 h-[500px] overflow-hidden group hover:shadow-lg active:shadow-md rounded-lg bg-white shadow-md relative transition-all duration-300 ease-in-out transform hover:-translate-y-1'>
+              <div className="">
+               
+                <div className="LogData">
+                <table className="min-w-full">
+                    <thead className="bg-red-900">
+                      <tr className="rounded-t-lg">
+                        {headTable.map((head, index) => (
+                          <th
+                            key={index}
+                            className={`py-2 px-4 text-white border-b text-left ${
+                              index === 0 ? "rounded-tl-lg" : index === headTable.length - 1 ? "rounded-tr-lg" : ""
+                            }`}
+                          >
+                            {head}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className=' max-h-full border-red-900'>
+                      {dataTable.map((row, index) => (
+                        <tr key={index}>
+                          <td className="py-2 px-4">{row.user}</td>
+                          <td className="py-2 px-4">{row.action}</td>
+                          <td className="py-2 px-4">{row.timestamp}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div className='mt-4 col-span-12 md:col-span-6 overflow-hidden group hover:shadow-lg active:shadow-md rounded-lg bg-white shadow-md relative transition-all duration-300 ease-in-out transform hover:-translate-y-1'>
+              <div className="p-4 h-full flex flex-col">
+                <div className="flex justify-between items-center pb-2">
+                  <h1 className="text-xl font-semibold text-red-900">Statistik Data Perminggu</h1>
+                </div>
+                <div className="flex-grow flex items-center justify-center">
+                  {chartData ? <Bar 
+                    data={prepareChartData()} 
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                    }}
+                  /> : <p>Loading chart...</p>}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <Footer/>
+        <div className='mt-8'>
+          <Footer/>
+        </div>
       </Dashboard>
     </div>
   );
