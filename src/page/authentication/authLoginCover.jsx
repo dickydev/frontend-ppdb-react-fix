@@ -21,7 +21,12 @@ const LoginPage = () => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userName", response.data.username);
         localStorage.setItem("refreshToken", response.data.refreshToken);
-        navigate('/home');
+        localStorage.setItem("role", response.data.role);
+        if (response.data.role === "admin") {
+          navigate('/dashboard'); 
+        } else {
+          navigate('/home');
+        }
       }
     } catch (err) {
       setErrorMsg("Terjadi kesalahan saat login, Silakan coba lagi!");

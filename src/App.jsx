@@ -35,7 +35,7 @@ const App = () => {
                 />
                 <Route path="/admin" element={<LoginPage />} />
                 <Route
-                    path="/admin"
+                    path="/dashboard"
                     element={
                         <ProtectedRoute>
                             <DasboardAdmin />
