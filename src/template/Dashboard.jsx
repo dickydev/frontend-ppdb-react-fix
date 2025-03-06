@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { FaHouse, FaGraduationCap, FaBars, FaUser, FaFileMedical, FaArrowRightFromBracket } from 'react-icons/fa6';
+import { FaHouse, FaGraduationCap, FaBars, FaUser, FaFileMedical, FaArrowRightFromBracket,FaClockRotateLeft,FaUserGear  } from 'react-icons/fa6';
 import img from '../images/logo.png';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +19,7 @@ const ModalProfil = ({ modal }) => {
 const Dashboard = ({ title, children }) => {
     const navigate = useNavigate();
     const userName = localStorage.getItem("userName") || "User";
+    const userRole = localStorage.getItem("role");
     const Logout = async () => {
         try {
             const response = await post("/auth/logout");
@@ -30,12 +31,23 @@ const Dashboard = ({ title, children }) => {
         }
     };
 
-    const data = [
+    const menuPanitia= [
         { name: 'Home', ic: <FaHouse />, to: '/home' },
         { name: 'Orang Tua', ic: <FaUser />, to: '/ortu' },
-        { name: 'Siswa', ic: <FaGraduationCap size={22} />, to: '/siswa' },
+        { name: 'Siswa', ic: <FaGraduationCap  />, to: '/siswa' },
         { name: 'Medical', ic: <FaFileMedical />, to: '/medical' }
     ];
+
+    const menuAdmin= [
+        { name: 'Dashboard', ic: <FaHouse />, to: '' },
+        { name: 'Orang Tua', ic: <FaUser />, to: '' },
+        { name: 'Siswa', ic: <FaGraduationCap size={22} />, to: '' },
+        { name: 'Medical', ic: <FaFileMedical />, to: '' },
+        { name: 'User', ic: <FaUserGear  size={22} />, to: '' },
+        { name: 'Logging', ic: <FaClockRotateLeft  />, to: '' },
+    ];
+
+    const data = userRole === "admin" ? menuAdmin : menuPanitia;
 
     function tanggal() {
         const date = new Date();

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {useState, useEffect} from 'react';
 import { FaUser, FaGraduationCap } from 'react-icons/fa6';
 import Dashboard from '../../template/Dashboard';
@@ -13,7 +14,39 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const DasboardAdmin = () => {
   const [chartData, setChartData] = useState(null);
-  
+  const [counts, setCounts] = useState({medical: 0, students: 0, parents: 0});
+  const [countOnlineUser, setCountOnlineUser] = useState({online_users: 0});
+  const [countUser, setCountUser] = useState({count_users: 0})
+  const [logData, setLogData] = useState([]);
+
+
+  const fetchLogData = async () => {
+    try {
+      const data = await get('/logging/get-all-log');
+      setLogData(data);
+    } catch (error) {
+      console.error('Error fetching count data:', error);
+    }
+  }
+
+   const fetchCounts = async () => {
+      try {
+        const data = await get('/dashboard/count');
+        setCounts(data);
+      } catch (error) {
+        console.error('Error fetching count data:', error);
+      }
+    };
+
+    const fetchCountUser = async () => {
+      try {
+        const data = await get('/dashboard/count-users');
+        setCountUser(data);
+      } catch (error) {
+        console.error('Error fetching count data:', error);
+      }
+    };
+
   const fetchChartData = async () => {
     try {
       const data = await get('/dashboard/count-data-week-permonth');
@@ -23,13 +56,27 @@ const DasboardAdmin = () => {
     }
   };
 
-   useEffect(() => {
-     
-      fetchChartData();
-  
-      const interval = setInterval(() => {
+  const fetchOnlineUsers = async () => {
+    try {
+      const data = await get('/dashboard/count-online-user');
+      setCountOnlineUser(data);
+    } catch (error) {
+      console.error("Failed load data:", error);
+    }
+  }
 
+   useEffect(() => {
+      fetchCounts();
+      fetchChartData();
+      fetchOnlineUsers();
+      fetchCountUser();
+      fetchLogData();
+      const interval = setInterval(() => {
+        fetchOnlineUsers();
         fetchChartData();
+        fetchCounts();
+        fetchCountUser();
+        fetchLogData();
       }, 5000); 
   
       // Bersihkan interval saat komponen di-unmount
@@ -68,15 +115,7 @@ const DasboardAdmin = () => {
     
   useTitle('Admin - PPDB Letris 2');
   const headTable = ['User', 'Action', 'Timestamp'];
-  const dataTable = [
-    { user: 'John Doe', action: 'Login', timestamp: '2025-03-04 10:00' },
-    { user: 'Jane Smith', action: 'Logout', timestamp: '2025-03-04 10:15' },
-    { user: 'Alice Johnson', action: 'Added Medical ID 19 Name Andika Dwi Wijaya', timestamp: '2025-03-04 10:30' },
-    { user: 'Alice Johnson', action: 'Added Medical ID 19 Name Andika Dwi Wijaya', timestamp: '2025-03-04 10:30' },
-    { user: 'Alice Johnson', action: 'Added Medical ID 19 Name Andika Dwi Wijaya', timestamp: '2025-03-04 10:30' },
-    { user: 'Alice Johnson', action: 'Added Medical ID 19 Name Andika Dwi Wijaya', timestamp: '2025-03-04 10:30' },
-    { user: 'Alice Johnson', action: 'Added Medical ID 19 Name Andika Dwi Wijaya', timestamp: '2025-03-04 10:30' },
-  ];
+  const dataTable = logData;
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -91,7 +130,7 @@ const DasboardAdmin = () => {
               <div className="p-4">
                 <h1 className="text-xl font-semibold text-red-900">Total Online User</h1>
                 <div className="flex justify-center items-center p-4">
-                  <h2 className="mt-4 text-5xl font-extrabold text-gray-600">120</h2>
+                  <h2 className="mt-4 text-5xl font-extrabold text-gray-600">{countOnlineUser.online_users}</h2>
                 </div>
               </div>
             </div>
@@ -102,10 +141,10 @@ const DasboardAdmin = () => {
                   <p className="text-sm text-gray-500">Update 1 month ago</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-5">
-                  <CardStatAdmin icon={FaUser} count={89} label="Orang Tua" />
-                  <CardStatAdmin icon={FaGraduationCap} count={89} label="Siswa" />
-                  <CardStatAdmin icon={FaUser} count={89} label="Data Medical" />
-                  <CardStatAdmin icon={FaUser} count={89} label="User" />
+                  <CardStatAdmin icon={FaUser} count={counts.parents} label="Orang Tua" />
+                  <CardStatAdmin icon={FaGraduationCap} count={counts.students} label="Siswa" />
+                  <CardStatAdmin icon={FaUser} count={counts.medical} label="Data Medical" />
+                  <CardStatAdmin icon={FaUser} count={countUser.count_users} label="User" />
                 </div>
               </div>
             </div>
@@ -131,9 +170,11 @@ const DasboardAdmin = () => {
                     <tbody className=' max-h-full border-red-900'>
                       {dataTable.map((row, index) => (
                         <tr key={index}>
-                          <td className="py-2 px-4">{row.user}</td>
+                          <td className="py-2 px-4">{row.full_name}</td>
                           <td className="py-2 px-4">{row.action}</td>
-                          <td className="py-2 px-4">{row.timestamp}</td>
+                          <td className="py-2 px-4">
+                            {new Date(row.timestamp).toLocaleString('id-ID')}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
