@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react';
+import React, {useReducer} from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './utils/middleware/ProtectedRoute'; 
 import Home from './page/Home';
@@ -19,9 +19,11 @@ import HasilOrtu from './page/Hasil/HasilOrtu';
 import LoginPage from './page/authentication/authLoginCover';
 import DasboardAdmin from './page/admin/DasboardAdmin';
 import { FormProvider } from './Context/FormContext';
+import { AuthProvider } from './Context/AuthContext';
 const App = () => {
     return ( 
-        <FormProvider>
+<AuthProvider>
+    <FormProvider>
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<LoginPage />} />
@@ -160,7 +162,8 @@ const App = () => {
                 } />
             </Routes>
         </BrowserRouter>  
-        </FormProvider>   
+    </FormProvider>
+</AuthProvider>   
     );
 };
 

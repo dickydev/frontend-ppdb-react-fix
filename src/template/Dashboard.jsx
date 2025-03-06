@@ -1,12 +1,13 @@
 /* eslint-disable no-empty */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import { FaHouse, FaGraduationCap, FaBars, FaUser, FaFileMedical, FaArrowRightFromBracket,FaClockRotateLeft,FaUserGear  } from 'react-icons/fa6';
+import React, { useState, useContext } from 'react';
+import { FaHouse, FaGraduationCap, FaBars, FaUser, FaFileMedical, FaArrowRightFromBracket, FaClockRotateLeft, FaUserGear } from 'react-icons/fa6';
 import img from '../images/logo.png';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { post } from '../utils/api';
+import { AuthContext } from '../Context/AuthContext';
 
 const ModalProfil = ({ modal }) => {
     return (
@@ -18,11 +19,18 @@ const ModalProfil = ({ modal }) => {
 
 const Dashboard = ({ title, children }) => {
     const navigate = useNavigate();
-    const userName = localStorage.getItem("userName") || "User";
-    const userRole = localStorage.getItem("role");
+    const { state, dispatch } = useContext(AuthContext);
+    
+    // Akses data dari state context dengan benar
+    const userName = state?.user || "User"; // Langsung mengakses user dari state
+    const userRole = state?.role; // Langsung mengakses role dari state
+    
     const Logout = async () => {
         try {
             const response = await post("/auth/logout");
+            // Dispatch logout untuk mengosongkan state
+            dispatch({ type: "LOGOUT" });
+            // Jika masih perlu, hapus dari localStorage juga
             localStorage.removeItem("token");
             localStorage.removeItem("userName");
             navigate("/");
@@ -31,22 +39,23 @@ const Dashboard = ({ title, children }) => {
         }
     };
 
-    const menuPanitia= [
+    const menuPanitia = [
         { name: 'Home', ic: <FaHouse />, to: '/home' },
         { name: 'Orang Tua', ic: <FaUser />, to: '/ortu' },
-        { name: 'Siswa', ic: <FaGraduationCap  />, to: '/siswa' },
+        { name: 'Siswa', ic: <FaGraduationCap />, to: '/siswa' },
         { name: 'Medical', ic: <FaFileMedical />, to: '/medical' }
     ];
 
-    const menuAdmin= [
-        { name: 'Dashboard', ic: <FaHouse />, to: '' },
-        { name: 'Orang Tua', ic: <FaUser />, to: '' },
-        { name: 'Siswa', ic: <FaGraduationCap size={22} />, to: '' },
-        { name: 'Medical', ic: <FaFileMedical />, to: '' },
-        { name: 'User', ic: <FaUserGear  size={22} />, to: '' },
-        { name: 'Logging', ic: <FaClockRotateLeft  />, to: '' },
+    const menuAdmin = [
+        { name: 'Dashboard', ic: <FaHouse />, to: '/dashboard' },
+        { name: 'Orang Tua', ic: <FaUser />, to: '/ortu' }, // Menambahkan path yang sesuai
+        { name: 'Siswa', ic: <FaGraduationCap size={22} />, to: '/siswa' }, // Menambahkan path yang sesuai
+        { name: 'Medical', ic: <FaFileMedical />, to: '/medical' }, // Menambahkan path yang sesuai
+        { name: 'User', ic: <FaUserGear size={22} />, to: '/user' }, // Menambahkan path yang sesuai
+        { name: 'Logging', ic: <FaClockRotateLeft />, to: '/logging' }, // Menambahkan path yang sesuai
     ];
 
+    // Gunakan === untuk perbandingan yang lebih ketat
     const data = userRole === "admin" ? menuAdmin : menuPanitia;
 
     function tanggal() {
@@ -105,6 +114,7 @@ const Dashboard = ({ title, children }) => {
                                     <div className={`${showProfile ? 'absolute block' : 'hidden'} w-[240px] z-50 my-4 text-base list-none bg-white divide-y divide-gray-800 rounded shadow right-4 top-12 border-[0.6px] border-gray-900`}>
                                         <div className="px-4 py-3">
                                             <p className="text-sm text-gray-900">{userName}</p>
+                                            <p className="text-sm text-gray-600">{userRole || 'User'}</p>
                                         </div>
                                         <ul>
                                             <li

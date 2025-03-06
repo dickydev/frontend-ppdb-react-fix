@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getToken } from '../utils/tokenStorage';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -9,10 +10,10 @@ const apiClient = axios.create({
   },
 });
 
-// Interceptor untuk menambahkan token secara dinamis
+// Gunakan getToken() alih-alih useContext
 apiClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = getToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
