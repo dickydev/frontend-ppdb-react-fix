@@ -1,5 +1,11 @@
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
+// Context/AuthContext.js
 import { createContext, useReducer, useEffect } from "react";
-import { setToken } from '../utils/tokenStorage';
+import Cookies from 'js-cookie';
+import { verifyToken } from '../utils/tokenValidator';
+import api from '../utils/api';
 
 export const AuthContext = createContext();
 
@@ -8,6 +14,7 @@ const initialState = {
   user: null,
   token: null,
   role: null,
+  isLoading: true
 };
 
 const authReducer = (state, action) => {
@@ -18,9 +25,27 @@ const authReducer = (state, action) => {
         user: action.payload.username,
         token: action.payload.token,
         role: action.payload.role,
+        isLoading: false
       };
+    case "AUTH_ERROR":
     case "LOGOUT":
-      return initialState;
+      return {
+        isAuthenticated: false,
+        user: null,
+        token: null,
+        role: null,
+        isLoading: false
+      };
+    case "LOADING":
+      return {
+        ...state,
+        isLoading: true
+      };
+    case "LOADED":
+      return {
+        ...state,
+        isLoading: false
+      };
     default:
       return state;
   }
@@ -29,10 +54,57 @@ const authReducer = (state, action) => {
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  // Setiap kali token berubah, perbarui di tokenStorage
+  // Check token on mount and set auth state
   useEffect(() => {
-    setToken(state.token);
-  }, [state.token]);
+    const loadAuth = async () => {
+      dispatch({ type: "LOADING" });
+      const token = Cookies.get('auth_token');
+      
+      if (token) {
+        const userData = verifyToken(token);
+        
+        if (userData) {
+          // Set auth headers for all future requests
+          api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          
+          dispatch({
+            type: "LOGIN_SUCCESS",
+            payload: {
+              username: userData.username,
+              token: token,
+              role: userData.role
+            }
+          });
+        } else {
+          // Token invalid, clear it
+          Cookies.remove('auth_token');
+          dispatch({ type: "AUTH_ERROR" });
+        }
+      } else {
+        dispatch({ type: "LOADED" });
+      }
+    };
+    
+    loadAuth();
+  }, []);
+
+  // Store token in cookie when auth state changes
+  useEffect(() => {
+    if (state.isAuthenticated && state.token) {
+      // Store token in cookie with secure settings
+      Cookies.set('auth_token', state.token, { 
+        expires: 7, 
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict'
+      });
+      
+      // Set auth header for all requests
+      api.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
+    } else if (!state.isAuthenticated) {
+      // Remove auth header
+      delete api.defaults.headers.common['Authorization'];
+    }
+  }, [state.isAuthenticated, state.token]);
 
   return (
     <AuthContext.Provider value={{ state, dispatch }}>

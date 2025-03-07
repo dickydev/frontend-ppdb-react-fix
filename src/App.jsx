@@ -1,8 +1,9 @@
 // eslint-disable-next-line no-unused-vars
-import React, {useReducer} from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import ProtectedRoute from './utils/middleware/ProtectedRoute'; 
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { ProtectedRoute, AdminRoute } from './utils/middleware/ProtectedRoute';
 import Home from './page/Home';
+// eslint-disable-next-line no-unused-vars
 import Error from './page/Error';
 import Siswa from './page/Siswa';
 import Ortu from './page/Ortu';
@@ -20,151 +21,50 @@ import LoginPage from './page/authentication/authLoginCover';
 import DasboardAdmin from './page/admin/DasboardAdmin';
 import { FormProvider } from './Context/FormContext';
 import { AuthProvider } from './Context/AuthContext';
+
 const App = () => {
-    return ( 
-<AuthProvider>
-    <FormProvider>
+  return (
+    <AuthProvider>
+      <FormProvider>
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<LoginPage />} />
-                <Route
-                    path="/home"
-                    element={
-                        <ProtectedRoute>
-                            <Home />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route path="/admin" element={<LoginPage />} />
-                <Route
-                    path="/dashboard"
-                    element={
-                        <ProtectedRoute>
-                            <DasboardAdmin />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/siswa"
-                    element={
-                        <ProtectedRoute>
-                            <Siswa />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/ortu"
-                    element={
-                        <ProtectedRoute>
-                            <Ortu />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/forumSiswa"
-                    element={
-                        <ProtectedRoute>
-                            <ForumSiswa />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/forumSiswa2"
-                    element={
-                        <ProtectedRoute>
-                            <ForumSiswa2 />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/forumOrtu1"
-                    element={
-                        <ProtectedRoute>
-                            <ForumOrtu1 />
-                        </ProtectedRoute>
-                    }
-                />
-                  <Route
-                    path="/forumOrtu2"
-                    element={
-                        <ProtectedRoute>
-                            <ForumOrtu2 />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/forumMedical"
-                    element={
-                        <ProtectedRoute>
-                            <ForumMedical />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/medical"
-                    element={
-                        <ProtectedRoute>
-                            <Medical />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/invoice"
-                    element={
-                        <ProtectedRoute>
-                            <Invoice />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/hasilSiswa"
-                    element={
-                        <ProtectedRoute>
-                            <HasilSiswa />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route path="/hasilSiswa/:id" 
-                element={
-                    <ProtectedRoute>
-                        <HasilSiswa />
-                    </ProtectedRoute>
-                } />
-                <Route
-                    path="/hasilMedical"
-                    element={
-                        <ProtectedRoute>
-                            <HasilMedical />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/hasilMedical/:id"
-                    element={
-                        <ProtectedRoute>
-                            <HasilMedical />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/hasilOrtu"
-                    element={
-                        <ProtectedRoute>
-                            <HasilOrtu />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route path="/hasilOrtu/:id" 
-                element={
-                    <ProtectedRoute>
-                        <HasilOrtu />
-                    </ProtectedRoute>
-                } />
-            </Routes>
-        </BrowserRouter>  
-    </FormProvider>
-</AuthProvider>   
-    );
+          <Routes>
+            {/* Public routes */}
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/admin" element={<LoginPage />} />
+            
+            {/* Protected routes for any authenticated user */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/siswa" element={<Siswa />} />
+              <Route path="/ortu" element={<Ortu />} />
+              <Route path="/forumSiswa" element={<ForumSiswa />} />
+              <Route path="/forumSiswa2" element={<ForumSiswa2 />} />
+              <Route path="/forumOrtu1" element={<ForumOrtu1 />} />
+              <Route path="/forumOrtu2" element={<ForumOrtu2 />} />
+              <Route path="/forumMedical" element={<ForumMedical />} />
+              <Route path="/medical" element={<Medical />} />
+              <Route path="/invoice" element={<Invoice />} />
+              <Route path="/hasilSiswa" element={<HasilSiswa />} />
+              <Route path="/hasilSiswa/:id" element={<HasilSiswa />} />
+              <Route path="/hasilMedical" element={<HasilMedical />} />
+              <Route path="/hasilMedical/:id" element={<HasilMedical />} />
+              <Route path="/hasilOrtu" element={<HasilOrtu />} />
+              <Route path="/hasilOrtu/:id" element={<HasilOrtu />} />
+            </Route>
+            
+            {/* Admin-only routes */}
+            <Route element={<AdminRoute />}>
+              <Route path="/dashboard" element={<DasboardAdmin />} />
+              {/* Other admin routes */}
+            </Route>
+            
+            {/* Default redirect */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </FormProvider>
+    </AuthProvider>
+  );
 };
 
 export default App;

@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useState } from "react";
+// pages/LoginPage.js
+import React, { useContext, useState, useEffect } from "react";
 import loginIllustration from "../../assets/login-illustration.svg";
 import { post } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
-import { FaTimes } from "react-icons/fa"; 
 import Notification from "../../components/Notification/Notif";
 import { AuthContext } from "../../Context/AuthContext";
 
@@ -13,12 +13,24 @@ const LoginPage = () => {
   const [errorMsg, setErrorMsg] = useState(""); 
   const navigate = useNavigate();
 
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (state.isAuthenticated) {
+      if (state.role === "admin") {
+        navigate('/dashboard');
+      } else {
+        navigate('/home');
+      }
+    }
+  }, [state.isAuthenticated, state.role, navigate]);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     try {
       const response = await post("/auth/login", { 
         username: form.username, 
@@ -34,14 +46,6 @@ const LoginPage = () => {
             role: response.data.role,
           },
         });
-
-        console.log("AuthContext state setelah login:", state); 
-
-        if (response.data.role === "admin") {
-          navigate('/dashboard'); 
-        } else {
-          navigate('/home');
-        }
       }
     } catch (err) {
       setErrorMsg("Terjadi kesalahan saat login, Silakan coba lagi!");
