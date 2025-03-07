@@ -1,6 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from "react";
-import WrapperDataModal from "../../components/WraperDataModal";
 import { get } from "../../utils/api";
+import InfoItem from "../../components/DetailModal/InfoItem";
+import InfoSection from "../../components/DetailModal/InfoSection";
+import ModalContainer from "../../components/DetailModal/ModalContainer";
+import LoadingSpinner from "../../components/DetailModal/LoadingSpinner";
 
 const DetailMedical = ({ id, onClose }) => {
   const [detail, setDetail] = React.useState(null);
@@ -11,7 +15,6 @@ const DetailMedical = ({ id, onClose }) => {
       try {
         const response = await get(`/medical/detail/${id}`);
         setDetail(response);
-        console.log(response)
       } catch (error) {
         console.log("Gagal mengambil data:", error);
       } finally {
@@ -22,54 +25,64 @@ const DetailMedical = ({ id, onClose }) => {
   }, [id]);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="m-2 md:m-0 bg-white rounded-xl shadow-lg max-w-lg w-full max-h-[80vh] flex flex-col">
-        {/* HEADER */}
-        <div className="sticky top-0 bg-white p-6 border-b z-10 rounded-t-xl">
-          <h2 className="text-3xl font-bold text-red-900">Detail Data Medis</h2>
-        </div>
+    <ModalContainer 
+      title="Detail Data Medis" 
+      subtitle="Informasi lengkap data medis peserta didik" 
+      onClose={onClose}
+    >
+      {loading ? (
+        <LoadingSpinner />
+      ) : detail && (
+        <div className="space-y-8">
+          <InfoSection title="Informasi Pribadi">
+            <InfoItem label="Nama Calon Peserta Didik" value={detail.student_name} />
+            <InfoItem label="Nomor Peserta" value={detail.participant_card_number} />
+            <InfoItem label="Tempat Lahir" value={detail.place_of_birth} />
+            <InfoItem 
+              label="Tanggal Lahir" 
+              value={new Date(detail.date_of_birth).toLocaleDateString('id-ID')} 
+            />
+            <InfoItem label="Jenis Kelamin" value={detail.gender == "Male" ? "Laki-laki" : "Perempuan"} />
+            <InfoItem label="Alamat" value={detail.address} />
+          </InfoSection>
 
-        {/* BODY */}
-        <div className="p-6 overflow-y-auto scroll-smooth flex-grow">
-          {loading ? (
-            <p className="text-gray-500 py-2">Memuat data...</p>
-          ) : (
-            detail && (
-            <div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 break-words">
-                <WrapperDataModal title="Nama Calon Peserta Didik" value={detail.student_name} />
-                <WrapperDataModal title="Nomor Peserta" value={detail.participant_card_number} />
-                <WrapperDataModal title="Tempat Lahir" value={detail.place_of_birth} />
-                <WrapperDataModal title="Tanggal Lahir" value={new Date(detail.date_of_birth).toLocaleDateString('id-ID')} />
-                <WrapperDataModal title="Jenis Kelamin" value={detail.gender} />
-                <WrapperDataModal title="Alamat" value={detail.address} />
-                <WrapperDataModal title="Catatan Medis" value={detail.medical_notes || "Tidak Ada Informasi"} />
-                <WrapperDataModal title="Alergi" value={detail.allergies || "Tidak Ada Informasi"} />
-                <WrapperDataModal title="Kondisi Medis" value={detail.medical_conditions || "Tidak Ada Informasi"} />
-                <WrapperDataModal title="Berat Badan (kg)" value={detail.weight} />
-                <WrapperDataModal title="Tinggi Badan (cm)" value={detail.height} />
-                <WrapperDataModal title="Golongan Darah" value={detail.blood_type} />
-                <WrapperDataModal title="Riwayat Merokok" value={detail.parent_knowledge_smoking_history ? "Ya" : "Tidak"} />
-                <WrapperDataModal title="Riwayat Tato / Tindik" value={detail.parent_knowledge_tattoo_piercing ? "Ya" : "Tidak"} />
-              </div>
-                <div className="mt-2 grid grid-cols-1 gap-2">
-                  <WrapperDataModal title="Catatan Pewawancara" value={detail.interviewer_notes || "Tidak Ada Informasi Tambahan"}/>
-                  <WrapperDataModal title="Nama Pewawancara" value={detail.interviewer_name || "Tidak Ada Informasi Tambahan"}/>
-                  <WrapperDataModal title="Tanggal Ditambahkan" value={new Date(detail.created_at).toLocaleDateString('id-ID')}/>
-                </div>
-            </div>    
-            )
-          )}
-        </div>
+          <InfoSection title="Data Kesehatan">
+            <InfoItem label="Berat Badan" value={`${detail.weight} kg`} />
+            <InfoItem label="Tinggi Badan" value={`${detail.height} cm`} />
+            <InfoItem label="Golongan Darah" value={detail.blood_type} />
+            <InfoItem label="Catatan Medis" value={detail.medical_notes} />
+            <InfoItem label="Alergi" value={detail.allergies} />
+            <InfoItem label="Kondisi Medis" value={detail.medical_conditions} />
+          </InfoSection>
 
-        {/* FOOTER */}
-        <div className="sticky bottom-0 bg-white p-4 border-t z-10 rounded-b-xl">
-          <button onClick={onClose} className="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-            Tutup
-          </button>
+          <InfoSection title="Riwayat & Informasi Tambahan">
+            <InfoItem 
+              label="Riwayat Merokok" 
+              value={detail.parent_knowledge_smoking_history ? "Ya" : "Tidak"} 
+            />
+            <InfoItem 
+              label="Riwayat Tato / Tindik" 
+              value={detail.parent_knowledge_tattoo_piercing ? "Ya" : "Tidak"} 
+            />
+          </InfoSection>
+
+          <InfoSection title="Informasi Wawancara">
+            <InfoItem 
+              label="Catatan Pewawancara" 
+              value={detail.interviewer_notes} 
+            />
+            <InfoItem 
+              label="Nama Pewawancara" 
+              value={detail.interviewer_name} 
+            />
+            <InfoItem 
+              label="Tanggal Ditambahkan" 
+              value={new Date(detail.created_at).toLocaleDateString('id-ID')} 
+            />
+          </InfoSection>
         </div>
-      </div>
-    </div>
+      )}
+    </ModalContainer>
   );
 };
 

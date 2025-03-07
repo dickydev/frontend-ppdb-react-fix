@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Dashboard from '../template/Dashboard';
 import Tabel from '../template/Tabel';
-import { FaAngleRight, FaAngleLeft, FaEye, FaFilePdf } from "react-icons/fa6";
+import { FaAngleRight, FaAngleLeft, FaEye, FaFilePdf,FaTrash,FaFilePen  } from "react-icons/fa6";
 import { get } from '../utils/api'; 
 import {useLocation} from 'react-router-dom'; 
 import Notification from '../components/Notification/Notif';
 import DetailOrtu from './ForumOrangTua/DetailOrtu';
 import { useNavigate } from 'react-router-dom';
 import useTitle from '../utils/useTitle';
-
+import { AuthContext } from '../Context/AuthContext';
 
 const Ortu = () => {
   useTitle('Data Orang Tua - Dashboard');
@@ -22,6 +22,11 @@ const Ortu = () => {
   const [isLoading, setIsLoading] = useState(true); 
   const [selectedId, setSelectedId] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
+  const {state} = useContext(AuthContext);
+  const userRole = state?.role;
+
+  const isAdmin = userRole === 'admin';
 
   const handleOpenModal = (id) => {
     setSelectedId(id);
@@ -126,6 +131,22 @@ const Ortu = () => {
                   >
                     <FaFilePdf size={18} />
                   </button>
+                  {isAdmin && (
+                    <>
+                     <button
+                    onClick={() => navigate(``)}
+                    className="text-red-700 hover:text-red-500 cursor-pointer"
+                    >
+                      <FaFilePen size={20}/>
+                  </button>
+                    <button
+                    onClick={() => navigate(``)}
+                    className="text-red-700 hover:text-red-500 cursor-pointer"
+                    >
+                      <FaTrash size={18}/>
+                  </button>
+                    </>
+                  )}
                 </button>
               </td>
               </tr>
