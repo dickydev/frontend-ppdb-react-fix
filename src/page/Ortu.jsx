@@ -153,7 +153,7 @@ const Ortu = () => {
         <Tabel
           title="Orang Tua"
           headers={headTable}
-          to="/form-orangtua-1"
+          to="/form-orang-tua-1"
           data={isLoading ? [] : data}
           itemsPerPage={5}
           renderRow={renderParentRow}

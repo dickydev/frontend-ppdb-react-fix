@@ -35,7 +35,7 @@ const ForumOrangTua1 = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         updateFormData('form1', dataForm1); // Memperbarui data di context
-        navigate('/form-orangtua-2'); // Navigasi ke halaman berikutnya
+        navigate('/form-orang-tua-2'); // Navigasi ke halaman berikutnya
     };
 
     useEffect(() => {

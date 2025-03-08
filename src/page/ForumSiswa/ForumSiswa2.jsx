@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, {useEffect, useState} from 'react'
-import Forum from '../template/Forum';
+import Forum from '../../template/Forum';
 import { Link, useNavigate } from 'react-router-dom';
-import { useFormContext } from '../Context/FormContext';
+import { useFormContext } from '../../Context/FormContext';
 
 const ForumSiswa2 = () => {
       const navigate = useNavigate();
@@ -30,7 +30,7 @@ const ForumSiswa2 = () => {
                 ...dataForm2Siswa,
                 [name]: value,       
             });
-            console.log(dataForm2Siswa);
+            //console.log(dataForm2Siswa);
         };
 
         
@@ -387,7 +387,7 @@ const ForumSiswa2 = () => {
                         
                         <div className='flex justify-end w-full gap-3 mt-8'>
 
-                            <Link to={'/forumSiswa'}
+                            <Link to={'/form-siswa-1'}
                                 type="submit"
                                 className="px-5 py-2 text-sm font-semibold text-center bg-white border-2 rounded-md text-maroon border-maroon active:scale-95 focus:outline-none "
                             >

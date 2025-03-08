@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import Forum from '../template/Forum';
+import Forum from '../../template/Forum';
 import { Link, useNavigate } from 'react-router-dom';
-import { useFormContext } from '../Context/FormContext';
+import { useFormContext } from '../../Context/FormContext';
 
 const ForumSiswa = () => {
 
@@ -35,8 +35,8 @@ const ForumSiswa = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         updateFormData('form1Siswa', dataForm1Siswa);
-        console.log(`Data Form 1 Siswa : ${dataForm1Siswa}`);
-        navigate('/forumSiswa2');
+        //console.log(`Data Form 1 Siswa : ${dataForm1Siswa}`);
+        navigate('/form-siswa-2');
     };
 
     useEffect(() => {

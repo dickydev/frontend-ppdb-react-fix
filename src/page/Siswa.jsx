@@ -108,7 +108,7 @@ const Siswa = () => {
         <Tabel
           title="Siswa"
           headers={headTable}
-          to="/forumSiswa"
+          to="/form-siswa-1"
           data={isLoading ? [] : data}
           itemsPerPage={5}
           renderRow={renderSiswaRow}
