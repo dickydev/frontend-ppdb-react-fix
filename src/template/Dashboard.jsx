@@ -49,9 +49,9 @@ const Dashboard = ({ title, children }) => {
     const menuAdmin = [
         { name: 'Dashboard', ic: <FaHouse />, to: '/dashboard' },
         { name: 'Orang Tua', ic: <FaUser />, to: '/ortu' }, // Menambahkan path yang sesuai
-        { name: 'Siswa', ic: <FaGraduationCap size={22} />, to: '/siswa' }, // Menambahkan path yang sesuai
+        { name: 'Siswa', ic: <FaGraduationCap  />, to: '/siswa' }, // Menambahkan path yang sesuai
         { name: 'Medical', ic: <FaFileMedical />, to: '/medical' }, // Menambahkan path yang sesuai
-        { name: 'User', ic: <FaUserGear size={22} />, to: '/user' }, // Menambahkan path yang sesuai
+        { name: 'User', ic: <FaUserGear  />, to: '/user' }, // Menambahkan path yang sesuai
         { name: 'Logging', ic: <FaClockRotateLeft />, to: '/logging' }, // Menambahkan path yang sesuai
     ];
 
@@ -108,7 +108,7 @@ const Dashboard = ({ title, children }) => {
                                             type="button"
                                             className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300"
                                         >
-                                            <FaUser className="w-8 h-8 rounded-full bg-white" />
+                                            <FaUser className="pt-2 w-8 h-8 rounded-full bg-white text-gray-400" />
                                         </button>
                                     </div>
                                     <div className={`${showProfile ? 'absolute block' : 'hidden'} w-[240px] z-50 my-4 text-base list-none bg-white divide-y divide-gray-800 rounded shadow right-4 top-12 border-[0.6px] border-gray-900`}>
@@ -134,7 +134,7 @@ const Dashboard = ({ title, children }) => {
 
                 <aside className={`${showSide ? 'w-64' : 'w-0'} fixed top-0 left-0 z-40 h-screen transition-all duration-300 bg-gray-800 overflow-hidden border-r border-maroon`}>
                     <div className="h-full mt-1 px-4 pt-20 flex flex-col justify-between pb-4 overflow-y-auto bg-white/[99]">
-                        <ul className="pb-4 space-y-2 font-medium">
+                        <ul className="pb-4 space-y-2 font-medium ">
                             {data.map((e, i) => (
                                 <li key={i} className='cursor-pointer'>
                                     <Link to={e.to}>
@@ -142,7 +142,7 @@ const Dashboard = ({ title, children }) => {
                                             <span className={`${e.name === title ? 'bg-maroon text-white' : 'bg-white text-gray-900'} flex items-center shadow-md justify-center p-3 transition group-hover:bg-maroon group-hover:text-white duration-75 rounded-lg`}>
                                                 {e.ic}
                                             </span>
-                                            <span className={`${e.name === title ? 'text-black' : 'text-gray-600 group-hover:text-black'} font-semibold m7-3`}>{e.name}</span>
+                                            <span className={`${e.name === title ? 'text-black' : 'text-gray-600 group-hover:text-black'} font-medium m7-3`}>{e.name}</span>
                                         </div>
                                     </Link>
                                 </li>

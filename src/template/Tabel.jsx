@@ -9,11 +9,17 @@ const Tabel = ({ title, headers, children, to, handle, data, itemsPerPage = 5, r
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredData, setFilteredData] = useState([]);
+  const [currentItemsPerPage, setCurrentItemsPerPage] = useState(itemsPerPage);
 
   useEffect(() => {
-    // Reset to first page when search changes
+    // Reset to first page when search changes or items per page changes
     setCurrentPage(1);
-  }, [searchTerm]);
+  }, [searchTerm, currentItemsPerPage]);
+
+  // Update current items per page when prop changes
+  useEffect(() => {
+    setCurrentItemsPerPage(itemsPerPage);
+  }, [itemsPerPage]);
 
   // Update filtered data when either data or search term changes
   useEffect(() => {
@@ -39,7 +45,7 @@ const Tabel = ({ title, headers, children, to, handle, data, itemsPerPage = 5, r
 
   // Calculate pagination values
   const totalItems = filteredData.length;
-  const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+  const totalPages = Math.max(1, Math.ceil(totalItems / currentItemsPerPage));
   
   // Ensure currentPage is within valid range
   useEffect(() => {
@@ -49,14 +55,20 @@ const Tabel = ({ title, headers, children, to, handle, data, itemsPerPage = 5, r
   }, [currentPage, totalPages]);
 
   // Get current items for display
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const indexOfLastItem = currentPage * currentItemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - currentItemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
   // Pagination handlers
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const nextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
   const prevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1));
+
+  // Handle items per page change
+  const handleItemsPerPageChange = (e) => {
+    const value = e.target.value === 'all' ? filteredData.length : Number(e.target.value);
+    setCurrentItemsPerPage(value);
+  };
 
   // Custom render function for table rows
   const renderChildren = () => {
@@ -105,7 +117,7 @@ const Tabel = ({ title, headers, children, to, handle, data, itemsPerPage = 5, r
             </div>
             <input
               type="text"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-maroon focus:border-maroon block w-full pl-10 p-2"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm font-normal rounded-lg focus:ring-maroon focus:border-maroon block w-full pl-10 p-2"
               placeholder="Cari data..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -139,52 +151,86 @@ const Tabel = ({ title, headers, children, to, handle, data, itemsPerPage = 5, r
         </table>
       </div>
 
-      {/* Pagination controls - only show if we have data and multiple pages */}
-      {Array.isArray(data) && totalPages > 1 && (
-        <div className="flex items-center justify-between mt-4 px-2">
-          <div className="text-sm text-gray-700">
-            Menampilkan {totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, totalItems)} dari {totalItems} data
-          </div>
-          
-          <nav className="flex items-center gap-x-1" aria-label="Pagination">
-            <button
-              type="button"
-              className="min-h-[38px] min-w-[38px] py-1 px-2 inline-flex items-center gap-x-1 text-sm text-gray-700 bg-white hover:bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-maroon disabled:opacity-50 disabled:pointer-events-none"
-              onClick={prevPage}
-              disabled={currentPage === 1}
-              aria-label="Previous"
+      {/* Pagination controls - only show if we have data */}
+      {Array.isArray(data) && data.length > 0 && (
+        <div className="flex flex-col sm:flex-row items-center justify-between mt-4 px-2 gap-y-3">
+          {/* <div className="flex items-center gap-2 border border-gray-900 p-2 rounded-lg">
+            <span className="text-sm font-medium text-gray-700">Per halaman</span>
+            <hr className=' broder-grey-900'/>
+            <select
+              value={currentItemsPerPage >= filteredData.length ? 'all' : currentItemsPerPage}
+              onChange={handleItemsPerPageChange}
+              className=""
             >
-              <FaAngleLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">Prev</span>
-            </button>
-            
-            <div className="flex items-center gap-x-1">
-              {Array.from({ length: totalPages }, (_, i) => (
-                <button
-                  key={i}
-                  onClick={() => paginate(i + 1)}
-                  className={`min-h-[38px] min-w-[38px] py-1 px-2 inline-flex items-center justify-center text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-maroon ${
-                    currentPage === i + 1
-                      ? 'bg-maroon text-white'
-                      : 'text-gray-700 bg-white hover:bg-gray-100 border border-gray-300'
-                  }`}
-                >
-                  {i + 1}
-                </button>
-              ))}
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value="all">Semua</option>
+            </select>
+          </div> */}
+          <div className="flex items-center gap-2 border p-2 border-gray-900 rounded-lg relative">
+            <span className="text-sm font-medium text-gray-700">Per halaman</span>
+            <div className="h-full ml-2 absolute left-[calc(50%-1px)] top-0 w-px bg-gray-900"></div>
+            <select
+              value={currentItemsPerPage >= filteredData.length ? 'all' : currentItemsPerPage}
+              onChange={handleItemsPerPageChange}
+              className="border-none focus:ring-0 text-sm p-0 bg-white"
+            >
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value="all">Semua</option>
+            </select>
+          </div>
+          <div className="flex items-center justify-between w-full sm:w-auto gap-x-4">
+            <div className="text-sm text-gray-700">
+              Menampilkan {totalItems === 0 ? 0 : (currentPage - 1) * currentItemsPerPage + 1} - {Math.min(currentPage * currentItemsPerPage, totalItems)} dari {totalItems} data
             </div>
             
-            <button
-              type="button"
-              className="min-h-[38px] min-w-[38px] py-1 px-2 inline-flex items-center gap-x-1 text-sm text-gray-700 bg-white hover:bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-maroon disabled:opacity-50 disabled:pointer-events-none"
-              onClick={nextPage}
-              disabled={currentPage === totalPages}
-              aria-label="Next"
-            >
-              <span className="hidden sm:inline">Next</span>
-              <FaAngleRight className="w-4 h-4" />
-            </button>
-          </nav>
+            {totalPages > 1 && (
+              <nav className="flex items-center gap-x-1" aria-label="Pagination">
+                <button
+                  type="button"
+                  className="min-h-[38px] min-w-[38px] py-1 px-2 inline-flex items-center gap-x-1 text-sm text-gray-700 bg-white hover:bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-maroon disabled:opacity-50 disabled:pointer-events-none"
+                  onClick={prevPage}
+                  disabled={currentPage === 1}
+                  aria-label="Previous"
+                >
+                  <FaAngleLeft className="w-4 h-4" />
+                  <span className="hidden sm:inline">Prev</span>
+                </button>
+                
+                <div className="flex items-center gap-x-1">
+                  {Array.from({ length: totalPages }, (_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => paginate(i + 1)}
+                      className={`min-h-[38px] min-w-[38px] py-1 px-2 inline-flex items-center justify-center text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-maroon ${
+                        currentPage === i + 1
+                          ? 'bg-maroon text-white'
+                          : 'text-gray-700 bg-white hover:bg-gray-100 border border-gray-300'
+                      }`}
+                    >
+                      {i + 1}
+                    </button>
+                  ))}
+                </div>
+                
+                <button
+                  type="button"
+                  className="min-h-[38px] min-w-[38px] py-1 px-2 inline-flex items-center gap-x-1 text-sm text-gray-700 bg-white hover:bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-maroon disabled:opacity-50 disabled:pointer-events-none"
+                  onClick={nextPage}
+                  disabled={currentPage === totalPages}
+                  aria-label="Next"
+                >
+                  <span className="hidden sm:inline">Next</span>
+                  <FaAngleRight className="w-4 h-4" />
+                </button>
+              </nav>
+            )}
+          </div>
         </div>
       )}
     </div>

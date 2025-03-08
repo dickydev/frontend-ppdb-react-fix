@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import Dashboard from '../template/Dashboard'
 import Tabel from '../template/Tabel'
@@ -20,6 +19,8 @@ const Medical = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedId, setSelectedId] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  // Default items per page is 5
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
   const handleOpenModal = (id) => {
     setSelectedId(id);
@@ -52,7 +53,7 @@ const Medical = () => {
         setData(response);
         setIsLoading(false);
       } catch (err) {
-        setIsLoading(false); // Changed to false to avoid infinite loading state on error
+        setIsLoading(false);
         console.error("Error fetching data:", err);
       }
     };
@@ -106,7 +107,7 @@ const Medical = () => {
           headers={headTable}
           to="/forumMedical"
           data={isLoading ? [] : data}
-          itemsPerPage={5}
+          itemsPerPage={itemsPerPage}
           renderRow={renderMedicalRow}
         >
           {isLoading && (
