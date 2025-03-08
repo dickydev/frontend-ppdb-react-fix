@@ -13,7 +13,6 @@ import ForumOrtu1 from './page/ForumOrangTua/ForumOrangTua1';
 import ForumOrtu2 from './page/ForumOrangTua/ForumOrangTua2';
 import Medical from './page/Medical';
 import ForumMedical from './page/ForumMedical/ForumMedical';
-import Invoice from './page/Invoice';
 import HasilSiswa from './page/Hasil/HasilSiswa';
 import HasilMedical from './page/Hasil/HasilMedical';
 import HasilOrtu from './page/Hasil/HasilOrtu';
@@ -43,7 +42,6 @@ const App = () => {
               <Route path="//form-orang-tua-2" element={<ForumOrtu2 />} />
               <Route path="/form-medical" element={<ForumMedical />} />
               <Route path="/medical" element={<Medical />} />
-              <Route path="/invoice" element={<Invoice />} />
               <Route path="/hasilSiswa" element={<HasilSiswa />} />
               <Route path="/hasilSiswa/:id" element={<HasilSiswa />} />
               <Route path="/hasilMedical" element={<HasilMedical />} />
