@@ -9,8 +9,8 @@ import Siswa from './page/Siswa';
 import Ortu from './page/Ortu';
 import ForumSiswa from './page/ForumSiswa';
 import ForumSiswa2 from './page/ForumSiswa2';
-import ForumOrtu1 from './page/ForumOrangTua1';
-import ForumOrtu2 from './page/ForumOrangTua2';
+import ForumOrtu1 from './page/ForumOrangTua/ForumOrangTua1';
+import ForumOrtu2 from './page/ForumOrangTua/ForumOrangTua2';
 import Medical from './page/Medical';
 import ForumMedical from './page/ForumMedical';
 import Invoice from './page/Invoice';
@@ -39,8 +39,8 @@ const App = () => {
               <Route path="/ortu" element={<Ortu />} />
               <Route path="/forumSiswa" element={<ForumSiswa />} />
               <Route path="/forumSiswa2" element={<ForumSiswa2 />} />
-              <Route path="/forumOrtu1" element={<ForumOrtu1 />} />
-              <Route path="/forumOrtu2" element={<ForumOrtu2 />} />
+              <Route path="/form-orangtua-1" element={<ForumOrtu1 />} />
+              <Route path="//form-orangtua-2" element={<ForumOrtu2 />} />
               <Route path="/forumMedical" element={<ForumMedical />} />
               <Route path="/medical" element={<Medical />} />
               <Route path="/invoice" element={<Invoice />} />

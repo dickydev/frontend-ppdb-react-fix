@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import Forum from '../template/Forum';
+import Forum from '../../template/Forum';
 import { Link, useNavigate } from 'react-router-dom';
-import { useFormContext } from '../Context/FormContext';
+import { useFormContext } from '../../Context/FormContext';
 
 
 const ForumOrangTua2 = () => {

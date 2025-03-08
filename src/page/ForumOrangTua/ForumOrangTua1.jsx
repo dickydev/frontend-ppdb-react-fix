@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import Forum from '../template/Forum';
+import Forum from '../../template/Forum';
 import { Link, useNavigate } from 'react-router-dom';
-import { useFormContext } from '../Context/FormContext';
+import { useFormContext } from '../../Context/FormContext';
 
 const ForumOrangTua1 = () => {
     const navigate = useNavigate();
@@ -35,7 +35,7 @@ const ForumOrangTua1 = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         updateFormData('form1', dataForm1); // Memperbarui data di context
-        navigate('/forumOrtu2'); // Navigasi ke halaman berikutnya
+        navigate('/form-orangtua-2'); // Navigasi ke halaman berikutnya
     };
 
     useEffect(() => {
