@@ -105,7 +105,7 @@ const Medical = () => {
         <Tabel
           title="Medis"
           headers={headTable}
-          to="/forumMedical"
+          to="/form-medical"
           data={isLoading ? [] : data}
           itemsPerPage={itemsPerPage}
           renderRow={renderMedicalRow}
