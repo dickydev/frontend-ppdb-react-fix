@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import Dashboard from '../template/Dashboard'
 import Tabel from '../template/Tabel'
-import { FaEye, FaFilePdf } from "react-icons/fa6";
-import { get } from "../utils/api";
-import { useLocation } from 'react-router-dom';
+import { FaEye, FaFilePdf,FaTrash, FaFilePen } from "react-icons/fa6";
+import { get, deleteData } from "../utils/api";
+import { useLocation, useNavigate } from 'react-router-dom';
 import DetailMedical from './ForumMedical/DetailMedical';
 import Notification from '../components/Notification/Notif';
-import { useNavigate } from 'react-router-dom';
+import  EditMedicalModal from './ForumMedical/EditMedical';
 import useTitle from '../utils/useTitle';
+import { AuthContext } from '../Context/AuthContext';
+import DeleteConfirmation from '../components/Notification/DeleteConfirmation'; 
 import { sortLatedData } from '../utils/sortLatedData';
 
 const Medical = () => {
   useTitle('Data Medis - Dashboard');
+
   const location = useLocation();
   const navigate = useNavigate();
   const [successMsg, setSuccessMsg] = useState(location.state?.successMsg);
@@ -20,13 +23,35 @@ const Medical = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedId, setSelectedId] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  // Default items per page is 5
+  const [showEditModal, setShowEditModal] = useState(false);
   const [itemsPerPage, setItemsPerPage] = useState(5);
+
+  const { state } = useContext(AuthContext);
+  const userRole = state?.role;
+  
+  const isAdmin = userRole === 'admin';
 
   const handleOpenModal = (id) => {
     setSelectedId(id);
     setShowModal(true);
   };
+
+  const handleOpenEditModal = (id) => {
+    setSelectedId(id);
+    setShowEditModal(true);
+  };
+
+
+  const handleDelete = DeleteConfirmation({
+    onDelete: (id) => deleteData(`/medical/delete/${id}`),
+    itemName: 'data medis',
+    onSuccess: (id) => {
+      setData(data.filter(item => item.id !== id));
+    },
+    onError: (error) => {
+      console.error("Error deleting medical data:", error);
+    }
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -47,20 +72,26 @@ const Medical = () => {
     { judul: "Action" },
   ];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await get('/medical');
-        const sortedData = sortLatedData(response)
-        setData(sortedData);
-        setIsLoading(false);
-      } catch (err) {
-        setIsLoading(false);
-        console.error("Error fetching data:", err);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const response = await get('/medical');
+      const sortedData = sortLatedData(response)
+      setData(sortedData);
+      setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+      console.error("Error fetching data:", err);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
+
+    const refreshData = setInterval(() => {
+      fetchData();
+    }, 10000);
+
+    return () => clearInterval(refreshData);
   }, []);
 
   // Custom render function for table rows
@@ -88,6 +119,22 @@ const Medical = () => {
           >
             <FaFilePdf size={18} />
           </button>
+          {isAdmin && (
+            <>
+              <button
+                onClick={() => handleOpenEditModal(item.id)}
+                className="text-red-700 hover:text-red-500 cursor-pointer"
+              >
+                <FaFilePen size={18} />
+              </button>
+              <button
+                onClick={() => handleDelete(item.id)}
+                className="text-red-700 hover:text-red-500 cursor-pointer"
+              >
+                <FaTrash size={18} />
+              </button>
+            </>
+          )}
         </div>
       </td>
     </tr>
@@ -122,6 +169,7 @@ const Medical = () => {
         </Tabel>
 
         {showModal && <DetailMedical id={selectedId} onClose={() => setShowModal(false)} />}
+        {showEditModal && <EditMedicalModal id={selectedId} onClose={() => setShowEditModal(false)} onUpdate={fetchData}/>} 
       </div>
     </Dashboard>
   );

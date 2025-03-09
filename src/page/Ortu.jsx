@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Dashboard from '../template/Dashboard';
 import Tabel from '../template/Tabel';
 import { FaEye, FaFilePdf, FaTrash, FaFilePen } from "react-icons/fa6";
-import { get, deleteData } from '../utils/api'; // Added deleteData import
+import { get, deleteData } from '../utils/api'; 
 import { useLocation, useNavigate } from 'react-router-dom'; 
 import Notification from '../components/Notification/Notif';
 import DetailOrtu from './ForumOrangTua/DetailOrtu';
@@ -93,9 +93,14 @@ const Ortu = () => {
 
   useEffect(() => {
     fetchData();
+
+    const refreshData = setInterval(() => {
+      fetchData();
+    }, 10000);
+
+    return () => clearInterval(refreshData);
   }, []);
 
-  // Custom render function for table rows
   const renderParentRow = (item, index) => (
     <tr className="bg-white border-b" key={item.id || index}>
       <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
