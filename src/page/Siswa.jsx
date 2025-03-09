@@ -1,18 +1,21 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import Dashboard from '../template/Dashboard'
 import Tabel from '../template/Tabel'
-import { FaEye, FaFilePdf } from "react-icons/fa6";
-import { get } from "../utils/api";
-import { useLocation } from 'react-router-dom';
+import { FaEye, FaFilePdf, FaTrash, FaFilePen  } from "react-icons/fa6";
+import { get,deleteData  } from "../utils/api";
+import { useLocation, useNavigate  } from 'react-router-dom';
 import Notification from '../components/Notification/Notif';
-import { useNavigate } from 'react-router-dom';
 import DetailSiswa from './ForumSiswa/DetailSiswa';
 import useTitle from '../utils/useTitle';
+import { AuthContext } from '../Context/AuthContext';
+import DeleteConfirmation from '../components/Notification/DeleteConfirmation';
 import { sortLatedData } from '../utils/sortLatedData';
+import EditSiswa from './ForumSiswa/EditSiswa';
 
 const Siswa = () => {
   useTitle('Data Siswa - Dashboard');
+
   const location = useLocation();
   const navigate = useNavigate();
   const [successMsg, setSuccessMsg] = useState(location.state?.successMsg);
@@ -21,11 +24,33 @@ const Siswa = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedId, setSelectedId] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  const { state } = useContext(AuthContext);
+  const userRole = state?.role;
+
+  const isAdmin = userRole === 'admin';
 
   const handleOpenModal = (id) => {
     setSelectedId(id);
     setShowModal(true);
   };
+
+  const handleOpenEditModal = (id) => {
+    setSelectedId(id);
+    setShowEditModal(true);
+  }
+
+  const handleDelete = DeleteConfirmation({
+    onDelete: (id) => deleteData(`/students/delete/${id}`),
+    itemName: 'data siswa',
+    onSuccess: (id) => {
+      setData(data.filter(item => item.id !== id));
+    },
+    onError: (error) => {
+      console.error("Error deleting student:", error);
+    }
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,23 +73,28 @@ const Siswa = () => {
     { judul: 'Action'}
   ];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await get('/students');
-        const sortedData = sortLatedData(response);
-        setData(sortedData);
-        setIsLoading(false);
-      } catch (err) {
-        setErrorMsg('Gagal Mengambil Data');
-        setIsLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const response = await get('/students');
+      const sortedData = sortLatedData(response);
+      setData(sortedData);
+      setIsLoading(false);
+    } catch (err) {
+      setErrorMsg('Gagal Mengambil Data');
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
+
+    const refreshData = setInterval(() => {
+      fetchData();
+    }, 10000);  
+
+    return () => clearInterval(refreshData);
   }, []);
 
-  // Custom render function for table rows - similar to Medical component
   const renderSiswaRow = (item, index) => (
     <tr className="bg-white border-b" key={item.id || index}>
       <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
@@ -91,6 +121,16 @@ const Siswa = () => {
           >
             <FaFilePdf size={18} />
           </button>
+          {isAdmin && (  
+            <>
+              <button onClick={() => handleOpenEditModal(item.id) }className="text-red-700 hover:text-red-500 cursor-pointer">
+                <FaFilePen size={18} />
+              </button>
+              <button onClick={() => handleDelete(item.id)} className="text-red-700 hover:text-red-500 cursor-pointer">
+                <FaTrash size={18} />
+              </button>
+            </>
+          )}
         </div>
       </td>
     </tr>
@@ -125,6 +165,7 @@ const Siswa = () => {
         </Tabel>
 
         {showModal && <DetailSiswa id={selectedId} onClose={() => setShowModal(false)} />}
+        {showEditModal && <EditSiswa id={selectedId} onClose={() => setShowEditModal(false)} onUpdate={fetchData}/>}
       </div>
     </Dashboard>
   );
