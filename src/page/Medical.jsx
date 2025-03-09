@@ -8,6 +8,7 @@ import DetailMedical from './ForumMedical/DetailMedical';
 import Notification from '../components/Notification/Notif';
 import { useNavigate } from 'react-router-dom';
 import useTitle from '../utils/useTitle';
+import { sortLatedData } from '../utils/sortLatedData';
 
 const Medical = () => {
   useTitle('Data Medis - Dashboard');
@@ -50,7 +51,8 @@ const Medical = () => {
     const fetchData = async () => {
       try {
         const response = await get('/medical');
-        setData(response);
+        const sortedData = sortLatedData(response)
+        setData(sortedData);
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);

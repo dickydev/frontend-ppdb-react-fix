@@ -115,7 +115,8 @@ const DasboardAdmin = () => {
     
   useTitle('Admin - PPDB Letris 2');
   const headTable = ['User', 'Action', 'Timestamp'];
-  const dataTable = logData;
+  // Sort logData by id in descending order to show newest entries first
+  const dataTable = [...logData].sort((a, b) => b.id - a.id);
   
   return (
     <div className="min-h-screen flex flex-col">

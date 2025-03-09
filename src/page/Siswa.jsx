@@ -9,6 +9,7 @@ import Notification from '../components/Notification/Notif';
 import { useNavigate } from 'react-router-dom';
 import DetailSiswa from './ForumSiswa/DetailSiswa';
 import useTitle from '../utils/useTitle';
+import { sortLatedData } from '../utils/sortLatedData';
 
 const Siswa = () => {
   useTitle('Data Siswa - Dashboard');
@@ -51,7 +52,8 @@ const Siswa = () => {
     const fetchData = async () => {
       try {
         const response = await get('/students');
-        setData(response);
+        const sortedData = sortLatedData(response);
+        setData(sortedData);
         setIsLoading(false);
       } catch (err) {
         setErrorMsg('Gagal Mengambil Data');

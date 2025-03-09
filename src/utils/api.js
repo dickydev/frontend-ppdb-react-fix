@@ -94,7 +94,7 @@ export const put = async (endpoint, data = {}) => {
   }
 };
 
-export const del = async (endpoint) => {
+export const deleteData = async (endpoint) => {
   try {
     const response = await apiClient.delete(endpoint);
     return response;

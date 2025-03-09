@@ -2,12 +2,15 @@ import React, { useState, useEffect, useContext } from 'react';
 import Dashboard from '../template/Dashboard';
 import Tabel from '../template/Tabel';
 import { FaEye, FaFilePdf, FaTrash, FaFilePen } from "react-icons/fa6";
-import { get} from '../utils/api'; 
+import { get, deleteData } from '../utils/api'; // Added deleteData import
 import { useLocation, useNavigate } from 'react-router-dom'; 
 import Notification from '../components/Notification/Notif';
 import DetailOrtu from './ForumOrangTua/DetailOrtu';
+import EditOrtuModal from './ForumOrangTua/EditOrtu';
 import useTitle from '../utils/useTitle';
 import { AuthContext } from '../Context/AuthContext';
+import DeleteConfirmation from '../components/Notification/DeleteConfirmation'; // Added DeleteConfirmation import
+import { sortLatedData } from '../utils/sortLatedData';
 
 const Ortu = () => {
   useTitle('Data Orang Tua - Dashboard');
@@ -20,7 +23,7 @@ const Ortu = () => {
   const [isLoading, setIsLoading] = useState(true); 
   const [selectedId, setSelectedId] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const { state } = useContext(AuthContext);
   const userRole = state?.role;
@@ -32,22 +35,22 @@ const Ortu = () => {
     setShowModal(true);
   };
 
-  const handleOpenDeleteModal = (id) => {
+  const handleOpenEditModal = (id) => {
     setSelectedId(id);
-    setShowDeleteModal(true);
+    setShowEditModal(true);
   };
 
-  const handleDelete = async () => {
-    try {
-      await deleteData(`/parents/${selectedId}`);
-      setData(data.filter(item => item.id !== selectedId));
-      setShowDeleteModal(false);
-      setSuccessMsg('Data orang tua berhasil dihapus');
-    } catch (error) {
-      setErrorMsg('Gagal menghapus data orang tua');
-      console.error("Error deleting data:", error);
+  const handleDelete = DeleteConfirmation({
+    onDelete: (id) => deleteData(`/parents/delete/${id}`),
+    itemName: 'data orang tua',
+    onSuccess: (id) => {
+      setData(data.filter(item => item.id !== id));
+    },
+    onError: (error) => {
+      console.error("Error deleting parent:", error);
     }
-  };
+  });
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -74,19 +77,21 @@ const Ortu = () => {
     return text; 
   };
   
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await get('/parents'); 
-        setData(response);
-        setIsLoading(false);
-      } catch (err) {
-        setIsLoading(false);
-        setErrorMsg('Gagal memuat data orang tua');
-        console.error("Error fetching data:", err);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      const response = await get('/parents'); 
+      const sortedData = sortLatedData(response);
+      setData(sortedData);
+      setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+      setErrorMsg('Gagal memuat data orang tua');
+      console.error("Error fetching data:", err);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -120,14 +125,12 @@ const Ortu = () => {
           </button>
           {isAdmin && (
             <>
-              <button
-                onClick={() => navigate(`/editOrtu/${item.id}`)}
-                className="text-red-700 hover:text-red-500 cursor-pointer"
-              >
-                <FaFilePen size={20}/>
+              <button onClick={() => handleOpenEditModal(item.id)} className="text-red-700 hover:text-red-500 cursor-pointer">
+                <FaFilePen size={18} />
               </button>
+
               <button
-                onClick={() => handleOpenDeleteModal(item.id)}
+                onClick={() => handleDelete(item.id)}
                 className="text-red-700 hover:text-red-500 cursor-pointer"
               >
                 <FaTrash size={18}/>
@@ -168,15 +171,7 @@ const Ortu = () => {
         </Tabel>
 
         {showModal && <DetailOrtu id={selectedId} onClose={() => setShowModal(false)} />}
-        
-        {showDeleteModal && (
-          <ConfirmationModal
-            title="Konfirmasi Hapus"
-            message="Apakah Anda yakin ingin menghapus data orang tua ini?"
-            onConfirm={handleDelete}
-            onCancel={() => setShowDeleteModal(false)}
-          />
-        )}
+        {showEditModal && <EditOrtuModal id={selectedId} onClose={() => setShowEditModal(false)} onUpdate={fetchData} />}
       </div>
     </Dashboard>
   );
