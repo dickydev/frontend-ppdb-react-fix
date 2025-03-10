@@ -11,6 +11,7 @@ import ForumSiswa from './page/ForumSiswa/ForumSiswa';
 import ForumSiswa2 from './page/ForumSiswa/ForumSiswa2';
 import ForumOrtu1 from './page/ForumOrangTua/ForumOrangTua1';
 import ForumOrtu2 from './page/ForumOrangTua/ForumOrangTua2';
+import AddUser from './page/User/AddUser';
 import Medical from './page/Medical';
 import ForumMedical from './page/ForumMedical/ForumMedical';
 import HasilSiswa from './page/Hasil/HasilSiswa';
@@ -18,6 +19,7 @@ import HasilMedical from './page/Hasil/HasilMedical';
 import HasilOrtu from './page/Hasil/HasilOrtu';
 import LoginPage from './page/authentication/authLoginCover';
 import DasboardAdmin from './page/admin/DasboardAdmin';
+import User from './page/User';
 import { FormProvider } from './Context/FormContext';
 import { AuthProvider } from './Context/AuthContext';
 
@@ -47,6 +49,8 @@ const App = () => {
               <Route path="/hasilMedical" element={<HasilMedical />} />
               <Route path="/hasilMedical/:id" element={<HasilMedical />} />
               <Route path="/hasilOrtu" element={<HasilOrtu />} />
+              <Route path='/user' element={<User />} />
+              <Route path='/add-user' element={<AddUser />} />
               <Route path="/hasilOrtu/:id" element={<HasilOrtu />} />
             </Route>
             

@@ -13,7 +13,7 @@ const DetailUser = ({ id, onClose }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await get(`/user/${id}`);
+        const response = await get(`/user/detail/${id}`);
         setUserData(response);
       } catch (err) {
         setError("Gagal mengambil data user");
@@ -47,7 +47,7 @@ const DetailUser = ({ id, onClose }) => {
               label="Role" 
               value={
                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                  userData.role === 'admin' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'
+                  userData.role === 'admin' ?  'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'
                 }`}>
                   {userData.role}
                 </span>
@@ -57,7 +57,7 @@ const DetailUser = ({ id, onClose }) => {
               label="Status" 
               value={
                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                  userData.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                  userData.is_active ? 'bg-green-100 text-green-800' : 'bg-gray-300 text-gray-800'
                 }`}>
                   {userData.is_active ? 'Online' : 'Offline'}
                 </span>
@@ -73,14 +73,6 @@ const DetailUser = ({ id, onClose }) => {
             <InfoItem 
               label="Tanggal Dibuat" 
               value={new Date(userData.created_at).toLocaleDateString('id-ID')} 
-            />
-            <InfoItem 
-              label="Email" 
-              value={userData.email || "Tidak ada informasi email"} 
-            />
-            <InfoItem 
-              label="Nomor Telepon" 
-              value={userData.phone_number || "Tidak ada informasi nomor telepon"} 
             />
           </InfoSection>
 

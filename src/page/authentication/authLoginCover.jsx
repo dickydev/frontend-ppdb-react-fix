@@ -49,6 +49,7 @@ const LoginPage = () => {
       }
     } catch (err) {
       setErrorMsg("Terjadi kesalahan saat login, Silakan coba lagi!");
+    console.log(err);
     }
   };
 
