@@ -139,7 +139,7 @@ const DasboardAdmin = () => {
               <div className="p-4">
                 <div className="flex justify-between items-center pb-2">
                   <h1 className="text-xl font-semibold text-red-900">Statistik Data</h1>
-                  <p className="text-sm text-gray-500">Update 1 month ago</p>
+                  <p className="text-sm text-gray-500">Data Terupdate Otomatis</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-5">
                   <CardStatAdmin icon={FaUser} count={counts.parents} label="Orang Tua" />

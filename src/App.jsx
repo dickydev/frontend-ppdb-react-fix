@@ -19,6 +19,7 @@ import HasilMedical from './page/Hasil/HasilMedical';
 import HasilOrtu from './page/Hasil/HasilOrtu';
 import LoginPage from './page/authentication/authLoginCover';
 import DasboardAdmin from './page/admin/DasboardAdmin';
+import Logging from './page/Logging';
 import User from './page/User';
 import { FormProvider } from './Context/FormContext';
 import { AuthProvider } from './Context/AuthContext';
@@ -50,7 +51,8 @@ const App = () => {
               <Route path="/hasilMedical/:id" element={<HasilMedical />} />
               <Route path="/hasilOrtu" element={<HasilOrtu />} />
               <Route path='/user' element={<User />} />
-              <Route path='/add-user' element={<AddUser />} />
+              <Route path='/add-user' element={<AddUser />} /> 
+              <Route path="/logging" element={<Logging />} />
               <Route path="/hasilOrtu/:id" element={<HasilOrtu />} />
             </Route>
             
