@@ -43,7 +43,7 @@ const App = () => {
               <Route path="/form-siswa-1" element={<ForumSiswa />} />
               <Route path="/form-siswa-2" element={<ForumSiswa2 />} />
               <Route path="/form-orang-tua-1" element={<ForumOrtu1 />} />
-              <Route path="//form-orang-tua-2" element={<ForumOrtu2 />} />
+              <Route path="/form-orang-tua-2" element={<ForumOrtu2 />} />
               <Route path="/form-medical" element={<ForumMedical />} />
               <Route path="/medical" element={<Medical />} />
               <Route path="/hasilSiswa" element={<HasilSiswa />} />

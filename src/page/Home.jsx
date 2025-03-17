@@ -89,9 +89,9 @@ const Home = () => {
           <div className='w-full h-full xl:w-full xl:px-5'>
             <div className='w-full mt-2'>
               <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-                <DashboardCard to='/forumOrtu1' title='Total Data Orang Tua' count={counts.parents} description='Input Data Orang Tua' />
-                <DashboardCard to='/forumSiswa' title='Total Data Calon Peserta Didik' count={counts.students} description='Input Data Calon Peserta Didik' />
-                <DashboardCard to='/forumMedical' title='Total Data Medical Check Up' count={counts.medical} description='Input Data Medical Check Up' />
+                <DashboardCard to='/form-orang-tua-1' title='Total Data Orang Tua' count={counts.parents} description='Input Data Orang Tua' />
+                <DashboardCard to='/form-siswa-1' title='Total Data Calon Peserta Didik' count={counts.students} description='Input Data Calon Peserta Didik' />
+                <DashboardCard to='/form-medical' title='Total Data Medical Check Up' count={counts.medical} description='Input Data Medical Check Up' />
               </div>
 
               {/* Tampilkan Chart */}
