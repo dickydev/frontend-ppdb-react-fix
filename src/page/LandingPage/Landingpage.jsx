@@ -1,9 +1,13 @@
 import React from 'react';
-import { FaUser, FaCode, FaPalette, FaFileInvoice, FaChartLine, FaMoneyBillTransfer, FaNetworkWired } from 'react-icons/fa6';
+import { FaUser, FaGlobe,FaCode, FaPalette, FaFileInvoice, FaChartLine, FaMoneyBillTransfer, FaNetworkWired } from 'react-icons/fa6';
+
 import Dashboard from '../../template/Dashboard';
+
 // Card component
-const DashboardCard = ({ title, count, description, Icon }) => {
+const DashboardCard = ({ title, count, description, Icon, max, isBilingual }) => {
   const isClosed = description.toLowerCase() === 'closed';
+  const percentage = (count / max) * 100;
+  const isNearFull = percentage >= 90;
   
   return (
     <div className={`
@@ -11,32 +15,53 @@ const DashboardCard = ({ title, count, description, Icon }) => {
       ${isClosed ? 'bg-red-50 border-red-100' : 'bg-white border-gray-100'}
       shadow-sm transition-all hover:shadow-md
     `}>
-      <div className="flex items-start justify-between">
+      <div className="flex items-start justify-between relative z-10">
         <div className="space-y-2">
-          <div className={`
-            inline-flex items-center rounded-lg 
-            ${isClosed ? 'bg-red-100' : 'bg-blue-100'} 
-            p-2
-          `}>
-            <Icon className={`h-6 w-6 ${isClosed ? 'text-red-600' : 'text-blue-600'}`} />
+          <div className="flex items-center gap-2">
+            <div className={`
+              inline-flex items-center rounded-lg 
+              ${isClosed ? 'bg-red-100' : 'bg-blue-100'} 
+              p-2
+            `}>
+              <Icon className={`h-6 w-6 ${isClosed ? 'text-red-600' : 'text-blue-600'}`} />
+            </div>
+            {isBilingual && (
+              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-purple-100 text-purple-700 text-sm font-medium">
+                <FaGlobe className="h-4 w-4" />
+                Bilingual
+              </span>
+            )}
           </div>
-          <h3 className="font-medium text-gray-900 line-clamp-2 text-lg">
+          <h3 className="font-medium text-gray-900 text-lg whitespace-pre-line">
             {title}
           </h3>
         </div>
-        <div className={` 
-          text-2xl font-bold flex justify-center items-center 
-          ${isClosed ? 'text-red-900' : 'text-gray-900'}
+        <div className={`
+          text-2xl font-bold flex flex-col items-end justify-center relative z-10
+          ${isClosed ? 'text-red-900' : isNearFull ? 'text-amber-900' : 'text-gray-900'}
         `}>
-          <div className="flex flex-col items-center justify-center">
-            <span className="text-[75px]">{count}</span> 
-            <span className="text-xl mt-5">Siswa</span>
+          <div className="flex items-baseline gap-1">
+            <span className="text-5xl font-bold">{count}</span>
+            <span className="text-2xl text-gray-500 font-normal">/</span>
+            <span className="text-2xl text-gray-500 font-normal">{max}</span>
           </div>
+          <div className="mt-2 w-full bg-gray-200 rounded-full h-2">
+            <div 
+              className={`h-2 rounded-full transition-all ${
+                isClosed ? 'bg-red-500' : 
+                isNearFull ? 'bg-amber-500' : 
+                'bg-blue-500'
+              }`}
+              style={{ width: `${percentage}%` }}
+            />
+          </div>
+          <span className="text-sm font-normal text-gray-500 mt-1">
+            {Math.round(percentage)}% Terisi
+          </span>
         </div>
-
       </div>
       
-      <div className="mt-4">
+      <div className="mt-4 relative z-10">
         <div className={`
           inline-flex items-center rounded-full px-2.5 py-0.5 text-sm font-medium
           ${isClosed ? 
@@ -51,7 +76,9 @@ const DashboardCard = ({ title, count, description, Icon }) => {
       {/* Decorative elements */}
       <div className="absolute right-0 top-0 -ml-10 flex h-[200px] w-[200px] rotate-45 transform">
         <div className={`h-full w-full ${
-          isClosed ? 'bg-red-50/50' : 'bg-blue-50/50'
+          isClosed ? 'bg-red-50/50' : 
+          isBilingual ? 'bg-purple-50/50' : 
+          'bg-blue-50/50'
         }`}></div>
       </div>
     </div>
@@ -60,36 +87,36 @@ const DashboardCard = ({ title, count, description, Icon }) => {
 
 function App() {
   const dataJurusan = [
-    { title: 'Rekayasa Perangkat Lunak dan Gim', count: 55, description: 'Kuota tersedia', icon: FaCode },
-    { title: 'Desain Komunikasi Visual Regular', count: 76, description: 'Closed', icon: FaPalette },
-    { title: 'Desain Komunikasi Visual Bilingual', count: 84, description: 'Kuota tersedia', icon: FaPalette },
-    { title: 'Manajemen Perkantoran dan Layanan Bisnis Regular', count: 47, description: 'Kuota tersedia', icon: FaFileInvoice },
-    { title: 'Manajemen Perkantoran dan Layanan Bisnis Bilingual', count: 25, description: 'Kuota tersedia', icon: FaFileInvoice },
-    { title: 'Pemasaran dan Bisnis Retail', count: 19, description: 'Kuota tersedia', icon: FaChartLine },
-    { title: 'Akutansi dan Keuangan Lemabaga', count: 48, description: 'Kuota tersedia', icon: FaMoneyBillTransfer },
-    { title: 'Teknik Komputer dan Jaringan', count: 77, description: 'Closed', icon: FaNetworkWired },
+    { title: 'Rekayasa Perangkat \n Lunak dan Gim', count: 55, description: 'Kuota tersedia', icon: FaCode, max: 72, isBilingual: false },
+    { title: 'Desain Komunikasi \n Visual Regular', count: 72, description: 'Closed', icon: FaPalette, max: 72, isBilingual: false },
+    { title: 'Desain Komunikasi \n Visual Bilingual', count: 84, description: 'Kuota tersedia', icon: FaPalette, max: 128, isBilingual: true },
+    { title: 'Manajemen Perkantoran dan Layanan Bisnis \n Regular', count: 47, description: 'Kuota tersedia', icon: FaFileInvoice, max: 72, isBilingual: false },
+    { title: 'Manajemen Perkantoran dan Layanan Bisnis Bilingual', count: 25, description: 'Kuota tersedia', icon: FaFileInvoice, max: 32, isBilingual: true },
+    { title: 'Pemasaran dan Bisnis Retail', count: 19, description: 'Kuota tersedia', icon: FaChartLine, max: 36, isBilingual: false },
+    { title: 'Akutansi dan Keuangan Lemabaga', count: 48, description: 'Kuota tersedia', icon: FaMoneyBillTransfer, max: 72, isBilingual: false },
+    { title: 'Teknik Komputer dan Jaringan', count: 72, description: 'Closed', icon: FaNetworkWired, max: 72, isBilingual: false },
   ];
 
   return (
-  <Dashboard>
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="mx-auto max-w-7xl">
-        
-        
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {dataJurusan.map((jurusan, index) => (
-            <DashboardCard
-              key={index}
-              title={jurusan.title}
-              count={jurusan.count}
-              description={jurusan.description}
-              Icon={jurusan.icon}
-            />
-          ))}
+    <Dashboard>
+      <div className="min-h-screen bg-gray-50 p-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {dataJurusan.map((jurusan, index) => (
+              <DashboardCard
+                key={index}
+                title={jurusan.title}
+                count={jurusan.count}
+                description={jurusan.description}
+                Icon={jurusan.icon}
+                max={jurusan.max}
+                isBilingual={jurusan.isBilingual}
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  </Dashboard>
+    </Dashboard>
   );
 }
 
