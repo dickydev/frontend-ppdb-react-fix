@@ -23,6 +23,7 @@ import Logging from './page/Logging';
 import User from './page/User';
 import { FormProvider } from './Context/FormContext';
 import { AuthProvider } from './Context/AuthContext';
+import Landingpage from './page/LandingPage/Landingpage';
 
 const App = () => {
   return (
@@ -59,6 +60,7 @@ const App = () => {
             {/* Admin-only routes */}
             <Route element={<AdminRoute />}>
               <Route path="/dashboard" element={<DasboardAdmin />} />
+              <Route path='/landing-page' element={<Landingpage/>}> </Route>
               {/* Other admin routes */}
             </Route>
             

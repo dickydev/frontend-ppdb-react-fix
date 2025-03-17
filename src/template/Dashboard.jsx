@@ -53,7 +53,8 @@ const Dashboard = ({ title, children }) => {
         { name: 'Medical', ic: <FaFileMedical />, to: '/medical' }, // Menambahkan path yang sesuai
         { name: 'User', ic: <FaUserGear  />, to: '/user' }, // Menambahkan path yang sesuai
         { name: 'Logging', ic: <FaClockRotateLeft />, to: '/logging' }, // Menambahkan path yang sesuai
-    ];
+        { name: 'Landing Page', ic: <FaHouse />, to: '/landing-page' } // Menambahkan path yang sesuai
+      ];
 
     // Gunakan === untuk perbandingan yang lebih ketat
     const data = userRole === "admin" ? menuAdmin : menuPanitia;
