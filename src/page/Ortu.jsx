@@ -79,7 +79,6 @@ const Ortu = () => {
   
   const fetchData = async () => {
     try {
-      setIsLoading(true);
       const response = await get('/parents'); 
       const sortedData = sortLatedData(response);
       setData(sortedData);
