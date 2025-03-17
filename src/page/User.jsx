@@ -84,10 +84,11 @@ const User = () => {
 
     useEffect(() => {
         fetchData();
+        const refreshInterval = import.meta.env.VITE_REFRESH_INTERVAL || 10000;
 
         const refreshData = setInterval(() => {
             fetchData();
-        }, 10000);  
+        }, refreshInterval);  
 
         return () => clearInterval(refreshData);
     }, []);

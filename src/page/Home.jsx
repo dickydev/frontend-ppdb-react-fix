@@ -40,11 +40,12 @@ const Home = () => {
   useEffect(() => {
     fetchCounts();
     fetchChartData();
+    const refreshInterval = import.meta.env.VITE_REFRESH_INTERVAL || 10000;
 
     const interval = setInterval(() => {
       fetchCounts();
       fetchChartData();
-    }, 5000); 
+    }, refreshInterval); 
 
     // Bersihkan interval saat komponen di-unmount
     return () => clearInterval(interval);

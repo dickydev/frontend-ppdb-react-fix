@@ -84,12 +84,14 @@ const Medical = () => {
     }
   };
 
+  
   useEffect(() => {
+    const refreshInterval = import.meta.env.VITE_REFRESH_INTERVAL || 10000;
     fetchData();
 
     const refreshData = setInterval(() => {
       fetchData();
-    }, 10000);
+    }, refreshInterval);
 
     return () => clearInterval(refreshData);
   }, []);

@@ -71,13 +71,15 @@ const DasboardAdmin = () => {
       fetchOnlineUsers();
       fetchCountUser();
       fetchLogData();
+      const refreshInterval = import.meta.env.VITE_REFRESH_INTERVAL || 10000;
+
       const interval = setInterval(() => {
         fetchOnlineUsers();
         fetchChartData();
         fetchCounts();
         fetchCountUser();
         fetchLogData();
-      }, 5000); 
+      }, refreshInterval); 
   
       // Bersihkan interval saat komponen di-unmount
       return () => clearInterval(interval);
