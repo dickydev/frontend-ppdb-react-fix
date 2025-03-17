@@ -90,7 +90,7 @@ const Dashboard = ({ title, children }) => {
                                 >
                                     <FaBars />
                                 </button>
-                                <div className="items-center hidden lg:flex">
+                                <div className="ml-2 items-center hidden lg:flex">
                                     <img
                                         src={img}
                                         className="w-[32px] bg-white me-3"
