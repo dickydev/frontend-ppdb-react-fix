@@ -73,14 +73,16 @@ const DashboardCard = ({ title, count, description, Icon, max, isBilingual }) =>
         </div>
       </div>
       
-      {/* Decorative elements */}
-      <div className="absolute right-0 top-0 -ml-10 flex h-[200px] w-[200px] rotate-45 transform">
-        <div className={`h-full w-full ${
-          isClosed ? 'bg-red-50/50' : 
-          isBilingual ? 'bg-purple-50/50' : 
-          'bg-blue-50/50'
-        }`}></div>
-      </div>
+      <div className="absolute right-0 top-0 -ml-10 flex h-[200px] w-[200px] transform animate-bg rounded-xl">
+  <div className={`h-full w-full ${
+    isClosed ? 'bg-red-50/50' : 
+    isBilingual ? 'bg-purple-100/50' : 
+    'bg-blue-100/50'
+  }`}></div>
+</div>
+
+
+
     </div>
   );
 };
