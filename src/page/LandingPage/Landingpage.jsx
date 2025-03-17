@@ -89,14 +89,14 @@ const DashboardCard = ({ title, count, description, Icon, max, isBilingual }) =>
 
 function App() {
   const dataJurusan = [
-    { title: 'Rekayasa Perangkat \n Lunak dan Gim', count: 55, description: 'Kuota tersedia', icon: FaCode, max: 72, isBilingual: false },
+    { title: 'Rekayasa Perangkat \n Lunak & Gim', count: 55, description: 'Kuota tersedia', icon: FaCode, max: 72, isBilingual: false },
     { title: 'Desain Komunikasi \n Visual Regular', count: 72, description: 'Closed', icon: FaPalette, max: 72, isBilingual: false },
     { title: 'Desain Komunikasi \n Visual Bilingual', count: 84, description: 'Kuota tersedia', icon: FaPalette, max: 128, isBilingual: true },
-    { title: 'Manajemen Perkantoran dan Layanan Bisnis \n Regular', count: 47, description: 'Kuota tersedia', icon: FaFileInvoice, max: 72, isBilingual: false },
-    { title: 'Manajemen Perkantoran dan Layanan Bisnis Bilingual', count: 25, description: 'Kuota tersedia', icon: FaFileInvoice, max: 32, isBilingual: true },
-    { title: 'Pemasaran dan Bisnis Retail', count: 19, description: 'Kuota tersedia', icon: FaChartLine, max: 36, isBilingual: false },
-    { title: 'Akutansi dan Keuangan Lemabaga', count: 48, description: 'Kuota tersedia', icon: FaMoneyBillTransfer, max: 72, isBilingual: false },
-    { title: 'Teknik Komputer dan Jaringan', count: 72, description: 'Closed', icon: FaNetworkWired, max: 72, isBilingual: false },
+    { title: 'Manajemen Perkantoran \n & Layanan Bisnis Regular', count: 47, description: 'Kuota tersedia', icon: FaFileInvoice, max: 72, isBilingual: false },
+    { title: 'Manajemen Perkantoran \n & Layanan Bisnis Bilingual', count: 25, description: 'Kuota tersedia', icon: FaFileInvoice, max: 32, isBilingual: true },
+    { title: 'Pemasaran \n & Bisnis Retail', count: 19, description: 'Kuota tersedia', icon: FaChartLine, max: 36, isBilingual: false },
+    { title: 'Akutansi & Keuangan Lemabaga', count: 48, description: 'Kuota tersedia', icon: FaMoneyBillTransfer, max: 72, isBilingual: false },
+    { title: 'Teknik Komputer \n & Jaringan', count: 72, description: 'Closed', icon: FaNetworkWired, max: 72, isBilingual: false },
   ];
 
   return (
