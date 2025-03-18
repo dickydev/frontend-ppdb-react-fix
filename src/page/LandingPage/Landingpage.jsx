@@ -90,11 +90,11 @@ const DashboardCard = ({ title, count, description, Icon, max, isBilingual }) =>
 function App() {
   const dataJurusan = [
     { title: 'Rekayasa Perangkat \n Lunak & Gim', count: 55, description: 'Kuota tersedia', icon: FaCode, max: 72, isBilingual: false },
-    { title: 'Desain Komunikasi \n Visual Regular', count: 72, description: 'Closed', icon: FaPalette, max: 72, isBilingual: false },
+    { title: 'Desain Komunikasi \n Visual Reguler', count: 72, description: 'Closed', icon: FaPalette, max: 72, isBilingual: false },
     { title: 'Desain Komunikasi \n Visual Bilingual', count: 84, description: 'Kuota tersedia', icon: FaPalette, max: 128, isBilingual: true },
-    { title: 'Manajemen Perkantoran \n & Layanan Bisnis Regular', count: 47, description: 'Kuota tersedia', icon: FaFileInvoice, max: 72, isBilingual: false },
+    { title: 'Manajemen Perkantoran \n & Layanan Bisnis Reguler', count: 47, description: 'Kuota tersedia', icon: FaFileInvoice, max: 72, isBilingual: false },
     { title: 'Manajemen Perkantoran \n & Layanan Bisnis Bilingual', count: 25, description: 'Kuota tersedia', icon: FaFileInvoice, max: 32, isBilingual: true },
-    { title: 'Pemasaran \n & Bisnis Retail', count: 19, description: 'Kuota tersedia', icon: FaChartLine, max: 36, isBilingual: false },
+    { title: 'Pemasaran \n & Bisnis Digital', count: 19, description: 'Kuota tersedia', icon: FaChartLine, max: 36, isBilingual: false },
     { title: 'Akutansi & Keuangan Lemabaga', count: 48, description: 'Kuota tersedia', icon: FaMoneyBillTransfer, max: 72, isBilingual: false },
     { title: 'Teknik Komputer \n & Jaringan', count: 72, description: 'Closed', icon: FaNetworkWired, max: 72, isBilingual: false },
   ];
