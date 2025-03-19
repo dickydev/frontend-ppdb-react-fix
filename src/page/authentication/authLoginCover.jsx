@@ -18,7 +18,9 @@ const LoginPage = () => {
     if (state.isAuthenticated) {
       if (state.role === "admin") {
         navigate('/dashboard');
-      } else {
+      } else if (state.role === "registrator") {
+        navigate('/registrator');
+      }else {
         navigate('/home');
       }
     }
@@ -42,6 +44,7 @@ const LoginPage = () => {
           type: "LOGIN_SUCCESS",
           payload: {
             token: response.data.token,
+            full_name: response.data.full_name,
             username: response.data.username,
             role: response.data.role,
           },

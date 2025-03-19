@@ -41,3 +41,23 @@ export const AdminRoute = () => {
   // Render child routes for admin
   return <Outlet />;
 };
+
+export const RegistratorRoute = () => {
+  const { state } = useContext(AuthContext);
+  
+  if (state.isLoading) {
+    return <div>Loading...</div>;
+  }
+  
+  // If not authenticated or not admin, redirect
+  if (!state.isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  if (state.role !== 'registrator') {
+    return <Navigate to="/home" replace />;
+  }
+  
+  // Render child routes for admin
+  return <Outlet />;
+}

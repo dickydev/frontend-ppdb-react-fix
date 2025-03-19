@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext } from 'react';
-import { FaHouse, FaGraduationCap, FaBars, FaUser, FaFileMedical, FaArrowRightFromBracket, FaClockRotateLeft, FaUserGear } from 'react-icons/fa6';
+import { FaHouse, FaGraduationCap, FaBars, FaUser, FaFileMedical, FaDatabase,FaArrowRightFromBracket, FaClockRotateLeft, FaUserGear } from 'react-icons/fa6';
 import img from '../images/logo.png';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -46,6 +46,11 @@ const Dashboard = ({ title, children }) => {
         { name: 'Medical', ic: <FaFileMedical />, to: '/medical' }
     ];
 
+    const menuRegistrator = [
+      { name: 'Dashboard', ic: <FaHouse />, to: '/registrator' },
+      { name: 'Data Landing Page', ic: <FaDatabase/>, to: '/daftar-ulang' },
+  ];
+
     const menuAdmin = [
         { name: 'Dashboard', ic: <FaHouse />, to: '/dashboard' },
         { name: 'Orang Tua', ic: <FaUser />, to: '/ortu' }, // Menambahkan path yang sesuai
@@ -57,7 +62,7 @@ const Dashboard = ({ title, children }) => {
       ];
 
     // Gunakan === untuk perbandingan yang lebih ketat
-    const data = userRole === "admin" ? menuAdmin : menuPanitia;
+    const data = userRole === "admin" ? menuAdmin : userRole === "registrator" ? menuRegistrator: menuPanitia;
 
     function tanggal() {
         const date = new Date();

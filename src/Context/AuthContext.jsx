@@ -23,6 +23,7 @@ const authReducer = (state, action) => {
       return {
         isAuthenticated: true,
         user: action.payload.username,
+        full_name: action.payload.full_name,
         token: action.payload.token,
         role: action.payload.role,
         isLoading: false
@@ -70,6 +71,7 @@ export const AuthProvider = ({ children }) => {
           dispatch({
             type: "LOGIN_SUCCESS",
             payload: {
+              full_name: userData.full_name,
               username: userData.username,
               token: token,
               role: userData.role

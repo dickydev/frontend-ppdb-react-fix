@@ -24,6 +24,9 @@ import User from './page/User';
 import { FormProvider } from './Context/FormContext';
 import { AuthProvider } from './Context/AuthContext';
 import Landingpage from './page/LandingPage/Landingpage';
+import RegistratorDashboard from './page/Registrator/RegistratorDashboard'
+import { RegistratorRoute } from './utils/middleware/ProtectedRoute';
+import DataLandingPage from './page/Registrator/DataLandingPage';
 
 const App = () => {
   return (
@@ -38,6 +41,7 @@ const App = () => {
             {/* Protected routes for any authenticated user */}
             <Route element={<ProtectedRoute />}>
               <Route path="/home" element={<Home />} />
+             
               <Route path="/siswa" element={<Siswa />} />
               <Route path="/ortu" element={<Ortu />} />
               <Route path="/form-siswa-1" element={<ForumSiswa />} />
@@ -57,6 +61,11 @@ const App = () => {
               <Route path="/hasilOrtu/:id" element={<HasilOrtu />} />
             </Route>
             
+            <Route element={<RegistratorRoute />}>
+                <Route path="/registrator" element={<RegistratorDashboard />} />
+                <Route path='/daftar-ulang'element={<DataLandingPage/>}/>
+            </Route>
+
             {/* Admin-only routes */}
             <Route element={<AdminRoute />}>
               <Route path="/dashboard" element={<DasboardAdmin />} />
