@@ -47,10 +47,17 @@ const DetailUser = ({ id, onClose }) => {
               label="Role" 
               value={
                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                  userData.role === 'admin' ?  'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'
+                  userData.role === 'admin'
+                    ? 'bg-red-100 text-red-800'
+                    : userData.role === 'panitia'
+                    ? 'bg-blue-100 text-blue-800'
+                    : userData.role === 'registrator'
+                    ? 'bg-purple-100 text-purple-800'
+                    : 'bg-gray-100 text-gray-800' // Default jika role tidak dikenali
                 }`}>
-                  {userData.role}
+                  {userData.role || 'Unknown'}
                 </span>
+                
               } 
             />
             <InfoItem 

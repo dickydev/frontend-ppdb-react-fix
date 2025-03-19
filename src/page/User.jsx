@@ -100,11 +100,17 @@ const User = () => {
           </th>
           <td className="px-6 py-4 text-gray-900">{item.username}</td>
           <td className="px-6 py-4 text-gray-900">
-            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                item.role === 'admin' ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'
-            }`}>
-                {item.role}
-            </span>
+          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  item.role === 'admin'
+                    ? 'bg-red-100 text-red-800'
+                    : item.role === 'panitia'
+                    ? 'bg-blue-100 text-blue-800'
+                    : item.role === 'registrator'
+                    ? 'bg-purple-100 text-purple-800'
+                    : 'bg-gray-100 text-gray-800' // Default jika role tidak dikenali
+                }`}>
+                  {item.role || 'Unknown'}
+                </span>
           </td>
           <td className="px-6 py-4 text-gray-900">
             <span className={`px-2 py-1 rounded-full text-xs font-medium ${

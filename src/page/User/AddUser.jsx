@@ -190,6 +190,7 @@ const AddUser = () => {
                   <option value="" disabled className="text-gray-400">Pilih Role</option>
                   <option value="admin" className="text-gray-500">Admin</option>
                   <option value="panitia" className="text-gray-500">Panitia</option>
+                  <option value="registrator" className="text-gray-500">Registrator</option>
                 </select>
               </div>
             </div>

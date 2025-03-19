@@ -95,7 +95,7 @@ function App() {
     { title: 'Manajemen Perkantoran \n & Layanan Bisnis Reguler', count: 47, description: 'Kuota tersedia', icon: FaFileInvoice, max: 72, isBilingual: false },
     { title: 'Manajemen Perkantoran \n & Layanan Bisnis Bilingual', count: 25, description: 'Kuota tersedia', icon: FaFileInvoice, max: 32, isBilingual: true },
     { title: 'Pemasaran \n & Bisnis Digital', count: 19, description: 'Kuota tersedia', icon: FaChartLine, max: 36, isBilingual: false },
-    { title: 'Akutansi & Keuangan Lemabaga', count: 48, description: 'Kuota tersedia', icon: FaMoneyBillTransfer, max: 72, isBilingual: false },
+    { title: 'Akutansi & Keuangan Lembaga', count: 48, description: 'Kuota tersedia', icon: FaMoneyBillTransfer, max: 72, isBilingual: false },
     { title: 'Teknik Komputer \n & Jaringan', count: 72, description: 'Closed', icon: FaNetworkWired, max: 72, isBilingual: false },
   ];
 
