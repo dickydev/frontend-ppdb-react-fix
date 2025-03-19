@@ -49,15 +49,16 @@ export const RegistratorRoute = () => {
     return <div>Loading...</div>;
   }
   
-  // If not authenticated or not admin, redirect
+  // If not authenticated, redirect to login
   if (!state.isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
   
-  if (state.role !== 'registrator') {
+  // Allow both admin and registrator roles to access
+  if (state.role !== 'registrator' && state.role !== 'admin') {
     return <Navigate to="/home" replace />;
   }
   
-  // Render child routes for admin
+  // Render child routes for registrator
   return <Outlet />;
 }

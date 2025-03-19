@@ -6,7 +6,7 @@ import {get, deleteData} from '../../utils/api';
 import Notification from '../../components/Notification/Notif';
 import { AuthContext } from '../../Context/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
-import {FaFilePen } from 'react-icons/fa6';
+import {FaFilePen, FaTrash } from 'react-icons/fa6';
 import EditRegistrationModal from './registrator/EditRegistration';
 
 const DataLandingPage = () => {
@@ -25,6 +25,7 @@ const DataLandingPage = () => {
   const userRole = state?.role;
 
   const isAdmin = userRole === 'admin'; 
+  const isRegistrator = userRole === 'registrator';
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -80,6 +81,11 @@ const DataLandingPage = () => {
          <button onClick={() => handleOpenEditModal(item.id)} className="text-red-700 hover:text-red-500 cursor-pointer">
               <FaFilePen size={18} />
           </button>
+          {isAdmin && (
+            <button onClick={() => handleDelete(item.id)} className="text-red-700 hover:text-red-500 cursor-pointer">
+              <FaTrash size={18} />
+            </button>
+          )}
       </td>
     </tr>
   );
@@ -101,6 +107,7 @@ const DataLandingPage = () => {
           data={data}
           itemsPerPage={10}
           renderRow={renderParentRow}
+          to={isAdmin ? "/tambahRegistrasi" : undefined}
         >
           {isLoading && (
             <tr>
