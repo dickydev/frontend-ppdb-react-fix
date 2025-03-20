@@ -166,7 +166,9 @@ const Siswa = () => {
         </Tabel>
 
         {showModal && <DetailSiswa id={selectedId} onClose={() => setShowModal(false)} />}
+      
         {showEditModal && <EditSiswa id={selectedId} onClose={() => setShowEditModal(false)} onUpdate={fetchData}/>}
+      
       </div>
     </Dashboard>
   );
