@@ -48,7 +48,7 @@ const ForumSiswa2 = () => {
 
 
     return (
-        <Forum title={'Forum Data Peserta Didik'}>
+        <Forum title={'From Data Peserta Didik'}>
             <div className='max-w-5xl px-4 mx-auto mt-5'>
 
                 <div className='flex items-center justify-center text-[12px] w-full font-medium sm:text-sm '>

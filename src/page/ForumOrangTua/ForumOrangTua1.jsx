@@ -44,7 +44,7 @@ const ForumOrangTua1 = () => {
 
     return (
         <div>
-            <Forum title={'Forum Data Orang Tua'}>
+            <Forum title={'From Data Orang Tua'}>
                 <div className='max-w-5xl px-4 mx-auto mt-5'>
                     <div className='flex items-center text-[12px] justify-center w-full font-medium sm:text-sm '>
                         <div className='flex items-center justify-center gap-2 px-4 py-2 border-2 rounded-full sm:py-2 border-maroon'>

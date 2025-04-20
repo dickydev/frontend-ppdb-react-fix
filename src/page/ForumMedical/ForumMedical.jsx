@@ -51,7 +51,7 @@ const [dataForm, setdataForm] = useState(state.formMedic || {
     
 
   return (
-    <Forum title={'Forum Data Medical Check Up'}>
+    <Forum title={'From Data Medical Check Up'}>
             <div className='max-w-5xl px-4 mx-auto mt-5'>
                 <div className='w-full pb-4 mt-16 border-b-2'>
                     <h1 className='mt-1 text-xl font-semibold text-gray-600'>Data Identitas Calon Peserta Didik</h1>
