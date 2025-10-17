@@ -12,15 +12,17 @@ const HasilForm = ({ title, judul, data1, children, errorMsg, successMsg, onSubm
     // Fungsi untuk mengunduh PDF
     const downloadPDF = () => {
         const capture = document.getElementById('topdf');
-        html2canvas(capture).then((canvas) => {
-            const imgData = canvas.toDataURL('img/png');
-            const doc = new jsPDF('p', 'mm', 'a4');
-            const componentWidth = doc.internal.pageSize.getWidth();
-            const componentHeight = doc.internal.pageSize.getHeight();
-            doc.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight);
-            const fileName = `Rekap SMK Letris Indonesia 2-${childName}.pdf`;
-            doc.save(fileName);
-        });
+        html2canvas(capture, { scale: 1 }).then((canvas) => {
+        const imgData = canvas.toDataURL('image/jpeg', 0.5); 
+        const doc = new jsPDF('p', 'mm', 'a4');
+
+        const imgWidth = doc.internal.pageSize.getWidth();
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        doc.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+        const fileName = `Rekap SMK Letris Indonesia 2-${childName}.pdf`;
+        doc.save(fileName);
+    });
     };
 
     // Fungsi yang dipanggil saat tombol "Next" diklik
